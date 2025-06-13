@@ -20,7 +20,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
 
   const content = language === 'ar' ? contentAr : contentEn;
-  const isRTL = language === 'ar';
+  const isRTL = false && language === 'ar';
 
   useEffect(() => {
     // Apply RTL direction to document

@@ -4,6 +4,7 @@ export async function GET() {
   // Mock data for development
   const mockProviders = [
     {
+      id: 1,
       name: "Ahmed Al-Baghdadi",
       profession: "Master Plumber",
       professionAr: "سباك خبير",
@@ -25,6 +26,7 @@ export async function GET() {
       ],
     },
     {
+      id: 2,
       name: "Fatima Al-Basri",
       profession: "Premium Cleaning Specialist",
       professionAr: "أخصائية تنظيف محترفة",
@@ -46,6 +48,7 @@ export async function GET() {
       ],
     },
     {
+      id: 3,
       name: "Omar Al-Kurdish",
       profession: "Licensed Electrician",
       professionAr: "كهربائي مرخص",

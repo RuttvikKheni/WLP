@@ -1,3 +1,4 @@
+"use client";
 import { useQuery } from "@tanstack/react-query"
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,20 +14,31 @@ export default function Providers() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  const { data: categories = [] } = useQuery<ServiceCategory[]>({
-    queryKey: ["/api/categories"],
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await fetch('/api/categories');
+      if (!response.ok) throw new Error('Failed to fetch categories');
+      return response.json();
+    }
   });
 
-  const { data: cities = [] } = useQuery<City[]>({
-    queryKey: ["/api/cities"],
+  const { data: cities = [] } = useQuery({
+    queryKey: ['cities'],
+    queryFn: async () => {
+      const response = await fetch('/api/cities');
+      if (!response.ok) throw new Error('Failed to fetch cities');
+      return response.json();
+    }
   });
 
-  const { data: providers = [], isLoading } = useQuery<ServiceProvider[]>({
-    queryKey: ["/api/providers", { 
-      categoryId: selectedCategory ? parseInt(selectedCategory) : undefined,
-      cityId: selectedCity ? parseInt(selectedCity) : undefined,
-      search: searchQuery || undefined
-    }],
+  const { data: providers = [], isLoading } = useQuery({
+    queryKey: ['featuredProviders'],
+    queryFn: async () => {
+      const response = await fetch('/api/providers/featured');
+      if (!response.ok) throw new Error('Failed to fetch featuredProviders');
+      return response.json();
+    }
   });
 
   return (
