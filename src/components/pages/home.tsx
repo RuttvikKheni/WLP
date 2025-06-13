@@ -15,18 +15,16 @@ import AnimatedSection from "@/components/animated-section";
 import TypingText from "@/components/typing-text";
 import ScrollToTop from "@/components/scroll-to-top";
 import { useLanguage } from "@/hooks/useLanguage";
+import Image from "next/image";
+import { Category, Provider } from "@/shared/schema";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [inquiryForm, setInquiryForm] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    subject: '',
-    message: ''
-  });
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [showAllFAQs, setShowAllFAQs] = useState(false);
 
@@ -65,7 +63,12 @@ export default function Home() {
     averageRating: number;
     cities: number;
   }>({
-    queryKey: ["/api/stats"],
+    queryKey: ["stats"],
+    queryFn: async () => {
+      const response = await fetch('/api/stats');
+      if (!response.ok) throw new Error('Failed to fetch stats');
+      return response.json();
+    }
   });
 
   // Background images for hero section
@@ -88,7 +91,7 @@ export default function Home() {
     if (searchQuery) searchParams.set("search", searchQuery);
     if (selectedCity) searchParams.set("city", selectedCity);
 
-    window.location.href = `/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    router.push(`/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
   };
 
   return (
@@ -106,10 +109,12 @@ export default function Home() {
                 className={`absolute inset-0 transition-all duration-1000 ${index === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
                   }`}
               >
-                <img
+                <Image
                   src={image}
                   alt={`Background ${index + 1}`}
                   className="w-full h-full object-cover"
+                  width={1920}
+                  height={1080}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
               </div>
@@ -287,12 +292,12 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {categories.slice(0, 4).map((category: { id: number }, index: number) => (
+              {categories.slice(0, 4).map((category: Category, index: number) => (
                 <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
                   <div className="group hover:scale-105 transition-all duration-300">
                     <ServiceCategoryCard
                       category={category}
-                      onClick={() => window.location.href = `/services?category=${category.id}`}
+                      onClick={() => router.push(`/services?category=${category.id}`)}
                     />
                   </div>
                 </AnimatedSection>
@@ -329,7 +334,7 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProviders.map((provider: { id: number, name: string, cityId: number }, index: number) => {
+              {featuredProviders.map((provider: Provider, index: number) => {
                 const city = cities.find((c: { id: number }) => c.id === provider.cityId);
                 return (
                   <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 150}>
@@ -337,7 +342,7 @@ export default function Home() {
                       <ProviderCard
                         provider={provider}
                         city={city}
-                        onClick={() => window.location.href = `/providers/${provider.id}`}
+                        onClick={() => router.push(`/providers/${provider.id}`)}
                         onContact={() => {
                           alert(`Contact form for ${provider.name} would open in a real application`);
                         }}
@@ -611,10 +616,10 @@ export default function Home() {
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.customerApp.description}</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" className="h-8" />
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="h-8" />
                     </Button>
                     <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" className="h-8" />
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="h-8" />
                     </Button>
                   </div>
                 </CardContent>
@@ -629,10 +634,10 @@ export default function Home() {
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.providerApp.description}</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" className="h-8" />
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="h-8" />
                     </Button>
                     <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" className="h-8" />
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="h-8" />
                     </Button>
                   </div>
                 </CardContent>

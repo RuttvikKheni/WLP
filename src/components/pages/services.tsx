@@ -11,9 +11,12 @@ import ProviderCard from "@/components/provider-card";
 import ServiceCategoryCard from "@/components/service-category-card";
 import AnimatedSection from "@/components/animated-section";
 import { useLanguage } from "@/hooks/useLanguage";
-import type { ServiceProvider, ServiceCategory, City } from "@shared/schema";
+import { Category, City, Provider } from "@/shared/schema";
+import { useRouter } from "next/navigation";
 
 export default function Services() {
+    const router = useRouter();
+
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
@@ -24,34 +27,56 @@ export default function Services() {
 
     // Get URL parameters
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const search = urlParams.get("search");
-        const category = urlParams.get("category");
-        const city = urlParams.get("city");
+        if (typeof window !== "undefined") {
+            const urlParams = new URLSearchParams(window?.location?.search ?? "");
+            const search = urlParams.get("search");
+            const category = urlParams.get("category");
+            const city = urlParams.get("city");
 
-        if (search) setSearchQuery(search);
-        if (category) {
-            setSelectedCategory(category);
-            setShowCategories(false);
+            if (search) setSearchQuery(search);
+            if (category) {
+                setSelectedCategory(category);
+                setShowCategories(false);
+            }
+            if (city) setSelectedCity(city);
         }
-        if (city) setSelectedCity(city);
     }, []);
 
-    const { data: categories = [] } = useQuery<ServiceCategory[]>({
-        queryKey: ["/api/categories"],
+    const { data: categories = [] } = useQuery({
+        queryKey: ['categories'],
+        queryFn: async () => {
+            const response = await fetch('/api/categories');
+            if (!response.ok) throw new Error('Failed to fetch categories');
+            return response.json();
+        }
     });
 
-    const { data: cities = [] } = useQuery<City[]>({
-        queryKey: ["/api/cities"],
+    const { data: cities = [] } = useQuery({
+        queryKey: ['cities'],
+        queryFn: async () => {
+            const response = await fetch('/api/cities');
+            if (!response.ok) throw new Error('Failed to fetch cities');
+            return response.json();
+        }
     });
 
-    const { data: providers = [], isLoading } = useQuery<ServiceProvider[]>({
-        queryKey: ["/api/providers", {
-            categoryId: selectedCategory ? parseInt(selectedCategory) : undefined,
-            cityId: selectedCity ? parseInt(selectedCity) : undefined,
-            search: searchQuery || undefined
-        }],
+
+    const { data: providers = [], isLoading } = useQuery({
+        queryKey: ['featuredProviders'],
+        queryFn: async () => {
+            const response = await fetch('/api/providers/featured');
+            if (!response.ok) throw new Error('Failed to fetch featuredProviders');
+            return response.json();
+        }
     });
+
+    // const { data: providers = [], isLoading } = useQuery<Provider[]>({
+    //     queryKey: ["/api/providers", {
+    //         categoryId: selectedCategory ? parseInt(selectedCategory) : undefined,
+    //         cityId: selectedCity ? parseInt(selectedCity) : undefined,
+    //         search: searchQuery || undefined
+    //     }],
+    // });
 
     const handleSearch = () => {
         setShowCategories(false);
@@ -110,7 +135,7 @@ export default function Services() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="all">All Categories</SelectItem>
-                                        {categories.map((category) => (
+                                        {categories.map((category: Category) => (
                                             <SelectItem key={category.id} value={category.id.toString()}>
                                                 {language === 'ar' ? category.nameAr : category.name}
                                             </SelectItem>
@@ -124,7 +149,7 @@ export default function Services() {
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="all">All Cities</SelectItem>
-                                        {cities.map((city) => (
+                                        {cities.map((city: City) => (
                                             <SelectItem key={city.id} value={city.id.toString()}>
                                                 {language === 'ar' ? city.nameAr : city.name}
                                             </SelectItem>
@@ -186,7 +211,7 @@ export default function Services() {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                            {categories.map((category, index) => (
+                            {categories.map((category: Category, index: number) => (
                                 <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
                                     <div className="group hover:scale-105 transition-all duration-300">
                                         <ServiceCategoryCard
@@ -210,7 +235,7 @@ export default function Services() {
                                 </h2>
                                 {selectedCategory && (
                                     <p className="text-gray-600 mt-1">
-                                        in {categories.find(c => c.id.toString() === selectedCategory)?.name}
+                                        in {categories.find((c: Category) => c.id.toString() === selectedCategory)?.name}
                                     </p>
                                 )}
                             </div>
@@ -226,15 +251,15 @@ export default function Services() {
                             </div>
                         ) : providers.length > 0 ? (
                             <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-                                {providers.map((provider, index) => {
-                                    const city = cities.find(c => c.id === provider.cityId);
+                                {providers.map((provider: Provider, index: number) => {
+                                    const city = cities.find((c: City) => c.id === provider.cityId);
                                     return (
                                         <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 100}>
                                             <div className="group hover:scale-105 transition-all duration-300">
                                                 <ProviderCard
                                                     provider={provider}
                                                     city={city}
-                                                    onClick={() => window.location.href = `/providers/${provider.id}`}
+                                                    onClick={() => router.push(`/providers/${provider.id}`)}
                                                     onContact={() => {
                                                         alert(`Contact form for ${provider.name} would open in a real application`);
                                                     }}
@@ -253,7 +278,7 @@ export default function Services() {
                                         </div>
                                         <h3 className="text-2xl font-bold text-gray-900 mb-4">No Providers Found</h3>
                                         <p className="text-gray-600 text-lg mb-8">
-                                            We couldn't find any providers matching your criteria. Try adjusting your filters.
+                                            We couldn&apos;t find any providers matching your criteria. Try adjusting your filters.
                                         </p>
                                         <Button
                                             onClick={() => {

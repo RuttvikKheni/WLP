@@ -1,9 +1,9 @@
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import { ReactNode } from 'react';
+import React from 'react';
 
 interface AnimatedSectionProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   delay?: number;
   animationType?: 'fadeIn' | 'slideUp' | 'slideLeft' | 'slideRight' | 'scale';
@@ -50,7 +50,7 @@ export default function AnimatedSection({
     }
   };
 
-  const springs = useSpring({
+  const springs = useSpring<{ opacity: number; transform: string }>({
     ...getAnimationConfig(),
     config: { tension: 280, friction: 60 },
     delay: delay,

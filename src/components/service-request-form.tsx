@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { insertServiceRequestSchema } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -12,16 +9,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2, Send } from "lucide-react";
-import type { ServiceCategory, City } from "@shared/schema";
-import type { z } from "zod";
+import { Category, City, FormData } from "@/shared/schema";
 
-type ServiceRequestForm = z.infer<typeof insertServiceRequestSchema>;
 
 export default function ServiceRequestForm() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: categories = [] } = useQuery<ServiceCategory[]>({
+  const { data: categories = [] } = useQuery<Category[]>({
     queryKey: ["/api/categories"],
   });
 
@@ -29,8 +24,7 @@ export default function ServiceRequestForm() {
     queryKey: ["/api/cities"],
   });
 
-  const form = useForm<ServiceRequestForm>({
-    resolver: zodResolver(insertServiceRequestSchema),
+  const form = useForm({
     defaultValues: {
       customerName: "",
       customerPhone: "",
@@ -41,8 +35,8 @@ export default function ServiceRequestForm() {
     },
   });
 
-  const createRequestMutation = useMutation({
-    mutationFn: async (data: ServiceRequestForm) => {
+  const createRequestMutation = useMutation<unknown, Error, FormData>({
+    mutationFn: async (data: FormData) => {
       const response = await apiRequest("POST", "/api/service-requests", data);
       return response.json();
     },
@@ -63,7 +57,7 @@ export default function ServiceRequestForm() {
     },
   });
 
-  const onSubmit = (data: ServiceRequestForm) => {
+  const onSubmit = (data: FormData) => {
     createRequestMutation.mutate(data);
   };
 
@@ -72,9 +66,9 @@ export default function ServiceRequestForm() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl font-bold text-white mb-4">Need a Service Provider Now?</h2>
         <p className="text-xl text-green-100 mb-8">
-          Tell us what you need and we'll connect you with qualified professionals in your area within hours.
+          Tell us what you need and we&apos;ll connect you with qualified professionals in your area within hours.
         </p>
-        
+
         <Card className="p-8 shadow-2xl">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-6">
@@ -177,10 +171,10 @@ export default function ServiceRequestForm() {
                   <FormItem className="md:col-span-2">
                     <FormLabel className="text-left block">Service Details</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        rows={4} 
-                        placeholder="Describe what you need help with..." 
-                        {...field} 
+                      <Textarea
+                        rows={4}
+                        placeholder="Describe what you need help with..."
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -189,8 +183,8 @@ export default function ServiceRequestForm() {
               />
 
               <div className="md:col-span-2">
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full bg-worktok-primary hover:bg-blue-600 text-white py-4 text-lg font-semibold"
                   disabled={createRequestMutation.isPending}
                 >

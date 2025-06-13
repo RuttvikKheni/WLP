@@ -1,12 +1,11 @@
+'use client';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Users, Shield, Award, Clock, CheckCircle, Star, Heart, Globe } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
-import { useLanguage } from "@/hooks/useLanguage";
+import Image from "next/image";
 
 export default function About() {
-    const { content } = useLanguage();
-
     const stats = [
         { icon: Users, value: "10,000+", label: "Happy Customers", color: "text-blue-600", bg: "bg-blue-100" },
         { icon: Shield, value: "500+", label: "Verified Professionals", color: "text-green-600", bg: "bg-green-100" },
@@ -76,7 +75,7 @@ export default function About() {
                         </AnimatedSection>
                         <AnimatedSection animationType="slideUp" delay={400}>
                             <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
-                                Connecting Iraq's finest service professionals with customers who need quality work done right
+                                Connecting Iraq&apos;s finest service professionals with customers who need quality work done right
                             </p>
                         </AnimatedSection>
                         <AnimatedSection animationType="scale" delay={600}>
@@ -125,19 +124,21 @@ export default function About() {
                                         Founded in 2020, WorkTok emerged from a simple observation: Iraq needed a reliable way to connect skilled professionals with customers seeking quality services.
                                     </p>
                                     <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                                        What started as a small team's vision has grown into Iraq's most trusted service marketplace, serving thousands of customers and supporting hundreds of local professionals.
+                                        What started as a small team&apos;s vision has grown into Iraq&apos;s most trusted service marketplace, serving thousands of customers and supporting hundreds of local professionals.
                                     </p>
                                     <p className="text-lg text-gray-600 leading-relaxed">
-                                        Today, we're proud to be part of Iraq's digital transformation, creating opportunities and building trust in every interaction.
+                                        Today, we&apos;re proud to be part of Iraq&apos;s digital transformation, creating opportunities and building trust in every interaction.
                                     </p>
                                 </div>
                             </AnimatedSection>
                             <AnimatedSection animationType="slideRight" delay={200}>
                                 <div className="relative">
-                                    <img
+                                    <Image
                                         src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
                                         alt="Our team"
                                         className="rounded-2xl shadow-2xl"
+                                        width={800}
+                                        height={600}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-green-600/20 to-transparent rounded-2xl"></div>
                                 </div>
@@ -193,7 +194,7 @@ export default function About() {
                                     Leadership Team
                                 </h2>
                                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                                    Meet the passionate individuals driving WorkTok's mission forward
+                                    Meet the passionate individuals driving WorkTok&apos;s mission forward
                                 </p>
                             </div>
                         </AnimatedSection>
@@ -203,10 +204,12 @@ export default function About() {
                                 <AnimatedSection key={index} animationType="slideUp" delay={index * 200}>
                                     <Card className="text-center hover:shadow-xl transition-all duration-500 border-0 shadow-lg overflow-hidden">
                                         <div className="relative">
-                                            <img
+                                            <Image
                                                 src={member.image}
                                                 alt={member.name}
                                                 className="w-full h-64 object-cover"
+                                                width={800}
+                                                height={600}
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                                         </div>
@@ -231,7 +234,7 @@ export default function About() {
                             Our Mission
                         </h2>
                         <p className="text-xl md:text-2xl leading-relaxed opacity-90">
-                            To empower Iraq's service economy by creating meaningful connections between skilled professionals and customers, fostering trust, quality, and economic growth in every community we serve.
+                            To empower Iraq&apos;s service economy by creating meaningful connections between skilled professionals and customers, fostering trust, quality, and economic growth in every community we serve.
                         </p>
                     </div>
                 </section>

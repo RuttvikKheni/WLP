@@ -1,24 +1,31 @@
+"use client";
 import { useQuery } from "@tanstack/react-query"
-import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, MapPin, Phone, Mail, Calendar, Award, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
-import type { ServiceProvider, City, Review } from "@shared/schema";
+import Image from "next/image";
+import { City, Provider, Review } from "@/shared/schema";
+import { useParams } from "next/navigation";
 
 export default function ProviderDetail() {
-  const [, params] = useRoute("/providers/:id");
-  const providerId = parseInt(params?.id || "0");
+  const params: { id: string } = useParams();
+  const providerId = parseInt((params ?? { id: "0" }).id ?? "0");
 
-  const { data: provider, isLoading: providerLoading } = useQuery<ServiceProvider>({
-    queryKey: [`/api/providers/${providerId}`],
-    enabled: !!providerId,
+  const { data: cities = [] } = useQuery({
+    queryKey: ['cities'],
+    queryFn: async () => {
+      const response = await fetch('/api/cities');
+      if (!response.ok) throw new Error('Failed to fetch cities');
+      return response.json();
+    }
   });
 
-  const { data: cities = [] } = useQuery<City[]>({
-    queryKey: ["/api/cities"],
+  const { data: provider, isLoading: providerLoading } = useQuery<Provider>({
+    queryKey: [`/api/providers/${providerId}`],
+    enabled: !!providerId,
   });
 
   const { data: reviews = [], isLoading: reviewsLoading } = useQuery<Review[]>({
@@ -26,7 +33,7 @@ export default function ProviderDetail() {
     enabled: !!providerId,
   });
 
-  const city = cities.find(c => c.id === provider?.cityId);
+  const city = cities.find((c: City) => c.id === provider?.cityId);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -63,7 +70,7 @@ export default function ProviderDetail() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Provider Not Found</h1>
-          <p className="text-gray-600 mb-6">The service provider you're looking for doesn't exist.</p>
+          <p className="text-gray-600 mb-6">The service provider you&apos;re looking for doesn&apos;t exist.</p>
           <Link href="/providers">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -90,13 +97,13 @@ export default function ProviderDetail() {
         <Card className="p-8 mb-8">
           <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
             <div className="flex-shrink-0">
-              <img 
-                src={provider.avatar} 
+              <Image
+                src={provider.avatar}
                 alt={provider.name}
                 className="w-32 h-32 rounded-full object-cover"
               />
             </div>
-            
+
             <div className="flex-1">
               <div className="flex items-start justify-between mb-4">
                 <div>
@@ -104,7 +111,7 @@ export default function ProviderDetail() {
                   <p className="text-xl text-iraq-green font-semibold mb-2">{provider.profession}</p>
                   <div className="flex items-center mb-4">
                     <div className="flex">
-                      {renderStars(parseFloat(provider.rating))}
+                      {renderStars(provider.rating)}
                     </div>
                     <span className="ml-2 text-lg font-medium text-gray-900">
                       {provider.rating}
@@ -114,7 +121,7 @@ export default function ProviderDetail() {
                     </span>
                   </div>
                 </div>
-                
+
                 {provider.verified && (
                   <Badge className="text-white text-sm">
                     <Award className="w-4 h-4 mr-1" />
@@ -164,7 +171,7 @@ export default function ProviderDetail() {
               )}
 
               {/* Contact Button */}
-              <Button 
+              <Button
                 className="bg-green-500 hover:bg-green-700 text-white"
                 onClick={() => {
                   alert(`Contact form for ${provider.name} would open in a real application`);
@@ -180,7 +187,7 @@ export default function ProviderDetail() {
         {/* Reviews Section */}
         <Card className="p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
-          
+
           {reviewsLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }, (_, i) => (

@@ -7,9 +7,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Users } from "lucide-react";
 import ProviderCard from "@/components/provider-card";
 import { useState } from "react";
-import type { ServiceProvider, ServiceCategory, City } from "@shared/schema";
+import { useRouter } from "next/navigation";
+import { Category, City, Provider } from "@/shared/schema";
 
 export default function Providers() {
+  const router = useRouter();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -82,8 +85,8 @@ export default function Providers() {
                   <SelectValue placeholder="All Services" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Services</SelectItem>
-                  {categories.map((category) => (
+                  <SelectItem value="all">All Services</SelectItem>
+                  {categories.map((category: Category) => (
                     <SelectItem key={category.id} value={category.id.toString()}>
                       {category.name}
                     </SelectItem>
@@ -101,8 +104,8 @@ export default function Providers() {
                   <SelectValue placeholder="All Cities" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Cities</SelectItem>
-                  {cities.map((city) => (
+                  <SelectItem value="all">All Cities</SelectItem>
+                  {cities.map((city: City) => (
                     <SelectItem key={city.id} value={city.id.toString()}>
                       {city.name}
                     </SelectItem>
@@ -142,14 +145,14 @@ export default function Providers() {
               </Card>
             ))
           ) : providers.length > 0 ? (
-            providers.map((provider) => {
-              const city = cities.find(c => c.id === provider.cityId);
+            providers.map((provider: Provider) => {
+              const city = cities.find((c: City) => c.id === provider.cityId);
               return (
                 <ProviderCard
                   key={provider.id}
                   provider={provider}
                   city={city}
-                  onClick={() => window.location.href = `/providers/${provider.id}`}
+                  onClick={() => router.push(`/providers/${provider.id}`)}
                   onContact={() => {
                     alert(`Contact form for ${provider.name} would open in a real application`);
                   }}

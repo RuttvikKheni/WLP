@@ -1,11 +1,9 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shield, Lock, Eye, UserCheck, FileText, AlertCircle } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
-import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Privacy() {
-  const { content } = useLanguage();
-
   const sections = [
     {
       icon: FileText,
@@ -169,7 +167,7 @@ export default function Privacy() {
               </CardHeader>
               <CardContent className="p-8 text-center">
                 <p className="text-lg text-gray-600 mb-6">
-                  If you have any questions about this Privacy Policy or how we handle your data, please don't hesitate to contact us.
+                  If you have any questions about this Privacy Policy or how we handle your data, please don&apos;t hesitate to contact us.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="p-4 bg-gray-50 rounded-lg">

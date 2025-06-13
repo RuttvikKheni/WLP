@@ -1,10 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
-import type { ServiceCategory } from "@shared/schema";
+import { Category } from "@/shared/schema";
 
 interface ServiceCategoryCardProps {
-  category: ServiceCategory;
+  category: Category;
   onClick?: () => void;
 }
 

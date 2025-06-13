@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, MessageCircle, HeadphonesIcon } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
-import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -18,8 +17,6 @@ export default function Contact() {
         category: "",
         message: ""
     });
-
-    const { content } = useLanguage();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,7 +91,7 @@ export default function Contact() {
                         </AnimatedSection>
                         <AnimatedSection animationType="slideUp" delay={400}>
                             <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
-                                Have questions? We're here to help! Reach out to our dedicated support team
+                                Have questions? We&apos;re here to help! Reach out to our dedicated support team
                             </p>
                         </AnimatedSection>
                     </div>
