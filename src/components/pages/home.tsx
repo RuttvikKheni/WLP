@@ -118,7 +118,7 @@ export default function Home() {
                   width={1920}
                   height={1080}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
               </div>
             ))}
           </div>
@@ -134,7 +134,7 @@ export default function Home() {
                 <div className="text-white">
                   {/* First: Large Static Heading */}
                   <AnimatedSection animationType="slideLeft" delay={200}>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight text-center lg:text-left">
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight text-center lg:text-left">
                       Find Top-Rated Iraqi Property & Professional Services with Just One Click
                     </h1>
                   </AnimatedSection>
@@ -142,7 +142,7 @@ export default function Home() {
                   {/* Second: X-Large Typing Text */}
                   <AnimatedSection animationType="slideLeft" delay={400}>
                     <div className="mb-8 text-center lg:text-left">
-                      <div className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
+                      <div className="text-3xl md:text-3xl lg:text-4xl font-bold mb-4">
                         <TypingText
                           texts={[
                             'TRANSPARENCY',
@@ -162,7 +162,7 @@ export default function Home() {
 
                   {/* Third: Medium Paragraph for Platform */}
                   <AnimatedSection animationType="slideLeft" delay={600}>
-                    <p className="text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 leading-relaxed max-w-4xl text-center lg:text-left">
+                    <p className="text-lg md:text-lg lg:text-xl text-gray-200 mb-8 leading-relaxed max-w-4xl text-center lg:text-left">
                       Our platform connects you with verified Iraqi professionals for all your property and service needs.
                       Experience seamless booking, guaranteed quality, and exceptional customer service - all in one convenient place.
                     </p>
@@ -205,7 +205,7 @@ export default function Home() {
                           <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                           <Input
                             placeholder="What service do you need?"
-                            className="pl-12 py-3 text-gray-900 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors"
+                            className="pl-12 py-3 bg-white text-gray-900 border-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
@@ -216,12 +216,12 @@ export default function Home() {
                           Location
                         </label>
                         <Select value={selectedCity} onValueChange={setSelectedCity}>
-                          <SelectTrigger className="py-3 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors">
+                          <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer hover:border-blue-300 focus:border-blue-500 transition-colors focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Select your city" />
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent className="bg-white text-gray-900">
                             {cities.map((city: { id: number; name: string; nameAr: string }) => (
-                              <SelectItem key={city.id} value={city.id.toString()}>
+                              <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                                 {language === 'ar' ? city.nameAr : city.name}
                               </SelectItem>
                             ))}
@@ -309,7 +309,7 @@ export default function Home() {
             <AnimatedSection animationType="slideUp" delay={500}>
               <div className="text-center mt-12">
                 <Link href="/services">
-                  <Button variant="outline" size="lg" className="hover:scale-105 transition-all duration-300 px-8 py-4 text-lg rounded-full border-2 border-green-600 text-green-600 hover:bg-green-50">
+                  <Button variant="outline" size="lg" className="hover:scale-105 transition-all bg-white cursor-pointer duration-300 px-8 py-4 text-lg rounded-full border-2 border-green-600 text-green-600 hover:bg-green-50">
                     View All Services
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
@@ -358,7 +358,7 @@ export default function Home() {
             <AnimatedSection animationType="slideUp" delay={450}>
               <div className="text-center mt-12">
                 <Link href="/providers">
-                  <Button variant="outline" size="lg" className="hover:scale-105 transition-all duration-300 px-8 py-4 text-lg rounded-full border-2">
+                  <Button variant="outline" size="lg" className="hover:scale-105 transition-all bg-white cursor-pointer text-gray-900 duration-300 px-8 py-4 text-lg rounded-full border-2">
                     View All Professionals
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
@@ -531,7 +531,7 @@ export default function Home() {
                       </label>
                       <Input
                         placeholder={content.inquiry.form.namePlaceholder}
-                        className="w-full border-2 focus:border-[#4caf50] transition-colors"
+                        className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                     <div>
@@ -541,7 +541,7 @@ export default function Home() {
                       <Input
                         type="email"
                         placeholder={content.inquiry.form.emailPlaceholder}
-                        className="w-full border-2 focus:border-[#4caf50] transition-colors"
+                        className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                   </div>
@@ -553,7 +553,7 @@ export default function Home() {
                       <Input
                         type="tel"
                         placeholder={content.inquiry.form.mobilePlaceholder}
-                        className="w-full border-2 focus:border-[#4caf50] transition-colors"
+                        className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                     <div>
@@ -562,7 +562,7 @@ export default function Home() {
                       </label>
                       <Input
                         placeholder={content.inquiry.form.subjectPlaceholder}
-                        className="w-full border-2 focus:border-[#4caf50] transition-colors"
+                        className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                   </div>
@@ -573,14 +573,14 @@ export default function Home() {
                     <Textarea
                       placeholder={content.inquiry.form.messagePlaceholder}
                       rows={6}
-                      className="w-full border-2 focus:border-[#4caf50] transition-colors resize-none"
+                      className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors resize-none"
                     />
                   </div>
                   <div className="text-center">
                     <Button
                       type="submit"
                       size="lg"
-                      className="bg-gradient-to-r from-[#4caf50] to-green-600 hover:from-green-600 hover:to-green-700 text-white px-12 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      className="bg-gradient-to-r from-[#4caf50] to-green-600 hover:from-green-600 hover:to-green-700 text-white px-12 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
                     >
                       {content.inquiry.form.submit}
                     </Button>

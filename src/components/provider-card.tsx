@@ -90,7 +90,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
             <Button
               variant="outline"
               size="sm"
-              className="border-2 hover:border-blue-500 hover:text-blue-600 transition-all duration-300 group/btn"
+              className="border-2 hover:border-green-500 hover:text-green-500 transition-all duration-300 group/btn cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 onContact?.();
@@ -101,7 +101,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
             </Button>
             <Button
               size="sm"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 group/btn cursor-pointer"
             >
               View
               <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform duration-300" />

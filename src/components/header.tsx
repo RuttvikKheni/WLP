@@ -30,30 +30,30 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-sm font-medium hover:text-[#4caf50] transition-colors">
+            <Link href="/" className="text-sm font-bold hover:text-[#4caf50] transition-colors">
               {content.header.navigation.home}
             </Link>
-            <Link href="/services" className="text-sm font-medium hover:text-[#4caf50] transition-colors">
+            <Link href="/services" className="text-sm font-bold hover:text-[#4caf50] transition-colors">
               {content.header.navigation.categories}
             </Link>
-            <Link href="/providers" className="text-sm font-medium hover:text-[#4caf50] transition-colors">
+            <Link href="/providers" className="text-sm font-bold hover:text-[#4caf50] transition-colors">
               {content.header.navigation.providers}
             </Link>
-            <Link href="/about" className="text-sm font-medium hover:text-[#4caf50] transition-colors">
+            <Link href="/about" className="text-sm font-bold hover:text-[#4caf50] transition-colors">
               {content.header.navigation.about}
             </Link>
-            <Link href="/contact" className="text-sm font-medium hover:text-[#4caf50] transition-colors">
+            <Link href="/contact" className="text-sm font-bold hover:text-[#4caf50] transition-colors">
               {content.header.navigation.contact}
             </Link>
           </nav>
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" onClick={toggleLanguage}>
-              <Globe className="h-4 w-4 mr-2" />
+            <Button variant="ghost" className="text-bolder text-md cursor-pointer hover:text-[#4caf50]" size="sm" onClick={toggleLanguage}>
+              <Globe className="w-50 h-50 mr-2" size={30} />
               {language === 'en' ? 'العربية' : 'English'}
             </Button>
-            
+
             {/* Mobile menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
@@ -65,35 +65,35 @@ export default function Header() {
                 <nav className="flex flex-col space-y-4 mt-8">
                   <Link
                     href="/"
-                    className="text-lg font-medium hover:text-[#4caf50] transition-colors"
+                    className="text-lg font-bold hover:text-[#4caf50] transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {content.header.navigation.home}
                   </Link>
                   <Link
                     href="/services"
-                    className="text-lg font-medium hover:text-[#4caf50] transition-colors"
+                    className="text-lg font-bold hover:text-[#4caf50] transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {content.header.navigation.categories}
                   </Link>
                   <Link
                     href="/providers"
-                    className="text-lg font-medium hover:text-[#4caf50] transition-colors"
+                    className="text-lg font-bold hover:text-[#4caf50] transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {content.header.navigation.providers}
                   </Link>
                   <Link
                     href="/about"
-                    className="text-lg font-medium hover:text-[#4caf50] transition-colors"
+                    className="text-lg font-bold hover:text-[#4caf50] transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {content.header.navigation.about}
                   </Link>
                   <Link
                     href="/contact"
-                    className="text-lg font-medium hover:text-[#4caf50] transition-colors"
+                    className="text-lg font-bold hover:text-[#4caf50] transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {content.header.navigation.contact}

@@ -2,13 +2,27 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import { Category } from "@/shared/schema";
+import * as Icons from "lucide-react";
+import { SVGProps } from "react";
 
 interface ServiceCategoryCardProps {
   category: Category;
   onClick?: () => void;
 }
 
+interface CategoryIconProps {
+  iconName: keyof typeof Icons;
+  className?: string;
+}
+
+
 export default function ServiceCategoryCard({ category, onClick }: ServiceCategoryCardProps) {
+
+  const CategoryIcon: React.FC<CategoryIconProps> = ({ iconName, className }) => {
+    const IconComponent = Icons[iconName] as React.ComponentType<SVGProps<SVGSVGElement>> | undefined;
+    return IconComponent ? <IconComponent className={className} /> : null;
+  };
+
   const getIconColorClass = () => {
     switch (category.name) {
       case "Plumbing": return "text-emerald-600";
@@ -58,21 +72,21 @@ export default function ServiceCategoryCard({ category, onClick }: ServiceCatego
   };
 
   return (
-    <Card 
+    <Card
       className="group service-card p-6 text-center cursor-pointer border-0 shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-white overflow-hidden relative"
       onClick={onClick}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
+
       <div className="relative">
         <div className={`w-20 h-20 mx-auto mb-4 ${getBgColorClass()} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg`}>
-          <i className={`${category.icon} text-3xl ${getIconColorClass()} ${getHoverColorClass()} transition-colors duration-300`}></i>
+          <CategoryIcon iconName={category.icon} className={`${category.icon} w-12 h-12 text-3xl ${getIconColorClass()} ${getHoverColorClass()} transition-colors duration-300`} />
         </div>
-        
+
         <h3 className="font-bold text-lg text-gray-900 mb-3 group-hover:text-gray-800 transition-colors line-clamp-2">
           {category.name}
         </h3>
-        
+
         <div className="flex items-center justify-between">
           <Badge variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors text-xs">
             {category.providerCount}+ experts
@@ -80,7 +94,7 @@ export default function ServiceCategoryCard({ category, onClick }: ServiceCatego
           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
         </div>
       </div>
-      
+
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
     </Card>

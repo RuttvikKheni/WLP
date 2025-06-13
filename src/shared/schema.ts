@@ -1,9 +1,11 @@
+import * as Icons from "lucide-react";
+
 export type Category = {
   id: number;
   name: string;
   nameAr: string;
   description: string;
-  icon: string;
+  icon: keyof typeof Icons;
   providerCount: number;
 };
 
