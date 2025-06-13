@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Clock, Award, Star, MapPin, MessageCircle, ChevronDown, Download, CheckCircle, Search, Users } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 import ServiceCategoryCard from "@/components/service-category-card";
 import ProviderCard from "@/components/provider-card";
 import AnimatedSection from "@/components/animated-section";
@@ -87,11 +87,13 @@ export default function Home() {
   }, [backgroundImages.length]);
 
   const handleSearch = () => {
-    const searchParams = new URLSearchParams();
-    if (searchQuery) searchParams.set("search", searchQuery);
-    if (selectedCity) searchParams.set("city", selectedCity);
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams();
+      if (searchQuery) searchParams.set("search", searchQuery);
+      if (selectedCity) searchParams.set("city", selectedCity);
 
-    router.push(`/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
+      router.push(`/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, MapPin, Phone, Mail, Calendar, Award, ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 import Image from "next/image";
 import { City, Provider, Review } from "@/shared/schema";
 import { useParams } from "next/navigation";
