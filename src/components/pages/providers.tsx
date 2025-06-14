@@ -45,12 +45,12 @@ export default function Providers() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center mb-4">
-            <Users className="w-8 h-8 text-iraq-green mr-3" />
+            <Users className="w-8 h-8 text-iraq-green mr-3 text-green-600" />
             <h1 className="text-3xl font-bold text-gray-900">Service Providers</h1>
           </div>
           <p className="text-lg text-gray-600">
@@ -69,7 +69,7 @@ export default function Providers() {
                 <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <Input
                   placeholder="Provider name or service..."
-                  className="pl-10"
+                  className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -81,13 +81,13 @@ export default function Providers() {
                 Service Category
               </label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger>
+                <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                   <SelectValue placeholder="All Services" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white text-gray-900">
                   <SelectItem value="all">All Services</SelectItem>
                   {categories.map((category: Category) => (
-                    <SelectItem key={category.id} value={category.id.toString()}>
+                    <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                       {category.name}
                     </SelectItem>
                   ))}
@@ -100,13 +100,13 @@ export default function Providers() {
                 Location
               </label>
               <Select value={selectedCity} onValueChange={setSelectedCity}>
-                <SelectTrigger>
+                <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                   <SelectValue placeholder="All Cities" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white text-gray-900">
                   <SelectItem value="all">All Cities</SelectItem>
                   {cities.map((city: City) => (
-                    <SelectItem key={city.id} value={city.id.toString()}>
+                    <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                       {city.name}
                     </SelectItem>
                   ))}
@@ -114,7 +114,7 @@ export default function Providers() {
               </Select>
             </div>
 
-            <div className="flex items-end">
+            <div className="flex items-end justify-center pb-3 font-bold">
               <div className="text-sm text-gray-600">
                 <strong>{providers.length}</strong> provider{providers.length !== 1 ? 's' : ''} available
               </div>

@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Worktok",
+  title: "Worktok - Iraqi House Services",
   description: "Find top-rated Iraqi property and professional services with just one click",
 };
 

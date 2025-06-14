@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, MessageCircle, HeadphonesIcon } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
 
@@ -67,15 +66,12 @@ export default function Contact() {
         }
     ];
 
-    const supportCategories = [
-        "General Inquiry",
-        "Service Provider Registration",
-        "Customer Support",
-        "Technical Issue",
-        "Payment & Billing",
-        "Partnership Opportunity",
-        "Feedback & Suggestions"
-    ];
+    const handleMapClick = () => {
+        window.open(
+            'https://www.google.com/maps/place/Baghdad,+Baghdad+Governorate,+Iraq/@33.3134517,44.2907462,12.3z/data=!4m6!3m5!1s0x15577f67a0a74193:0x9deda9d2a3b16f2c!8m2!3d33.315241!4d44.3660671!16zL20vMDFmcW0?entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D',
+            '_blank'
+        );
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
@@ -147,7 +143,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.name}
                                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                        className="border-2 hover:border-green-300 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder="Your full name"
                                                     />
                                                 </div>
@@ -160,7 +156,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.email}
                                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                        className="border-2 hover:border-green-300 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder="your.email@example.com"
                                                     />
                                                 </div>
@@ -174,43 +170,22 @@ export default function Contact() {
                                                     <Input
                                                         value={formData.phone}
                                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                        className="border-2 hover:border-green-300 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder="+964 770 123 4567"
                                                     />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        Category
+                                                        Subject *
                                                     </label>
-                                                    <Select
-                                                        value={formData.category}
-                                                        onValueChange={(value) => setFormData({ ...formData, category: value })}
-                                                    >
-                                                        <SelectTrigger className="border-2 hover:border-green-300 focus:border-green-500 transition-colors">
-                                                            <SelectValue placeholder="Select category" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            {supportCategories.map((category) => (
-                                                                <SelectItem key={category} value={category}>
-                                                                    {category}
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
+                                                    <Input
+                                                        required
+                                                        value={formData.subject}
+                                                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                        placeholder="Brief description of your inquiry"
+                                                    />
                                                 </div>
-                                            </div>
-
-                                            <div>
-                                                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                    Subject *
-                                                </label>
-                                                <Input
-                                                    required
-                                                    value={formData.subject}
-                                                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                                    className="border-2 hover:border-green-300 focus:border-green-500 transition-colors"
-                                                    placeholder="Brief description of your inquiry"
-                                                />
                                             </div>
 
                                             <div>
@@ -222,14 +197,14 @@ export default function Contact() {
                                                     rows={5}
                                                     value={formData.message}
                                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                    className="border-2 hover:border-green-300 focus:border-green-500 transition-colors"
+                                                    className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                     placeholder="Please provide details about your inquiry..."
                                                 />
                                             </div>
 
                                             <Button
                                                 type="submit"
-                                                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                                                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
                                             >
                                                 Send Message
                                             </Button>
@@ -241,21 +216,36 @@ export default function Contact() {
                             {/* Map & Additional Info */}
                             <AnimatedSection animationType="slideRight" delay={200}>
                                 <div className="space-y-8">
-                                    {/* Map */}
-                                    <Card className="shadow-2xl border-0 overflow-hidden">
-                                        <div className="h-64 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
-                                            <div className="text-center">
-                                                <MapPin className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                                                <h3 className="text-xl font-bold text-gray-800 mb-2">Our Location</h3>
-                                                <p className="text-gray-600">Baghdad, Al-Karrada District</p>
-                                                <p className="text-gray-600">Building 45, Floor 3</p>
+                                    <Card className="shadow-2xl border-0 overflow-hidden group relative cursor-pointer">
+                                        {/* Embedded Google Map */}
+                                        <div className="h-64 relative group-hover:opacity-100" onClick={handleMapClick}>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d86502.49995894845!2d44.290746240267225!3d33.31345172983364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15577f67a0a74193%3A0x9deda9d2a3b16f2c!2sBaghdad%2C%20Baghdad%20Governorate%2C%20Iraq!5e0!3m2!1sen!2sin!4v1749886228515!5m2!1sen!2sin"
+                                                width="100%"
+                                                height="100%"
+                                                style={{ border: 0 }}
+                                                allowFullScreen
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                                className="absolute inset-0 z-0"
+                                            ></iframe>
+
+                                            {/* Overlay content (optional) */}
+                                            <div className="absolute inset-0 z-10 bg-white/50 backdrop-blur-sm flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300">
+                                                <div className="text-center">
+                                                    <MapPin className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                                                    <h3 className="text-xl font-bold text-gray-800 mb-2">Our Location</h3>
+                                                    <p className="text-gray-600">Baghdad, Al-Karrada District</p>
+                                                    <p className="text-gray-600">Building 45, Floor 3</p>
+                                                    <p className="mt-2 text-green-700 font-semibold">Click to open in Maps</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </Card>
 
                                     {/* Quick Support */}
                                     <Card className="shadow-2xl border-0">
-                                        <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+                                        <CardHeader className="bg-gradient-to-r from-green-600 to-green-500 text-white">
                                             <CardTitle className="flex items-center gap-3">
                                                 <HeadphonesIcon className="w-6 h-6" />
                                                 Need Immediate Help?
@@ -267,37 +257,16 @@ export default function Contact() {
                                             </p>
                                             <div className="space-y-3">
                                                 <Button
-                                                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                                    className="w-full bg-green-600 font-bold cursor-pointer hover:bg-green-700 text-white"
                                                     onClick={() => window.open('tel:+9647701234567')}
                                                 >
                                                     <Phone className="w-4 h-4 mr-2" />
                                                     Call Now: +964 770 123 4567
                                                 </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    className="w-full border-green-600 text-green-600 hover:bg-green-50"
-                                                >
-                                                    <MessageCircle className="w-4 h-4 mr-2" />
-                                                    Start Live Chat
-                                                </Button>
                                             </div>
                                         </CardContent>
                                     </Card>
 
-                                    {/* FAQ Link */}
-                                    <Card className="shadow-2xl border-0">
-                                        <CardContent className="p-6 text-center">
-                                            <h3 className="text-xl font-bold text-gray-800 mb-3">
-                                                Frequently Asked Questions
-                                            </h3>
-                                            <p className="text-gray-600 mb-4">
-                                                Find quick answers to common questions in our FAQ section.
-                                            </p>
-                                            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
-                                                View FAQ
-                                            </Button>
-                                        </CardContent>
-                                    </Card>
                                 </div>
                             </AnimatedSection>
                         </div>

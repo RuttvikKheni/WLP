@@ -36,7 +36,7 @@ export async function GET() {
     },
     {
       id: 5,
-      name: "HVAC",
+      name: "Air Condition",
       nameAr: "التكييف والتدفئة",
       description: "Heating and cooling services",
       icon: "Droplet",

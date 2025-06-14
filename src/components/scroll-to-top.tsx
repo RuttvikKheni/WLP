@@ -9,11 +9,7 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.pageYOffset > 300);
     };
 
     window.addEventListener('scroll', toggleVisibility);
@@ -23,20 +19,24 @@ export default function ScrollToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
   return (
-    <div className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${
-      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-    }`}>
+    <div
+      className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+    >
       <Button
         onClick={scrollToTop}
         size="icon"
-        className="h-12 w-12 rounded-full bg-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="h-13 w-13 rounded-full 
+          bg-gradient-to-br from-[#4caf50] via-[#008a85] to-[#2e7d32] 
+          text-white shadow-xl hover:shadow-2xl 
+          transition-all duration-300 hover:scale-110 cursor-pointer"
       >
-        <ChevronUp className="h-6 w-6" />
+        <ChevronUp className="scale-200" />
       </Button>
     </div>
   );

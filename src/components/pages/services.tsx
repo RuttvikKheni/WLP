@@ -94,7 +94,7 @@ export default function Services() {
                 {/* Header */}
                 <AnimatedSection animationType="slideUp">
                     <div className="text-center mb-12">
-                        <h1 className="responsive-text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-worktok-primary to-worktok-primary-light bg-clip-text text-transparent mobile-text-center">
+                        <h1 className="responsive-text-4xl font-bold mb-4 bg-gradient-to-r from-[#4caf50] to-[#66bb6a] bg-clip-text text-transparent mobile-text-center">
                             {showCategories ? content.services.title : "Service Providers"}
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -109,7 +109,7 @@ export default function Services() {
                 {/* Search and Filters */}
                 <AnimatedSection animationType="slideUp" delay={200}>
                     <Card className="mb-8 border-0 shadow-xl bg-white/90 backdrop-blur-lg">
-                        <CardHeader className="bg-gradient-to-r from-worktok-primary to-worktok-primary-light text-white rounded-t-lg">
+                        <CardHeader className="bg-gradient-to-r from-[#4caf50] to-[#66bb6a] text-white rounded-t-lg">
                             <CardTitle className="flex items-center gap-3 text-xl">
                                 <div className="p-2 bg-white/20 rounded-lg">
                                     <Filter className="w-5 h-5" />
@@ -123,20 +123,20 @@ export default function Services() {
                                     <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                                     <Input
                                         placeholder="Search services or providers..."
-                                        className="pl-10 py-3 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors"
+                                        className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
 
                                 <Select value={selectedCategory} onValueChange={handleCategorySelect}>
-                                    <SelectTrigger className="py-3 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors">
+                                    <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                                         <SelectValue placeholder="All Categories" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="bg-white text-gray-900">
                                         <SelectItem value="all">All Categories</SelectItem>
                                         {categories.map((category: Category) => (
-                                            <SelectItem key={category.id} value={category.id.toString()}>
+                                            <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                                                 {language === 'ar' ? category.nameAr : category.name}
                                             </SelectItem>
                                         ))}
@@ -144,13 +144,13 @@ export default function Services() {
                                 </Select>
 
                                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                                    <SelectTrigger className="py-3 border-2 hover:border-blue-300 focus:border-blue-500 transition-colors">
+                                    <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                                         <SelectValue placeholder="All Cities" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="bg-white text-gray-900">
                                         <SelectItem value="all">All Cities</SelectItem>
                                         {cities.map((city: City) => (
-                                            <SelectItem key={city.id} value={city.id.toString()}>
+                                            <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                                                 {language === 'ar' ? city.nameAr : city.name}
                                             </SelectItem>
                                         ))}
@@ -159,7 +159,7 @@ export default function Services() {
 
                                 <Button
                                     onClick={handleSearch}
-                                    className="py-3 btn-gradient shadow-lg hover:shadow-xl transition-all duration-300 mobile-full-width"
+                                    className="py-3 bg-gradient-to-r from-[#4caf50] to-[#66bb6a] cursor-pointer text-white shadow-lg hover:shadow-xl transition-all duration-300 mobile-full-width"
                                 >
                                     <Search className="w-4 h-4 mr-2" />
                                     Search
@@ -175,23 +175,25 @@ export default function Services() {
                                             setSelectedCategory("");
                                             setSearchQuery("");
                                         }}
-                                        className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                                        className="bg-white cursor-pointer text-green-600 border-green-600 hover:bg-blue-50"
                                     >
                                         Browse All Categories
                                     </Button>
 
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm text-gray-600">View:</span>
+                                        <span className="text-sm text-gray-900">View:</span>
                                         <Button
-                                            variant={viewMode === 'grid' ? 'default' : 'outline'}
+                                            variant={viewMode !== 'grid' ? 'default' : 'outline'}
                                             size="sm"
+                                            className={`${viewMode !== 'grid' ? 'text-gray-900' : 'bg-green-700 text-white'} border-2 border-green-700 cursor-pointer`}
                                             onClick={() => setViewMode('grid')}
                                         >
                                             <Grid className="w-4 h-4" />
                                         </Button>
                                         <Button
-                                            variant={viewMode === 'list' ? 'default' : 'outline'}
+                                            variant={viewMode !== 'list' ? 'default' : 'outline'}
                                             size="sm"
+                                            className={`${viewMode !== 'list' ? 'text-gray-900' : 'bg-green-700 text-white'} border-2 border-green-700 cursor-pointer`}
                                             onClick={() => setViewMode('list')}
                                         >
                                             <List className="w-4 h-4" />
@@ -303,13 +305,13 @@ export default function Services() {
                 {!showCategories && providers.length > 0 && (
                     <AnimatedSection animationType="slideUp" delay={800}>
                         <div className="mt-16 text-center">
-                            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-2xl">
+                            <Card className="bg-gradient-to-r from-[#4caf50] via-[#008a85] to-[#2e7d32] text-white border-0 shadow-2xl">
                                 <CardContent className="p-8">
                                     <h3 className="text-2xl font-bold mb-4">Need Help Choosing?</h3>
                                     <p className="text-lg mb-6 opacity-90">
                                         Our team can help you find the perfect service provider for your specific needs.
                                     </p>
-                                    <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                                    <Button size="lg" className="bg-white text-gray-900 cursor-pointer font-bold hover:bg-gray-100 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                                         Get Personalized Recommendations
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </Button>

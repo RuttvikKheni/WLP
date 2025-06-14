@@ -12,6 +12,7 @@ import Link from "next/link";
 import ServiceCategoryCard from "@/components/service-category-card";
 import ProviderCard from "@/components/provider-card";
 import AnimatedSection from "@/components/animated-section";
+import { motion, AnimatePresence } from 'framer-motion';
 import TypingText from "@/components/typing-text";
 import ScrollToTop from "@/components/scroll-to-top";
 import { useLanguage } from "@/hooks/useLanguage";
@@ -371,7 +372,7 @@ export default function Home() {
 
       {/* Why Choose Us */}
       <AnimatedSection animationType="fadeIn">
-        <section className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white">
+        <section className="py-20 bg-gradient-to-br from-[#4caf50] via-[#008a85] to-[#2e7d32] text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection animationType="slideUp">
               <div className="text-center mb-16">
@@ -616,13 +617,9 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4 text-white">{content.appDownload.customerApp.title}</h3>
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.customerApp.description}</p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="h-8" />
-                    </Button>
-                    <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="h-8" />
-                    </Button>
+                  <div className="flex flex-col sm:flex-row gap-15 justify-center">
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
                   </div>
                 </CardContent>
               </Card>
@@ -634,13 +631,9 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4 text-white">{content.appDownload.providerApp.title}</h3>
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.providerApp.description}</p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="h-8" />
-                    </Button>
-                    <Button className="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center justify-center">
-                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="h-8" />
-                    </Button>
+                  <div className="flex flex-col sm:flex-row gap-15 justify-center">
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
                   </div>
                 </CardContent>
               </Card>
@@ -666,16 +659,25 @@ export default function Home() {
                   <CardContent className="p-0">
                     <button
                       onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
-                      className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
+                      className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors cursor-pointer"
                     >
                       <span className="font-semibold text-gray-800">{faq.question}</span>
                       <ChevronDown className={`w-5 h-5 text-[#4caf50] transition-transform ${expandedFAQ === index ? 'rotate-180' : ''}`} />
                     </button>
-                    {expandedFAQ === index && (
-                      <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-                        {faq.answer}
-                      </div>
-                    )}
+                    <AnimatePresence initial={false}>
+                      {expandedFAQ === index && (
+                        <motion.div
+                          key="faq-content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.01 }}
+                          className="overflow-hidden px-6 py-6 text-gray-600 leading-relaxed"
+                        >
+                          {faq.answer}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </CardContent>
                 </Card>
               ))}
@@ -685,7 +687,7 @@ export default function Home() {
               <Button
                 onClick={() => setShowAllFAQs(!showAllFAQs)}
                 variant="outline"
-                className="border-[#4caf50] text-[#4caf50] hover:bg-[#4caf50] hover:text-white px-8 py-3 rounded-full"
+                className="border-[#4caf50] text-[#4caf50] bg-white font-bold cursor-pointer hover:bg-[#4caf50] hover:text-white px-8 py-3 rounded-full"
               >
                 {showAllFAQs ? content.faq.lessButton : content.faq.moreButton}
               </Button>
@@ -699,7 +701,7 @@ export default function Home() {
         <section className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <AnimatedSection animationType="scale" delay={200}>
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-white">
+              <div className="bg-gradient-to-r from-[#4caf50] via-[#008a85] to-[#2e7d32] rounded-3xl p-12 text-white">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Ready to Get Started?
                 </h2>
@@ -708,13 +710,13 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/services">
-                    <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <Button size="lg" className="cursor-pointer bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                       Browse Services
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
                   <Link href="/providers">
-                    <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg rounded-full transition-all duration-300 hover:scale-105">
+                    <Button variant="outline" size="lg" className="cursor-pointer border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full transition-all duration-300 hover:scale-105">
                       Find Professionals
                     </Button>
                   </Link>

@@ -36,7 +36,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
             <Image
               src={provider.avatar}
               alt={provider.name}
-              className="w-16 h-16 rounded-full object-cover ring-4 ring-gray-100 group-hover:ring-blue-200 transition-all duration-300"
+              className="w-16 h-16 rounded-full object-cover ring-4 ring-gray-100 group-hover:ring-green-200 transition-all duration-300"
               width={64}
               height={64}
             />
@@ -50,10 +50,10 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-lg text-gray-900 group-hover:text-blue-600 transition-colors duration-300 truncate">
+                <h3 className="font-bold text-lg text-gray-900 group-hover:text-green-600 transition-colors duration-300 truncate">
                   {provider.name}
                 </h3>
-                <p className="text-blue-600 font-medium mb-2 truncate">{provider.profession}</p>
+                <p className="text-green-600 font-medium mb-2 truncate">{provider.profession}</p>
 
                 <div className="flex items-center gap-2">
                   <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-full">
@@ -67,7 +67,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
               </div>
 
               {provider.verified && (
-                <Badge className="bg-green-100 text-green-700 border-green-200 font-semibold px-3 py-1">
+                <Badge className="bg-blue-100 text-blue-700 border-blue-200 font-semibold px-3 py-1">
                   <CheckCircle className="w-3 h-3 mr-1" />
                   Verified
                 </Badge>
@@ -82,7 +82,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
 
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-500 flex items-center">
-            <MapPin className="w-4 h-4 mr-1 text-blue-500" />
+            <MapPin className="w-4 h-4 mr-1 text-green-500" />
             <span className="font-medium">{city?.name || "Baghdad"}, Iraq</span>
           </div>
 
@@ -90,7 +90,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
             <Button
               variant="outline"
               size="sm"
-              className="border-2 hover:border-green-500 hover:text-green-500 transition-all duration-300 group/btn cursor-pointer"
+              className="border-2 bg-white text-gray-900 hover:border-green-500 hover:text-green-500 transition-all duration-300 group/btn cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 onContact?.();
@@ -101,7 +101,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
             </Button>
             <Button
               size="sm"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 group/btn cursor-pointer"
+              className="bg-gradient-to-r from-[#4caf50] to-[#2e7d32] hover:to-green-700 shadow-lg hover:shadow-xl transition-all duration-300 group/btn cursor-pointer"
             >
               View
               <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform duration-300" />
@@ -111,7 +111,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
       </div>
 
       {/* Hover shine effect */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     </Card>
   );
 }
