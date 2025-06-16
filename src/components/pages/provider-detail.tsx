@@ -24,13 +24,23 @@ export default function ProviderDetail() {
   });
 
   const { data: provider, isLoading: providerLoading } = useQuery<Provider>({
-    queryKey: [`/api/providers/${providerId}`],
-    enabled: !!providerId,
+    queryKey: ['provider'],
+    queryFn: async () => {
+      const response = await fetch(`/api/providers/${providerId}`);
+      if (!response.ok) throw new Error('Failed to fetch provider');
+      return response.json();
+    },
+    enabled: !!providerId
   });
 
   const { data: reviews = [], isLoading: reviewsLoading } = useQuery<Review[]>({
-    queryKey: [`/api/providers/${providerId}/reviews`],
-    enabled: !!providerId,
+    queryKey: ['providerReviews'],
+    queryFn: async () => {
+      const response = await fetch(`/api/providers/${providerId}/reviews`);
+      if (!response.ok) throw new Error('Failed to fetch provider reviews');
+      return response.json();
+    },
+    enabled: !!providerId
   });
 
   const city = cities.find((c: City) => c.id === provider?.cityId);
@@ -96,11 +106,13 @@ export default function ProviderDetail() {
         {/* Provider Profile */}
         <Card className="p-8 mb-8">
           <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 rounded-full ring-4 ring-green-300 overflow-hidden">
               <Image
                 src={provider.avatar}
                 alt={provider.name}
-                className="w-32 h-32 rounded-full object-cover"
+                className="w-32 h-32 object-cover"
+                width={128}
+                height={128}
               />
             </div>
 
@@ -108,7 +120,7 @@ export default function ProviderDetail() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">{provider.name}</h1>
-                  <p className="text-xl text-iraq-green font-semibold mb-2">{provider.profession}</p>
+                  <p className="text-xl text-green-500 font-semibold mb-2">{provider.profession}</p>
                   <div className="flex items-center mb-4">
                     <div className="flex">
                       {renderStars(provider.rating)}
@@ -123,7 +135,7 @@ export default function ProviderDetail() {
                 </div>
 
                 {provider.verified && (
-                  <Badge className="text-white text-sm">
+                  <Badge className="text-blue-500 bg-blue-100 border-2 border-blue-500 text-sm">
                     <Award className="w-4 h-4 mr-1" />
                     VERIFIED
                   </Badge>
@@ -162,7 +174,7 @@ export default function ProviderDetail() {
                   <h3 className="font-semibold text-gray-900 mb-2">Specialties</h3>
                   <div className="flex flex-wrap gap-2">
                     {provider.specialties.map((specialty, index) => (
-                      <Badge key={index} variant="secondary">
+                      <Badge key={index} variant="secondary" className="bg-green-800">
                         {specialty}
                       </Badge>
                     ))}
@@ -172,7 +184,7 @@ export default function ProviderDetail() {
 
               {/* Contact Button */}
               <Button
-                className="bg-green-500 hover:bg-green-700 text-white"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold cursor-pointer"
                 onClick={() => {
                   alert(`Contact form for ${provider.name} would open in a real application`);
                 }}
