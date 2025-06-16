@@ -77,7 +77,7 @@ export default function Contact() {
         <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
             {/* Hero Section */}
             <AnimatedSection animationType="fadeIn">
-                <section className="py-20 px-4 bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white relative overflow-hidden">
+                <section className="pt-30 py-20 px-4 bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white relative overflow-hidden">
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative max-w-6xl mx-auto text-center">
                         <AnimatedSection animationType="slideUp" delay={200}>

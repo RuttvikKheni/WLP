@@ -130,7 +130,7 @@ export default function Home() {
 
           {/* Content */}
           <div className="relative z-10 w-full">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-30">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="text-white">
                   {/* First: Large Static Heading */}
@@ -206,7 +206,7 @@ export default function Home() {
                           <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                           <Input
                             placeholder="What service do you need?"
-                            className="pl-12 py-3 bg-white text-gray-900 border-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="pl-12 py-3 bg-white text-gray-900 border-2 cursor-pointer focus:border-green-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
@@ -217,7 +217,7 @@ export default function Home() {
                           Location
                         </label>
                         <Select value={selectedCity} onValueChange={setSelectedCity}>
-                          <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer hover:border-blue-300 focus:border-blue-500 transition-colors focus:ring-0 focus:ring-offset-0">
+                          <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer focus:border-green-500 transition-colors focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Select your city" />
                           </SelectTrigger>
                           <SelectContent className="bg-white text-gray-900">
