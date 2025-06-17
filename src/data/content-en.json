@@ -17,14 +17,20 @@
     "language": {
       "current": "English",
       "options": [
-        { "code": "en", "label": "English" },
-        { "code": "ar", "label": "العربية" }
+        {
+          "code": "en",
+          "label": "English"
+        },
+        {
+          "code": "ar",
+          "label": "العربية"
+        }
       ]
     }
   },
   "hero": {
     "title": "Find Top-Rated Iraqi Property & Professional Services with Just One Click",
-    "subtitle": "Say goodbye to unfulfilled promises, hidden fees, and unprofessional services. Experience transparency, reliability, and excellence in every interaction.",
+    "subtitle": "Our platform connects you with verified Iraqi professionals for all your property and service needs. Experience seamless booking, guaranteed quality, and exceptional customer service - all in one convenient place.",
     "tagline": "With WorkTok, Life Becomes Easier",
     "cta": "Get Started",
     "searchPlaceholder": "Plumbing, Electrical, Cleaning...",
@@ -32,12 +38,15 @@
     "serviceLabel": "What service do you need?",
     "cityLabel": "City",
     "typingTexts": [
-      "Professional Plumbing Services",
-      "Expert Electrical Work",
-      "Quality Cleaning Services",
-      "Skilled Painting Services",
-      "Professional Carpentry Work"
-    ]
+      "TRANSPARENCY",
+      "RELIABILITY",
+      "EXCELLENCE",
+      "QUALITY ASSURED",
+      "TRUSTED PROFESSIONALS"
+    ],
+    "verified_professionals": "Verified Professionals",
+    "quick_response": "Quick Response",
+    "quality_assured": "Quality Assured"
   },
   "whoWeAre": {
     "title": "Who We Are",
@@ -48,10 +57,22 @@
   "stats": {
     "title": "A leading home repairs and professional services application in Iraq",
     "metrics": [
-      { "value": "15,000+", "label": "Customer count" },
-      { "value": "2,500+", "label": "Service Providers" },
-      { "value": "50+", "label": "Team members" },
-      { "value": "40+", "label": "Various Job Categories" }
+      {
+        "value": "15,000+",
+        "label": "Customer count"
+      },
+      {
+        "value": "2,500+",
+        "label": "Service Providers"
+      },
+      {
+        "value": "50+",
+        "label": "Team members"
+      },
+      {
+        "value": "40+",
+        "label": "Various Job Categories"
+      }
     ]
   },
   "services": {
@@ -239,11 +260,22 @@
     "description": "Iraq's leading platform for connecting homeowners with trusted service professionals. Quality service, guaranteed trust.",
     "services": {
       "title": "Services",
-      "items": ["Air Condition", "Plumbing", "Cleaning", "Painter", "Carpenter"]
+      "items": [
+        "Air Condition",
+        "Plumbing",
+        "Cleaning",
+        "Painter",
+        "Carpenter"
+      ]
     },
     "company": {
       "title": "Company",
-      "items": ["الأسئلة الشائعه", "سياسة الخصوصية", "Privacy Policy", "تواصل معنا"]
+      "items": [
+        "الأسئلة الشائعه",
+        "سياسة الخصوصية",
+        "Privacy Policy",
+        "تواصل معنا"
+      ]
     },
     "contact": {
       "title": "Contact Us",

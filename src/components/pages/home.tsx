@@ -136,7 +136,7 @@ export default function Home() {
                   {/* First: Large Static Heading */}
                   <AnimatedSection animationType="slideLeft" delay={200}>
                     <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 leading-tight text-center lg:text-left">
-                      Find Top-Rated Iraqi Property & Professional Services with Just One Click
+                      {content.hero.title}
                     </h1>
                   </AnimatedSection>
 
@@ -145,13 +145,7 @@ export default function Home() {
                     <div className="mb-8 text-center lg:text-left">
                       <div className="text-3xl md:text-3xl lg:text-4xl font-bold mb-4">
                         <TypingText
-                          texts={[
-                            'TRANSPARENCY',
-                            'RELIABILITY',
-                            'EXCELLENCE',
-                            'QUALITY ASSURED',
-                            'TRUSTED PROFESSIONALS'
-                          ]}
+                          texts={content.hero.typingTexts}
                           speed={120}
                           deleteSpeed={60}
                           delay={2000}
@@ -164,23 +158,22 @@ export default function Home() {
                   {/* Third: Medium Paragraph for Platform */}
                   <AnimatedSection animationType="slideLeft" delay={600}>
                     <p className="text-lg md:text-lg lg:text-xl text-gray-200 mb-8 leading-relaxed max-w-4xl text-center lg:text-left">
-                      Our platform connects you with verified Iraqi professionals for all your property and service needs.
-                      Experience seamless booking, guaranteed quality, and exceptional customer service - all in one convenient place.
+                      {content.hero.subtitle}
                     </p>
                   </AnimatedSection>
                   <AnimatedSection animationType="slideLeft" delay={600}>
                     <div className="flex flex-wrap gap-4 mb-8">
                       <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2 text-sm">
                         <CheckCircle className="w-4 h-4 mr-2" />
-                        Verified Professionals
+                        {content.hero.verified_professionals}
                       </Badge>
                       <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2 text-sm">
                         <Clock className="w-4 h-4 mr-2" />
-                        Quick Response
+                        {content.hero.quick_response}
                       </Badge>
                       <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 px-4 py-2 text-sm">
                         <Award className="w-4 h-4 mr-2" />
-                        Quality Assured
+                        {content.hero.quality_assured}
                       </Badge>
                     </div>
                   </AnimatedSection>
