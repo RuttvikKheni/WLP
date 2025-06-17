@@ -95,12 +95,12 @@ export default function Services() {
                 <AnimatedSection animationType="slideUp">
                     <div className="text-center mb-12">
                         <h1 className="responsive-text-4xl font-bold mb-4 bg-gradient-to-r from-[#4caf50] to-[#66bb6a] bg-clip-text text-transparent mobile-text-center">
-                            {showCategories ? content.services.title : "Service Providers"}
+                            {showCategories ? content.services.title_1 : content.services.title_2}
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                             {showCategories
-                                ? "Choose from our wide range of professional services"
-                                : "Find the perfect professional for your needs"
+                                ? content.services.subtitle_1
+                                : content.services.subtitle_2
                             }
                         </p>
                     </div>
@@ -114,7 +114,7 @@ export default function Services() {
                                 <div className="p-2 bg-white/20 rounded-lg">
                                     <Filter className="w-5 h-5" />
                                 </div>
-                                Search & Filter
+                                {content.services.search_and_filter}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-6">
@@ -122,7 +122,7 @@ export default function Services() {
                                 <div className="relative">
                                     <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                                     <Input
-                                        placeholder="Search services or providers..."
+                                        placeholder={content.services.search_placeholder}
                                         className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -131,10 +131,10 @@ export default function Services() {
 
                                 <Select value={selectedCategory} onValueChange={handleCategorySelect}>
                                     <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                                        <SelectValue placeholder="All Categories" />
+                                        <SelectValue placeholder={content.services.all_categories} />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white text-gray-900">
-                                        <SelectItem value="all">All Categories</SelectItem>
+                                        <SelectItem value="all">{content.services.all_categories}</SelectItem>
                                         {categories.map((category: Category) => (
                                             <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                                                 {language === 'ar' ? category.nameAr : category.name}
@@ -145,13 +145,13 @@ export default function Services() {
 
                                 <Select value={selectedCity} onValueChange={setSelectedCity}>
                                     <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                                        <SelectValue placeholder="All Cities" />
+                                        <SelectValue placeholder={content.services.all_cities} />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white text-gray-900">
-                                        <SelectItem value="all">All Cities</SelectItem>
+                                        <SelectItem value="all">{content.services.all_cities}</SelectItem>
                                         {cities.map((city: City) => (
                                             <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                                                {language === 'ar' ? city.nameAr : city.name}
+                                                    
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -162,7 +162,7 @@ export default function Services() {
                                     className="py-3 bg-gradient-to-r from-[#4caf50] to-[#66bb6a] cursor-pointer text-white shadow-lg hover:shadow-xl transition-all duration-300 mobile-full-width"
                                 >
                                     <Search className="w-4 h-4 mr-2" />
-                                    Search
+                                    {content.services.search_button}
                                 </Button>
                             </div>
 
@@ -177,11 +177,11 @@ export default function Services() {
                                         }}
                                         className="bg-white cursor-pointer text-green-600 border-green-600 hover:bg-blue-50"
                                     >
-                                        Browse All Categories
+                                        {content.services.browse_categories}
                                     </Button>
 
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm text-gray-900">View:</span>
+                                        <span className="text-sm text-gray-900">{content.services.view}:</span>
                                         <Button
                                             variant={viewMode !== 'grid' ? 'default' : 'outline'}
                                             size="sm"
@@ -209,7 +209,7 @@ export default function Services() {
                 {showCategories && (
                     <AnimatedSection animationType="fadeIn" delay={400}>
                         <div className="mb-8">
-                            <h2 className="text-3xl font-bold text-gray-800 mb-6">Choose a Service Category</h2>
+                            <h2 className="text-3xl font-bold text-gray-800 mb-6">{content.services.main_title}</h2>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -233,11 +233,11 @@ export default function Services() {
                         <div className="mb-8 flex items-center justify-between">
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-800">
-                                    {providers.length} Provider{providers.length !== 1 ? 's' : ''} Found
+                                    {providers.length}{" "}{content.services.provider}{providers.length !== 1 ? 's' : ''}{" "}{content.services.found}
                                 </h2>
                                 {selectedCategory && (
                                     <p className="text-gray-600 mt-1">
-                                        in {categories.find((c: Category) => c.id.toString() === selectedCategory)?.name}
+                                        {content.services.in} {categories.find((c: Category) => c.id.toString() === selectedCategory)?.[language === 'ar' ? 'nameAr' : 'name']}
                                     </p>
                                 )}
                             </div>
@@ -278,9 +278,9 @@ export default function Services() {
                                         <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                                             <Search className="w-12 h-12 text-gray-400" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-4">No Providers Found</h3>
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-4">{content.services.no_provider_found}</h3>
                                         <p className="text-gray-600 text-lg mb-8">
-                                            We couldn&apos;t find any providers matching your criteria. Try adjusting your filters.
+                                            {content.services.no_provider_description}
                                         </p>
                                         <Button
                                             onClick={() => {
@@ -291,7 +291,7 @@ export default function Services() {
                                             }}
                                             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                                         >
-                                            Browse All Categories
+                                            {content.services.browse_categories}
                                             <ArrowRight className="w-4 h-4 ml-2" />
                                         </Button>
                                     </div>
@@ -307,12 +307,12 @@ export default function Services() {
                         <div className="mt-16 text-center">
                             <Card className="bg-gradient-to-r from-[#4caf50] via-[#008a85] to-[#2e7d32] text-white border-0 shadow-2xl">
                                 <CardContent className="p-8">
-                                    <h3 className="text-2xl font-bold mb-4">Need Help Choosing?</h3>
+                                    <h3 className="text-2xl font-bold mb-4">{content.services.callAction.title}</h3>
                                     <p className="text-lg mb-6 opacity-90">
-                                        Our team can help you find the perfect service provider for your specific needs.
+                                        {content.services.callAction.description}
                                     </p>
                                     <Button size="lg" className="bg-white text-gray-900 cursor-pointer font-bold hover:bg-gray-100 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                                        Get Personalized Recommendations
+                                        {content.services.callAction.action}
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </Button>
                                 </CardContent>

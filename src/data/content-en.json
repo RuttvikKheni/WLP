@@ -103,8 +103,42 @@
     "view_all": "View All Professionals"
   },
   "services": {
-    "title": "Most Popular Home, Repair, and Professional Services Nearby",
-    "subtitle": "Explore our most popular services that our customers love, and bid farewell to spend money and time on unreliable services. Step into a world of seamless, high-quality home & property solutions."
+    "title_1": "Most Popular Home, Repair, and Professional Services Nearby",
+    "title_2": "Service Providers",
+    "subtitle_1": "Choose from our wide range of professional services",
+    "subtitle_2": "Find the perfect professional for your needs",
+    "main_title": "Choose a Service Category",
+    "search_and_filter": "Search & Filter",
+    "search_placeholder": "Search services or providers...",
+    "all_categories": "All Categories",
+    "all_cities": "All Cities",
+    "search_button": "Search",
+    "browse_categories": "Browse All Categories",
+    "view": "View",
+    "in": "In",
+    "provider": "Provider",
+    "found": "Found",
+    "no_provider_found": "No Providers Found",
+    "no_provider_description": "We couldn't find any providers matching your criteria. Try adjusting your filters.",
+    "callAction": {
+      "title": "Need Help Choosing?",
+      "description": "Our team can help you find the perfect service provider for your specific needs.",
+      "action": "Get Personalized Recommendations"
+    }
+  },
+  "provider": {
+    "title": "Service Providers",
+    "subTitle": "Browse our network of verified professionals across Iraq",
+    "search": "Search Providers",
+    "search_placeholder": "Provider name or service...",
+    "service_category": "Service Category",
+    "location": "Location",
+    "all_services": "All Services",
+    "all_cities": "All Cities",
+    "provider": "Provider",
+    "available": "Available",
+    "no_provider_found": "No Providers Found",
+    "no_provider_description": "Try adjusting your search criteria or browse different service categories."
   },
   "whyChoose": {
     "title": "Why Choose Our Platform?",
@@ -300,31 +334,76 @@
       {
         "title": "Platform",
         "items": [
-          { "label": "How it Works", "href": "/services" },
-          { "label": "Browse Services", "href": "/services" },
-          { "label": "Service Areas", "href": "/about" },
-          { "label": "Pricing", "href": "/services" },
-          { "label": "Mobile App", "href": "#download" }
+          {
+            "label": "How it Works",
+            "href": "/services"
+          },
+          {
+            "label": "Browse Services",
+            "href": "/services"
+          },
+          {
+            "label": "Service Areas",
+            "href": "/about"
+          },
+          {
+            "label": "Pricing",
+            "href": "/services"
+          },
+          {
+            "label": "Mobile App",
+            "href": "#download"
+          }
         ]
       },
       {
         "title": "Customer",
         "items": [
-          { "label": "Book a Service", "href": "/services" },
-          { "label": "Help Center", "href": "/contact" },
-          { "label": "FAQ", "href": "#faq" },
-          { "label": "Customer Support", "href": "/contact" },
-          { "label": "Safety Guidelines", "href": "/privacy" }
+          {
+            "label": "Book a Service",
+            "href": "/services"
+          },
+          {
+            "label": "Help Center",
+            "href": "/contact"
+          },
+          {
+            "label": "FAQ",
+            "href": "#faq"
+          },
+          {
+            "label": "Customer Support",
+            "href": "/contact"
+          },
+          {
+            "label": "Safety Guidelines",
+            "href": "/privacy"
+          }
         ]
       },
       {
         "title": "Provider",
         "items": [
-          { "label": "Join as Provider", "href": "/providers" },
-          { "label": "Provider Dashboard", "href": "/providers" },
-          { "label": "Resources", "href": "/about" },
-          { "label": "Training", "href": "/about" },
-          { "label": "Provider Support", "href": "/contact" }
+          {
+            "label": "Join as Provider",
+            "href": "/providers"
+          },
+          {
+            "label": "Provider Dashboard",
+            "href": "/providers"
+          },
+          {
+            "label": "Resources",
+            "href": "/about"
+          },
+          {
+            "label": "Training",
+            "href": "/about"
+          },
+          {
+            "label": "Provider Support",
+            "href": "/contact"
+          }
         ]
       }
     ],

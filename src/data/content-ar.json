@@ -103,8 +103,42 @@
     "view_all": "عرض جميع المحترفين"
   },
   "services": {
-    "title": "أشهر خدمات المنازل والإصلاح والخدمات المهنية القريبة",
-    "subtitle": "استكشف خدماتنا الأكثر شعبية التي يحبها عملاؤنا، وودع إنفاق المال والوقت على الخدمات غير الموثوقة. ادخل إلى عالم من الحلول المنزلية والعقارية السلسة وعالية الجودة."
+    "title_1": "أشهر خدمات المنازل والإصلاح والخدمات المهنية القريبة",
+    "title_2": "مقدمي الخدمة",
+    "subtitle_1": "اختر من بين مجموعتنا الواسعة من الخدمات المهنية",
+    "subtitle_2": "ابحث عن المحترف المثالي لاحتياجاتك",
+    "main_title": "اختر فئة الخدمة",
+    "search_and_filter": "البحث والتصفية",
+    "search_placeholder": "البحث عن الخدمات أو مقدمي الخدمة...",
+    "all_categories": "جميع الفئات",
+    "all_cities": "جميع المدن",
+    "search_button": "يبحث",
+    "browse_categories": "تصفح جميع الفئات",
+    "view": "منظر",
+    "in": "في",
+    "provider": "مزود",
+    "found": "وجد",
+    "no_provider_found": "لم يتم العثور على مقدمي الخدمة",
+    "no_provider_description": "لم نعثر على أي مزود خدمة يطابق معاييرك. حاول تعديل عوامل التصفية.",
+    "callAction": {
+      "title": "هل تحتاج إلى مساعدة في الاختيار؟",
+      "description": "يمكن لفريقنا مساعدتك في العثور على مزود الخدمة المثالي لاحتياجاتك المحددة.",
+      "action": "احصل على توصيات مخصصة"
+    }
+  },
+  "provider": {
+    "title": "مقدمي الخدمة",
+    "subTitle": "تصفح شبكتنا من المحترفين المعتمدين في جميع أنحاء العراق",
+    "search": "مقدمي خدمات البحث",
+    "search_placeholder": "اسم مقدم الخدمة أو الخدمة...",
+    "service_category": "فئة الخدمة",
+    "location": "موقع",
+    "all_services": "جميع الخدمات",
+    "all_cities": "جميع المدن",
+    "provider": "مزود",
+    "available": "متاح",
+    "no_provider_found": "لم يتم العثور على مقدمي الخدمة",
+    "no_provider_description": "حاول تعديل معايير البحث الخاصة بك أو تصفح فئات الخدمة المختلفة."
   },
   "whyChoose": {
     "title": "لماذا تختار منصتنا؟",
@@ -300,31 +334,76 @@
       {
         "title": "منصة",
         "items": [
-          { "label": "كيف يعمل", "href": "/services" },
-          { "label": "تصفح الخدمات", "href": "/services" },
-          { "label": "مناطق الخدمة", "href": "/about" },
-          { "label": "التسعير", "href": "/services" },
-          { "label": "تطبيق الجوال", "href": "#download" }
+          {
+            "label": "كيف يعمل",
+            "href": "/services"
+          },
+          {
+            "label": "تصفح الخدمات",
+            "href": "/services"
+          },
+          {
+            "label": "مناطق الخدمة",
+            "href": "/about"
+          },
+          {
+            "label": "التسعير",
+            "href": "/services"
+          },
+          {
+            "label": "تطبيق الجوال",
+            "href": "#download"
+          }
         ]
       },
       {
         "title": "عميل",
         "items": [
-          { "label": "حجز الخدمة", "href": "/services" },
-          { "label": "مركز المساعدة", "href": "/contact" },
-          { "label": "التعليمات", "href": "#faq" },
-          { "label": "دعم العملاء", "href": "/contact" },
-          { "label": "إرشادات السلامة", "href": "/privacy" }
+          {
+            "label": "حجز الخدمة",
+            "href": "/services"
+          },
+          {
+            "label": "مركز المساعدة",
+            "href": "/contact"
+          },
+          {
+            "label": "التعليمات",
+            "href": "#faq"
+          },
+          {
+            "label": "دعم العملاء",
+            "href": "/contact"
+          },
+          {
+            "label": "إرشادات السلامة",
+            "href": "/privacy"
+          }
         ]
       },
       {
         "title": "مزود",
         "items": [
-          { "label": "انضم كمقدم خدمة", "href": "/providers" },
-          { "label": "لوحة معلومات المزود", "href": "/providers" },
-          { "label": "موارد", "href": "/about" },
-          { "label": "تمرين", "href": "/about" },
-          { "label": "دعم مقدم الخدمة", "href": "/contact" }
+          {
+            "label": "انضم كمقدم خدمة",
+            "href": "/providers"
+          },
+          {
+            "label": "لوحة معلومات المزود",
+            "href": "/providers"
+          },
+          {
+            "label": "موارد",
+            "href": "/about"
+          },
+          {
+            "label": "تمرين",
+            "href": "/about"
+          },
+          {
+            "label": "دعم مقدم الخدمة",
+            "href": "/contact"
+          }
         ]
       }
     ],
