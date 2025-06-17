@@ -24,17 +24,17 @@ export default function ProviderDetail() {
   });
 
   const { data: provider, isLoading: providerLoading } = useQuery<Provider>({
-    queryKey: ['provider'],
+    queryKey: ['provider', providerId],
     queryFn: async () => {
       const response = await fetch(`/api/providers/${providerId}`);
       if (!response.ok) throw new Error('Failed to fetch provider');
       return response.json();
     },
-    enabled: !!providerId
+    enabled: !!providerId,
   });
 
   const { data: reviews = [], isLoading: reviewsLoading } = useQuery<Review[]>({
-    queryKey: ['providerReviews'],
+    queryKey: ['providerReviews', providerId],
     queryFn: async () => {
       const response = await fetch(`/api/providers/${providerId}/reviews`);
       if (!response.ok) throw new Error('Failed to fetch provider reviews');
