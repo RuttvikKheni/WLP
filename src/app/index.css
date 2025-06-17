@@ -14,6 +14,10 @@
     --iraq-black: #000000;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Custom gradient classes */
 .gradient-primary {
     background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);

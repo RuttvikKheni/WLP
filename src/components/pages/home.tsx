@@ -595,7 +595,7 @@ export default function Home() {
 
       {/* Download Our Apps Section */}
       <AnimatedSection animationType="slideUp" delay={200}>
-        <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+        <section id="download" className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-6">
@@ -644,7 +644,7 @@ export default function Home() {
 
       {/* FAQ Section */}
       <AnimatedSection animationType="slideUp">
-        <section className="py-20 bg-white">
+        <section id="faq" className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">

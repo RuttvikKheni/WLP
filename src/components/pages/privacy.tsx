@@ -79,7 +79,7 @@ export default function Privacy() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
       {/* Hero Section */}
       <AnimatedSection animationType="fadeIn">
-        <section className="py-20 px-4 bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white relative overflow-hidden">
+        <section className="pt-30 py-20 px-4 bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="relative max-w-6xl mx-auto text-center">
             <AnimatedSection animationType="slideUp" delay={200}>
@@ -97,7 +97,7 @@ export default function Privacy() {
             </AnimatedSection>
             <AnimatedSection animationType="slideUp" delay={600}>
               <p className="text-lg opacity-80">
-                Last updated: December 2024
+                Last updated: January 2025
               </p>
             </AnimatedSection>
           </div>
@@ -193,7 +193,7 @@ export default function Privacy() {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-4">Legal Compliance</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  This privacy policy complies with applicable Iraqi data protection laws and international best practices. 
+                  This privacy policy complies with applicable Iraqi data protection laws and international best practices.
                   WorkTok is committed to protecting your privacy rights and maintaining the highest standards of data security.
                 </p>
               </CardContent>

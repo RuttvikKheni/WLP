@@ -35,7 +35,7 @@ export default function Footer() {
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/services" className="hover:text-[#4caf50] transition-colors">Book a Service</Link></li>
                 <li><Link href="/contact" className="hover:text-[#4caf50] transition-colors">Help Center</Link></li>
-                <li><Link href="#faq" className="hover:text-[#4caf50] transition-colors">الأسئلة الشائعه</Link></li>
+                <li><Link href="#faq" className="hover:text-[#4caf50] transition-colors">FAQ</Link></li>
                 <li><Link href="/contact" className="hover:text-[#4caf50] transition-colors">Customer Support</Link></li>
                 <li><Link href="/privacy" className="hover:text-[#4caf50] transition-colors">Safety Guidelines</Link></li>
               </ul>
@@ -125,9 +125,8 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <p className="text-gray-400 text-sm">{content.footer.copyright}</p>
             <div className="flex space-x-4 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-[#4caf50] transition-colors">سياسة الخصوصية</Link>
               <Link href="/privacy" className="text-gray-400 hover:text-[#4caf50] transition-colors">Privacy Policy</Link>
-              <Link href="/contact" className="text-gray-400 hover:text-[#4caf50] transition-colors">تواصل معنا</Link>
+              <Link href="/contact" className="text-gray-400 hover:text-[#4caf50] transition-colors">Contact us</Link>
             </div>
           </div>
         </div>

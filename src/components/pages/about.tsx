@@ -50,7 +50,7 @@ export default function About() {
         {
             name: "Fatima Al-Zahra",
             position: "Head of Operations",
-            image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
             description: "Expert in service excellence"
         },
         {
