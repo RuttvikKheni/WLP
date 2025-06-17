@@ -36,7 +36,7 @@ export default function ProviderDetail() {
   const { data: reviews = [], isLoading: reviewsLoading } = useQuery<Review[]>({
     queryKey: ['providerReviews'],
     queryFn: async () => {
-      const response = await fetch(`/api/providers/reviews/${providerId}`);
+      const response = await fetch(`/api/providers/${providerId}/reviews`);
       if (!response.ok) throw new Error('Failed to fetch provider reviews');
       return response.json();
     },
