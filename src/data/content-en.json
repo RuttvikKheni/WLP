@@ -475,5 +475,21 @@
       "title": "Our Mission",
       "subTitle": "To empower Iraq's service economy by creating meaningful connections between skilled professionals and customers, fostering trust, quality, and economic growth in every community we serve."
     }
+  },
+  "providerDetails": {
+    "notFound": "Provider Not Found",
+    "notFound_description": "The service provider you're looking for doesn't exist.",
+    "back_provider": "Back to Providers",
+    "reviews": "Reviews",
+    "verified": "VERIFIED",
+    "experience": "years experience",
+    "specialties": "Specialties",
+    "contact": "Contact Now",
+    "customer_reviews": "Customer Reviews",
+    "no_reviews": "No reviews yet. Be the first to review this provider!"
+  },
+  "noPageFound": {
+    "title": "404 Page Not Found",
+    "description": "Did you forget to add the page to the router?"
   }
 }

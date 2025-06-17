@@ -9,10 +9,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { City, Provider, Review } from "@/shared/schema";
 import { useParams } from "next/navigation";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function ProviderDetail() {
   const params: { id: string } = useParams();
   const providerId = parseInt((params ?? { id: "0" }).id ?? "0");
+  const { content } = useLanguage();
 
   const { data: cities = [] } = useQuery({
     queryKey: ['cities'],
@@ -79,12 +81,12 @@ export default function ProviderDetail() {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Provider Not Found</h1>
-          <p className="text-gray-600 mb-6">The service provider you&apos;re looking for doesn&apos;t exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{content.providerDetails.notFound}</h1>
+          <p className="text-gray-600 mb-6">{content.providerDetails.notFound_description}</p>
           <Link href="/providers">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Providers
+              {content.providerDetails.back_provider}
             </Button>
           </Link>
         </div>
@@ -99,7 +101,7 @@ export default function ProviderDetail() {
         <Link href="/providers">
           <Button variant="ghost" className="mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Providers
+            {content.providerDetails.back_provider}
           </Button>
         </Link>
 
@@ -129,7 +131,7 @@ export default function ProviderDetail() {
                       {provider.rating}
                     </span>
                     <span className="ml-2 text-gray-600">
-                      ({provider.reviewCount} reviews)
+                      ({provider.reviewCount} {content.providerDetails.reviews})
                     </span>
                   </div>
                 </div>
@@ -137,7 +139,7 @@ export default function ProviderDetail() {
                 {provider.verified && (
                   <Badge className="text-blue-500 bg-blue-100 border-2 border-blue-500 text-sm">
                     <Award className="w-4 h-4 mr-1" />
-                    VERIFIED
+                    {content.providerDetails.verified}
                   </Badge>
                 )}
               </div>
@@ -154,7 +156,7 @@ export default function ProviderDetail() {
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Calendar className="w-5 h-5 mr-2 text-iraq-green" />
-                  {provider.yearsExperience}+ years experience
+                  {provider.yearsExperience}+ {content.providerDetails.experience}
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Phone className="w-5 h-5 mr-2 text-iraq-green" />
@@ -171,7 +173,7 @@ export default function ProviderDetail() {
               {/* Specialties */}
               {provider.specialties && provider.specialties.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-2">Specialties</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{content.providerDetails.specialties}:</h3>
                   <div className="flex flex-wrap gap-2">
                     {provider.specialties.map((specialty, index) => (
                       <Badge key={index} variant="secondary" className="bg-green-800">
@@ -190,7 +192,7 @@ export default function ProviderDetail() {
                 }}
               >
                 <Phone className="w-4 h-4 mr-2" />
-                Contact Now
+                {content.providerDetails.contact}
               </Button>
             </div>
           </div>
@@ -198,7 +200,7 @@ export default function ProviderDetail() {
 
         {/* Reviews Section */}
         <Card className="p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">{content.providerDetails.customer_reviews}</h2>
 
           {reviewsLoading ? (
             <div className="space-y-4">
@@ -231,7 +233,7 @@ export default function ProviderDetail() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-600">No reviews yet. Be the first to review this provider!</p>
+              <p className="text-gray-600">{content.providerDetails.no_reviews}</p>
             </div>
           )}
         </Card>
