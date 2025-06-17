@@ -428,5 +428,52 @@
     "copyright": "© 2025 WorkTok. All Rights Reserved",
     "privacy_policy": "Privacy Policy",
     "contact_us": "Contact Us"
+  },
+  "aboutUs": {
+    "title": "About WorkTok",
+    "subTitle": "Connecting Iraq's finest service professionals with customers who need quality work done right",
+    "badge": "Trusted by thousands across Iraq",
+    "stats": {
+      "happy_customers": "Happy Customers",
+      "verified_professionals": "Verified Professionals",
+      "service_categories": "Service Categories",
+      "customer_support": "Customer Support"
+    },
+    "ourStory": {
+      "title": "Our Story",
+      "items": [
+        "Founded in 2020, WorkTok emerged from a simple observation: Iraq needed a reliable way to connect skilled professionals with customers seeking quality services.",
+        "What started as a small team's vision has grown into Iraq's most trusted service marketplace, serving thousands of customers and supporting hundreds of local professionals.",
+        "Today, we're proud to be part of Iraq's digital transformation, creating opportunities and building trust in every interaction."
+      ]
+    },
+    "ourValue": {
+      "title": "Our Values",
+      "subTitle": "The principles that guide everything we do",
+      "quality": {
+        "title": "Quality Assurance",
+        "description": "We ensure all service providers meet our high standards through rigorous verification processes."
+      },
+      "customer_satisfaction": {
+        "title": "Customer Satisfaction",
+        "description": "Your satisfaction is our priority. We work tirelessly to exceed your expectations."
+      },
+      "trust": {
+        "title": "Trust & Reliability",
+        "description": "Building lasting relationships through transparent communication and reliable service delivery."
+      },
+      "community": {
+        "title": "Community Impact",
+        "description": "Supporting local professionals and contributing to Iraq's growing service economy."
+      }
+    },
+    "leaderTeam": {
+      "title": "Leadership Team",
+      "subTitle": "Meet the passionate individuals driving WorkTok's mission forward"
+    },
+    "ourMission": {
+      "title": "Our Mission",
+      "subTitle": "To empower Iraq's service economy by creating meaningful connections between skilled professionals and customers, fostering trust, quality, and economic growth in every community we serve."
+    }
   }
 }

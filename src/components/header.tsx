@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Globe } from "lucide-react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 
 export default function Header() {
@@ -49,8 +49,8 @@ export default function Header() {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" className="text-bolder text-md cursor-pointer hover:text-[#4caf50]" size="sm" onClick={toggleLanguage}>
-              <Globe className="w-50 h-50 mr-2" size={30} />
+            <Button variant="ghost" className="font-bold text-md cursor-pointer text-[#4caf50] hover:bg-[#4caf50] hover:text-white border-2 p-2" size="sm" onClick={toggleLanguage}>
+              <span role="img" className="mr-2 text-2xl">{language === 'en' ? '🇮🇶' : '🇺🇸'}</span>
               {language === 'en' ? 'العربية' : 'English'}
             </Button>
 

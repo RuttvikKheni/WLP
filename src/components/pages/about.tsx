@@ -4,38 +4,41 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Shield, Award, Clock, CheckCircle, Star, Heart, Globe } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
 import Image from "next/image";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function About() {
+    const { content } = useLanguage();
+
     const stats = [
-        { icon: Users, value: "10,000+", label: "Happy Customers", color: "text-blue-600", bg: "bg-blue-100" },
-        { icon: Shield, value: "500+", label: "Verified Professionals", color: "text-green-600", bg: "bg-green-100" },
-        { icon: Award, value: "50+", label: "Service Categories", color: "text-purple-600", bg: "bg-purple-100" },
-        { icon: Clock, value: "24/7", label: "Customer Support", color: "text-orange-600", bg: "bg-orange-100" }
+        { icon: Users, value: "10,000+", label: content.aboutUs.stats.happy_customers, color: "text-blue-600", bg: "bg-blue-100" },
+        { icon: Shield, value: "500+", label: content.aboutUs.stats.verified_professionals, color: "text-green-600", bg: "bg-green-100" },
+        { icon: Award, value: "50+", label: content.aboutUs.stats.service_categories, color: "text-purple-600", bg: "bg-purple-100" },
+        { icon: Clock, value: "24/7", label: content.aboutUs.stats.customer_support, color: "text-orange-600", bg: "bg-orange-100" }
     ];
 
     const values = [
         {
             icon: CheckCircle,
-            title: "Quality Assurance",
-            description: "We ensure all service providers meet our high standards through rigorous verification processes.",
+            title: content.aboutUs.ourValue.quality.title,
+            description: content.aboutUs.ourValue.quality.description,
             color: "text-green-600"
         },
         {
             icon: Star,
-            title: "Customer Satisfaction",
-            description: "Your satisfaction is our priority. We work tirelessly to exceed your expectations.",
+            title: content.aboutUs.ourValue.customer_satisfaction.title,
+            description: content.aboutUs.ourValue.customer_satisfaction.description,
             color: "text-yellow-600"
         },
         {
             icon: Heart,
-            title: "Trust & Reliability",
-            description: "Building lasting relationships through transparent communication and reliable service delivery.",
+            title: content.aboutUs.ourValue.trust.title,
+            description: content.aboutUs.ourValue.trust.description,
             color: "text-red-600"
         },
         {
             icon: Globe,
-            title: "Community Impact",
-            description: "Supporting local professionals and contributing to Iraq's growing service economy.",
+            title: content.aboutUs.ourValue.community.title,
+            description: content.aboutUs.ourValue.community.description,
             color: "text-blue-600"
         }
     ];
@@ -70,17 +73,17 @@ export default function About() {
                     <div className="relative max-w-6xl mx-auto text-center">
                         <AnimatedSection animationType="slideUp" delay={200}>
                             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                                About WorkTok
+                                {content.aboutUs.title}
                             </h1>
                         </AnimatedSection>
                         <AnimatedSection animationType="slideUp" delay={400}>
                             <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
-                                Connecting Iraq&apos;s finest service professionals with customers who need quality work done right
+                                {content.aboutUs.subTitle}
                             </p>
                         </AnimatedSection>
                         <AnimatedSection animationType="scale" delay={600}>
                             <Badge className="bg-white/20 text-white border-white/30 px-6 py-2 text-lg">
-                                Trusted by thousands across Iraq
+                                {content.aboutUs.badge}
                             </Badge>
                         </AnimatedSection>
                     </div>
@@ -118,17 +121,13 @@ export default function About() {
                             <AnimatedSection animationType="slideLeft">
                                 <div>
                                     <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                                        Our Story
+                                        {content.aboutUs.ourStory.title}
                                     </h2>
-                                    <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                                        Founded in 2020, WorkTok emerged from a simple observation: Iraq needed a reliable way to connect skilled professionals with customers seeking quality services.
-                                    </p>
-                                    <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                                        What started as a small team&apos;s vision has grown into Iraq&apos;s most trusted service marketplace, serving thousands of customers and supporting hundreds of local professionals.
-                                    </p>
-                                    <p className="text-lg text-gray-600 leading-relaxed">
-                                        Today, we&apos;re proud to be part of Iraq&apos;s digital transformation, creating opportunities and building trust in every interaction.
-                                    </p>
+                                    {
+                                        content.aboutUs.ourStory.items.map((item, index) => (
+                                            <p key={index} className="text-lg text-gray-600 mb-6 leading-relaxed">{item}</p>
+                                        ))
+                                    }
                                 </div>
                             </AnimatedSection>
                             <AnimatedSection animationType="slideRight" delay={200}>
@@ -155,10 +154,10 @@ export default function About() {
                         <AnimatedSection animationType="slideUp">
                             <div className="text-center mb-16">
                                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                                    Our Values
+                                    {content.aboutUs.ourValue.title}
                                 </h2>
                                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                                    The principles that guide everything we do
+                                    {content.aboutUs.ourValue.subTitle}
                                 </p>
                             </div>
                         </AnimatedSection>
@@ -191,10 +190,10 @@ export default function About() {
                         <AnimatedSection animationType="slideUp">
                             <div className="text-center mb-16">
                                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                                    Leadership Team
+                                    {content.aboutUs.leaderTeam.title}
                                 </h2>
                                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                                    Meet the passionate individuals driving WorkTok&apos;s mission forward
+                                    {content.aboutUs.leaderTeam.subTitle}
                                 </p>
                             </div>
                         </AnimatedSection>
@@ -231,10 +230,10 @@ export default function About() {
                 <section className="py-20 px-4 bg-gradient-to-r from-green-600 to-green-500 text-white">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-4xl md:text-5xl font-bold mb-8">
-                            Our Mission
+                            {content.aboutUs.ourMission.title}
                         </h2>
                         <p className="text-xl md:text-2xl leading-relaxed opacity-90">
-                            To empower Iraq&apos;s service economy by creating meaningful connections between skilled professionals and customers, fostering trust, quality, and economic growth in every community we serve.
+                            {content.aboutUs.ourMission.subTitle}
                         </p>
                     </div>
                 </section>
