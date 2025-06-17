@@ -20,6 +20,21 @@ import Image from "next/image";
 import { Category, Provider } from "@/shared/schema";
 import { useRouter } from "next/navigation";
 
+const iconMap = {
+  Shield,
+  Clock,
+  Award,
+} as const;
+
+type IconName = keyof typeof iconMap;
+
+export interface Feature {
+  icon: IconName;
+  title: string;
+  description: string;
+  delay: number;
+}
+
 export default function Home() {
   const router = useRouter();
 
@@ -30,6 +45,7 @@ export default function Home() {
   const [showAllFAQs, setShowAllFAQs] = useState(false);
 
   const { content, language } = useLanguage();
+  const features: Feature[] = content.whyChoose.features.map((f) => ({ ...f, icon: f.icon as IconName }));
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
@@ -184,21 +200,21 @@ export default function Home() {
                   <Card className="p-8 shadow-2xl bg-white/95 backdrop-blur-lg border-0 hover:shadow-3xl transition-all duration-500">
                     <CardHeader className="text-center pb-6">
                       <CardTitle className="text-2xl font-bold text-gray-800">
-                        Find Your Service
+                        {content.hero.form.title}
                       </CardTitle>
                       <CardDescription className="text-gray-600">
-                        What do you need help with today?
+                        {content.hero.form.subTitle}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Service Type
+                          {content.hero.form.service_type}
                         </label>
                         <div className="relative">
                           <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                           <Input
-                            placeholder="What service do you need?"
+                            placeholder={content.hero.form.service_search}
                             className="pl-12 py-3 bg-white text-gray-900 border-2 cursor-pointer focus:border-green-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -207,11 +223,11 @@ export default function Home() {
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Location
+                          {content.hero.form.location}
                         </label>
                         <Select value={selectedCity} onValueChange={setSelectedCity}>
                           <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer focus:border-green-500 transition-colors focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder="Select your city" />
+                            <SelectValue placeholder={content.hero.form.location_search} />
                           </SelectTrigger>
                           <SelectContent className="bg-white text-gray-900">
                             {cities.map((city: { id: number; name: string; nameAr: string }) => (
@@ -227,7 +243,7 @@ export default function Home() {
                         onClick={handleSearch}
                       >
                         <Search className="w-5 h-5 mr-2" />
-                        Search Services
+                        {content.hero.form.search_service}
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                     </CardContent>
@@ -246,10 +262,10 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
-                  { value: `${stats.verifiedProviders}+`, label: "Verified Professionals", color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
-                  { value: `${stats.completedServices.toLocaleString()}+`, label: "Services Completed", color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
-                  { value: `${stats.averageRating}/5`, label: "Average Rating", color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
-                  { value: `${stats.cities}+`, label: "Cities Covered", color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
+                  { value: `${stats.verifiedProviders}+`, label: content.stats.verified_professionals, color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
+                  { value: `${stats.completedServices.toLocaleString()}+`, label: content.stats.service_completed, color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
+                  { value: `${stats.averageRating}/5`, label: content.stats.average_rating, color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
+                  { value: `${stats.cities}+`, label: content.stats.cities_covered, color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
                 ].map((stat, index) => (
                   <AnimatedSection key={index} animationType="scale" delay={stat.delay}>
                     <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-100">
@@ -279,10 +295,10 @@ export default function Home() {
             <AnimatedSection animationType="slideUp">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                  Popular Services
+                  {content.popularServices.title}
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                  Professional services delivered right to your door
+                  {content.popularServices.subTitle}
                 </p>
               </div>
             </AnimatedSection>
@@ -304,7 +320,7 @@ export default function Home() {
               <div className="text-center mt-12">
                 <Link href="/services">
                   <Button variant="outline" size="lg" className="hover:scale-105 transition-all bg-white cursor-pointer duration-300 px-8 py-4 text-lg rounded-full border-2 border-green-600 text-green-600 hover:bg-green-50">
-                    View All Services
+                    {content.popularServices.view_all}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
@@ -321,10 +337,10 @@ export default function Home() {
             <AnimatedSection animationType="slideUp">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                  Top-Rated Professionals
+                  {content.topProviders.title}
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                  Meet our most trusted and experienced service providers
+                  {content.topProviders.subtitle}
                 </p>
               </div>
             </AnimatedSection>
@@ -353,7 +369,7 @@ export default function Home() {
               <div className="text-center mt-12">
                 <Link href="/providers">
                   <Button variant="outline" size="lg" className="hover:scale-105 transition-all bg-white cursor-pointer text-gray-900 duration-300 px-8 py-4 text-lg rounded-full border-2">
-                    View All Professionals
+                    {content.topProviders.view_all}
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
@@ -370,51 +386,35 @@ export default function Home() {
             <AnimatedSection animationType="slideUp">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                  Why Choose Our Platform?
+                  {content.whyChoose.title}
                 </h2>
                 <p className="text-xl opacity-90 max-w-3xl mx-auto">
-                  We make finding reliable services simple, safe, and convenient
+                  {content.whyChoose.subTitle}
                 </p>
               </div>
             </AnimatedSection>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: Shield,
-                  title: "Verified Professionals",
-                  description: "All service providers are thoroughly vetted and verified for your peace of mind.",
-                  delay: 0
-                },
-                {
-                  icon: Clock,
-                  title: "Quick Response",
-                  description: "Get instant quotes and fast service delivery when you need it most.",
-                  delay: 150
-                },
-                {
-                  icon: Award,
-                  title: "Quality Guarantee",
-                  description: "We ensure high-quality service delivery with our satisfaction guarantee.",
-                  delay: 300
-                }
-              ].map(({ icon: Icon, title, description, delay }, index) => (
-                <AnimatedSection key={index} animationType="slideUp" delay={delay}>
-                  <Card className="text-center p-8 bg-white/10 backdrop-blur-lg border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2">
-                    <CardHeader>
-                      <div className="w-20 h-20 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
-                        <Icon className="w-10 h-10 text-white" />
-                      </div>
-                      <CardTitle className="text-2xl font-bold text-white mb-4">{title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="text-lg text-white/90 leading-relaxed">
-                        {description}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                </AnimatedSection>
-              ))}
+              {features.map(({ icon, title, description, delay }, index) => {
+                const LucideIcon = iconMap[icon];
+                return (
+                  <AnimatedSection key={index} animationType="slideUp" delay={delay}>
+                    <Card className="text-center p-8 bg-white/10 backdrop-blur-lg border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 h-full">
+                      <CardHeader>
+                        <div className="w-20 h-20 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
+                          <LucideIcon className="w-10 h-10 text-white" />
+                        </div>
+                        <CardTitle className="text-2xl font-bold text-white mb-4">{title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="text-lg text-white/90 leading-relaxed">
+                          {description}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </AnimatedSection>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -696,21 +696,21 @@ export default function Home() {
             <AnimatedSection animationType="scale" delay={200}>
               <div className="bg-gradient-to-r from-[#4caf50] via-[#008a85] to-[#2e7d32] rounded-3xl p-12 text-white">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Ready to Get Started?
+                  {content.joinUs.title}
                 </h2>
                 <p className="text-xl mb-8 opacity-90">
-                  Join thousands of satisfied customers who trust our platform for their service needs.
+                  {content.joinUs.subTitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/services">
                     <Button size="lg" className="cursor-pointer bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                      Browse Services
+                      {content.joinUs.browse_services}
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
                   <Link href="/providers">
                     <Button variant="outline" size="lg" className="cursor-pointer border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full transition-all duration-300 hover:scale-105">
-                      Find Professionals
+                      {content.joinUs.find_professionals}
                     </Button>
                   </Link>
                 </div>

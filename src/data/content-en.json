@@ -46,7 +46,16 @@
     ],
     "verified_professionals": "Verified Professionals",
     "quick_response": "Quick Response",
-    "quality_assured": "Quality Assured"
+    "quality_assured": "Quality Assured",
+    "form": {
+      "title": "Find Your Service",
+      "subTitle": "What do you need help with today?",
+      "service_type": "Service Type",
+      "service_search": "What service do you need?",
+      "location": "Location",
+      "location_search": "Select your city",
+      "search_service": "Search Services"
+    }
   },
   "whoWeAre": {
     "title": "Who We Are",
@@ -73,29 +82,51 @@
         "value": "40+",
         "label": "Various Job Categories"
       }
-    ]
+    ],
+    "verified_professionals": "Verified Professionals",
+    "service_completed": "Services Completed",
+    "average_rating": "Average Rating",
+    "cities_covered": "Cities Covered"
+  },
+  "popularServices": {
+    "title": "Popular Services",
+    "subTitle": "Professional services delivered right to your door",
+    "experts": "Experts",
+    "view_all": "View All Services"
+  },
+  "topProviders": {
+    "title": "Top-Rated Professionals",
+    "subtitle": "Meet our most trusted and experienced service providers",
+    "verified": "Verified",
+    "contact": "Contact",
+    "view": "View",
+    "view_all": "View All Professionals"
   },
   "services": {
     "title": "Most Popular Home, Repair, and Professional Services Nearby",
     "subtitle": "Explore our most popular services that our customers love, and bid farewell to spend money and time on unreliable services. Step into a world of seamless, high-quality home & property solutions."
   },
   "whyChoose": {
-    "title": "Why Choose WORKTOK?",
+    "title": "Why Choose Our Platform?",
+    "subTitle": "We make finding reliable services simple, safe, and convenient",
     "features": [
       {
-        "icon": "fas fa-bolt",
-        "title": "Efficiency",
-        "description": "Our platform streamlines the process of finding and hiring service providers, saving you time and effort."
+        "icon": "Shield",
+        "title": "Verified Professionals",
+        "description": "All service providers are thoroughly vetted and verified for your peace of mind.",
+        "delay": 0
       },
       {
-        "icon": "fas fa-shield-alt",
-        "title": "Reliability",
-        "description": "We carefully vet all service providers in our network to ensure they meet our high standards of professionalism."
+        "icon": "Clock",
+        "title": "Quick Response",
+        "description": "Get instant quotes and fast service delivery when you need it most.",
+        "delay": 150
       },
       {
-        "icon": "fas fa-mobile-alt",
-        "title": "Convenience",
-        "description": "Say goodbye to endless phone calls and inquiries. Our user-friendly interface and intuitive features make it easy to describe the service you need."
+        "icon": "Award",
+        "title": "Quality Guarantee",
+        "description": "We ensure high-quality service delivery with our satisfaction guarantee.",
+        "delay": 300
       }
     ]
   },
@@ -210,6 +241,12 @@
       "messagePlaceholder": "Enter your message here..."
     }
   },
+  "joinUs": {
+    "title": "Ready to Get Started?",
+    "subTitle": "Join thousands of satisfied customers who trust our platform for their service needs.",
+    "browse_services": "Browse Services",
+    "find_professionals": "Find Professionals"
+  },
   "auth": {
     "login": {
       "title": "Welcome Back",
@@ -257,17 +294,41 @@
     }
   },
   "footer": {
+    "title": "Iraqi House Services",
     "description": "Iraq's leading platform for connecting homeowners with trusted service professionals. Quality service, guaranteed trust.",
-    "services": {
-      "title": "Services",
-      "items": [
-        "Air Condition",
-        "Plumbing",
-        "Cleaning",
-        "Painter",
-        "Carpenter"
-      ]
-    },
+    "services": [
+      {
+        "title": "Platform",
+        "items": [
+          { "label": "How it Works", "href": "/services" },
+          { "label": "Browse Services", "href": "/services" },
+          { "label": "Service Areas", "href": "/about" },
+          { "label": "Pricing", "href": "/services" },
+          { "label": "Mobile App", "href": "#download" }
+        ]
+      },
+      {
+        "title": "Customer",
+        "items": [
+          { "label": "Book a Service", "href": "/services" },
+          { "label": "Help Center", "href": "/contact" },
+          { "label": "FAQ", "href": "#faq" },
+          { "label": "Customer Support", "href": "/contact" },
+          { "label": "Safety Guidelines", "href": "/privacy" }
+        ]
+      },
+      {
+        "title": "Provider",
+        "items": [
+          { "label": "Join as Provider", "href": "/providers" },
+          { "label": "Provider Dashboard", "href": "/providers" },
+          { "label": "Resources", "href": "/about" },
+          { "label": "Training", "href": "/about" },
+          { "label": "Provider Support", "href": "/contact" }
+        ]
+      }
+    ],
+    "social_links": "Social Links",
     "company": {
       "title": "Company",
       "items": [
@@ -279,9 +340,14 @@
     },
     "contact": {
       "title": "Contact Us",
-      "email": "Admin@Worktok.Org",
-      "phone": "(+964) 7519-904-575"
+      "phone": "(+964) 7519-904-575",
+      "emailTitle": "Email",
+      "email": "admin@worktok.org",
+      "locationTitle": "Location",
+      "location": "Baghdad, Iraq"
     },
-    "copyright": "© 2025 WorkTok. All Rights Reserved"
+    "copyright": "© 2025 WorkTok. All Rights Reserved",
+    "privacy_policy": "Privacy Policy",
+    "contact_us": "Contact Us"
   }
 }

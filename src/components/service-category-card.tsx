@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Category } from "@/shared/schema";
 import * as Icons from "lucide-react";
 import { SVGProps } from "react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface ServiceCategoryCardProps {
   category: Category;
@@ -17,6 +18,8 @@ interface CategoryIconProps {
 
 
 export default function ServiceCategoryCard({ category, onClick }: ServiceCategoryCardProps) {
+
+  const { language, content } = useLanguage();
 
   const CategoryIcon: React.FC<CategoryIconProps> = ({ iconName, className }) => {
     const IconComponent = Icons[iconName] as React.ComponentType<SVGProps<SVGSVGElement>> | undefined;
@@ -84,12 +87,12 @@ export default function ServiceCategoryCard({ category, onClick }: ServiceCatego
         </div>
 
         <h3 className="font-bold text-lg text-gray-900 mb-3 group-hover:text-gray-800 transition-colors line-clamp-2">
-          {category.name}
+          {category[language === 'ar' ? 'nameAr' : 'name']}
         </h3>
 
         <div className="flex items-center justify-between">
           <Badge variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors text-xs">
-            {category.providerCount}+ experts
+            {category.providerCount}+ {content.popularServices.experts}
           </Badge>
           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
         </div>

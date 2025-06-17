@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, Phone, CheckCircle, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { City, Provider } from "@/shared/schema";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface ProviderCardProps {
   provider: Provider;
@@ -13,6 +14,9 @@ interface ProviderCardProps {
 }
 
 export default function ProviderCard({ provider, city, onContact, onClick }: ProviderCardProps) {
+
+  const { content } = useLanguage();
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
@@ -69,7 +73,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
               {provider.verified && (
                 <Badge className="bg-blue-100 text-blue-700 border-blue-200 font-semibold px-3 py-1">
                   <CheckCircle className="w-3 h-3 mr-1" />
-                  Verified
+                  {content.topProviders.verified}
                 </Badge>
               )}
             </div>
@@ -97,13 +101,13 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
               }}
             >
               <Phone className="w-4 h-4 mr-1 group-hover/btn:animate-pulse" />
-              Contact
+              {content.topProviders.contact}
             </Button>
             <Button
               size="sm"
               className="bg-gradient-to-r from-[#4caf50] to-[#2e7d32] hover:to-green-700 shadow-lg hover:shadow-xl transition-all duration-300 group/btn cursor-pointer"
             >
-              View
+              {content.topProviders.view}
               <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform duration-300" />
             </Button>
           </div>
