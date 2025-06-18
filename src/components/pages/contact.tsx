@@ -169,9 +169,10 @@ export default function Contact() {
                                             <div className="grid md:grid-cols-2 gap-4">
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        {content.contactUs.form.mobile}
+                                                        {content.contactUs.form.mobile} *
                                                     </label>
                                                     <Input
+                                                        required
                                                         value={formData.phone}
                                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                         className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"

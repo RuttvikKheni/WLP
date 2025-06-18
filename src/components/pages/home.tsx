@@ -44,6 +44,29 @@ export default function Home() {
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [showAllFAQs, setShowAllFAQs] = useState(false);
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    category: "",
+    message: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    alert("Thank you for contacting us! We'll get back to you within 24 hours.");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      category: "",
+      message: ""
+    });
+  };
+
   const { content, language } = useLanguage();
   const features: Feature[] = content.whyChoose.features.map((f) => ({ ...f, icon: f.icon as IconName }));
 
@@ -517,23 +540,29 @@ export default function Home() {
 
             <Card className="max-w-4xl mx-auto shadow-2xl border-0">
               <CardContent className="p-8">
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        {content.inquiry.form.name}
+                        {content.inquiry.form.name} *
                       </label>
                       <Input
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder={content.inquiry.form.namePlaceholder}
                         className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        {content.inquiry.form.email}
+                        {content.inquiry.form.email} *
                       </label>
                       <Input
                         type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder={content.inquiry.form.emailPlaceholder}
                         className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
@@ -542,19 +571,25 @@ export default function Home() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        {content.inquiry.form.mobile}
+                        {content.inquiry.form.mobile} *
                       </label>
                       <Input
                         type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder={content.inquiry.form.mobilePlaceholder}
                         className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        {content.inquiry.form.subject}
+                        {content.inquiry.form.subject} *
                       </label>
                       <Input
+                        required
+                        value={formData.subject}
+                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder={content.inquiry.form.subjectPlaceholder}
                         className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors"
                       />
@@ -562,11 +597,14 @@ export default function Home() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      {content.inquiry.form.message}
+                      {content.inquiry.form.message} *
                     </label>
                     <Textarea
                       placeholder={content.inquiry.form.messagePlaceholder}
                       rows={6}
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 focus:border-[#4caf50] transition-colors resize-none"
                     />
                   </div>
