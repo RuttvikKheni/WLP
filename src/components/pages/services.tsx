@@ -254,13 +254,11 @@ export default function Services() {
                         ) : providers.length > 0 ? (
                             <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                                 {providers.map((provider: Provider, index: number) => {
-                                    const city = cities.find((c: City) => c.id === provider.cityId);
                                     return (
                                         <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 100}>
                                             <div className="group hover:scale-105 transition-all duration-300">
                                                 <ProviderCard
                                                     provider={provider}
-                                                    city={city}
                                                     onClick={() => router.push(`/providers/${provider.id}`)}
                                                     onContact={() => {
                                                         alert(`Contact form for ${provider.name} would open in a real application`);

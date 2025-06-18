@@ -369,14 +369,12 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {providers.map((provider: Provider, index: number) => {
-                const city = cities.find((c: { id: number }) => c.id === provider.cityId);
+              {providers.slice(0, 3).map((provider: Provider, index: number) => {
                 return (
                   <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 150}>
                     <div className="group hover:scale-[1.02] transition-all duration-300">
                       <ProviderCard
                         provider={provider}
-                        city={city}
                         onClick={() => router.push(`/providers/${provider.id}`)}
                         onContact={() => {
                           alert(`Contact form for ${provider.name} would open in a real application`);

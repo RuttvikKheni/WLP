@@ -25,7 +25,10 @@ export type Provider = {
   yearsExperience: number;
   phone: string;
   email?: string;
-  cityId: number;
+  zone?: {
+    id: number;
+    name: string;
+  };
   specialties: string[];
   reviews?: Review[];
 };

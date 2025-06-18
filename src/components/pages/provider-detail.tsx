@@ -1,4 +1,6 @@
 "use client";
+
+import moment from "moment";
 import { useQuery } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Star, MapPin, Phone, Mail, Calendar, Award, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { City, Provider } from "@/shared/schema";
+import { Provider } from "@/shared/schema";
 import { useParams } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -15,15 +17,6 @@ export default function ProviderDetail() {
   const params: { id: string } = useParams();
   const providerId = parseInt((params ?? { id: "0" }).id ?? "0");
   const { content } = useLanguage();
-
-  const { data: cities = [] } = useQuery({
-    queryKey: ['cities'],
-    queryFn: async () => {
-      const response = await fetch('/api/cities');
-      if (!response.ok) throw new Error('Failed to fetch cities');
-      return response.json();
-    }
-  });
 
   const { data: provider, isLoading: providerLoading } = useQuery<Provider>({
     queryKey: ['provider', providerId],
@@ -34,8 +27,6 @@ export default function ProviderDetail() {
     },
     enabled: !!providerId,
   });
-
-  const city = cities.find((c: City) => c.id === provider?.cityId);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -48,7 +39,7 @@ export default function ProviderDetail() {
 
   if (providerLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="pt-20 min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Skeleton className="h-8 w-32 mb-6" />
           <Card className="p-8">
@@ -69,12 +60,12 @@ export default function ProviderDetail() {
 
   if (!provider) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="pt-20 min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">{content.providerDetails.notFound}</h1>
           <p className="text-gray-600 mb-6">{content.providerDetails.notFound_description}</p>
           <Link href="/providers">
-            <Button>
+            <Button className="text-white bg-green-500 font-bold cursor-pointer">
               <ArrowLeft className="w-4 h-4 mr-2" />
               {content.providerDetails.back_provider}
             </Button>
@@ -85,11 +76,11 @@ export default function ProviderDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="pt-20 min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <Link href="/providers">
-          <Button variant="ghost" className="mb-6">
+          <Button variant="ghost" className="text-white bg-green-500 font-bold cursor-pointer mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
             {content.providerDetails.back_provider}
           </Button>
@@ -126,12 +117,10 @@ export default function ProviderDetail() {
                   </div>
                 </div>
 
-                {provider.verified && (
-                  <Badge className="text-blue-500 bg-blue-100 border-2 border-blue-500 text-sm">
-                    <Award className="w-4 h-4 mr-1" />
-                    {content.providerDetails.verified}
-                  </Badge>
-                )}
+                <Badge className="text-blue-500 bg-blue-100 border-2 border-blue-500 text-sm">
+                  <Award className="w-4 h-4 mr-1" />
+                  {content.providerDetails.verified}
+                </Badge>
               </div>
 
               <p className="text-gray-700 mb-6 leading-relaxed">
@@ -142,15 +131,15 @@ export default function ProviderDetail() {
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center text-gray-600">
                   <MapPin className="w-5 h-5 mr-2 text-iraq-green" />
-                  {city?.name || "Baghdad"}, Iraq
+                  {provider?.zone?.name || "Baghdad"}, Iraq
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Calendar className="w-5 h-5 mr-2 text-iraq-green" />
-                  {provider.yearsExperience}+ {content.providerDetails.experience}
+                  {provider.yearsExperience ?? 5}+ {content.providerDetails.experience}
                 </div>
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-gray-600 select-none">
                   <Phone className="w-5 h-5 mr-2 text-iraq-green" />
-                  {provider.phone}
+                  <span className="font-bold blur-xs">{provider.phone}</span>
                 </div>
                 {provider.email && (
                   <div className="flex items-center text-gray-600">
@@ -213,7 +202,7 @@ export default function ProviderDetail() {
                         <div className="flex">
                           {renderStars(review.rating)}
                         </div>
-                        <span className="ml-2 text-sm text-gray-600">{review.date}</span>
+                        <span className="ml-2 text-sm text-gray-600">{moment(review.date).format('MM/DD/YYYY')}</span>
                       </div>
                     </div>
                   </div>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -5,6 +8,7 @@ import { Star, MapPin, Phone, CheckCircle, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { City, Provider } from "@/shared/schema";
 import { useLanguage } from "@/hooks/useLanguage";
+import UserProfile from "@/assets/images/UserProfile.png";
 
 interface ProviderCardProps {
   provider: Provider;
@@ -13,9 +17,21 @@ interface ProviderCardProps {
   onClick?: () => void;
 }
 
-export default function ProviderCard({ provider, city, onContact, onClick }: ProviderCardProps) {
+export default function ProviderCard({ provider, onContact, onClick }: ProviderCardProps) {
 
   const { content } = useLanguage();
+
+  const [imageSrc, setImageSrc] = useState<string | typeof UserProfile>(UserProfile);
+
+  useEffect(() => {
+    if (!provider.avatar) return;
+
+    const img = new window.Image();
+    img.src = provider.avatar;
+
+    img.onload = () => setImageSrc(provider.avatar)
+    img.onerror = () => setImageSrc(UserProfile)
+  }, [provider]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -38,11 +54,11 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
         <div className="flex items-start space-x-4 mb-4">
           <div className="relative">
             <Image
-              src={provider.avatar}
+              src={imageSrc}
               alt={provider.name}
-              className="w-16 h-16 rounded-full object-cover ring-4 ring-gray-100 group-hover:ring-green-200 transition-all duration-300"
-              width={64}
-              height={64}
+              className="w-20 h-20 rounded-full object-cover ring-4 ring-gray-100 group-hover:ring-green-200 transition-all duration-300"
+              width={80}
+              height={80}
             />
             {provider.verified && (
               <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1">
@@ -70,12 +86,10 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
                 </div>
               </div>
 
-              {provider.verified && (
-                <Badge className="bg-blue-100 text-blue-700 border-blue-200 font-semibold px-3 py-1">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  {content.topProviders.verified}
-                </Badge>
-              )}
+              <Badge className="bg-blue-100 text-blue-700 border-blue-200 font-semibold px-3 py-1">
+                <CheckCircle className="w-3 h-3 mr-1" />
+                {content.topProviders.verified}
+              </Badge>
             </div>
           </div>
         </div>
@@ -87,7 +101,7 @@ export default function ProviderCard({ provider, city, onContact, onClick }: Pro
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-500 flex items-center">
             <MapPin className="w-4 h-4 mr-1 text-green-500" />
-            <span className="font-medium">{city?.name || "Baghdad"}, Iraq</span>
+            <span className="font-medium">{provider.zone?.name || "Baghdad"}, Iraq</span>
           </div>
 
           <div className="flex gap-2">

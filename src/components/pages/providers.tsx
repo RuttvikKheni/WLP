@@ -148,12 +148,10 @@ export default function Providers() {
             ))
           ) : providers.length > 0 ? (
             providers.map((provider: Provider) => {
-              const city = cities.find((c: City) => c.id === provider.cityId);
               return (
                 <ProviderCard
                   key={provider.id}
                   provider={provider}
-                  city={city}
                   onClick={() => router.push(`/providers/${provider.id}`)}
                   onContact={() => {
                     alert(`Contact form for ${provider.name} would open in a real application`);
