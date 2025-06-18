@@ -27,6 +27,7 @@ export type Provider = {
   email?: string;
   cityId: number;
   specialties: string[];
+  reviews?: Review[];
 };
 
 export type FormData = {

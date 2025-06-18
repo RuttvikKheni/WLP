@@ -62,10 +62,10 @@ export default function Services() {
 
 
     const { data: providers = [], isLoading } = useQuery({
-        queryKey: ['featuredProviders'],
+        queryKey: ['providers'],
         queryFn: async () => {
-            const response = await fetch('/api/providers/featured');
-            if (!response.ok) throw new Error('Failed to fetch featuredProviders');
+            const response = await fetch('/api/providers');
+            if (!response.ok) throw new Error('Failed to fetch providers');
             return response.json();
         }
     });

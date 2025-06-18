@@ -88,11 +88,11 @@ export default function Home() {
     }
   });
 
-  const { data: featuredProviders = [] } = useQuery({
-    queryKey: ['featuredProviders'],
+  const { data: providers = [] } = useQuery({
+    queryKey: ['providers'],
     queryFn: async () => {
-      const response = await fetch('/api/providers/featured');
-      if (!response.ok) throw new Error('Failed to fetch featuredProviders');
+      const response = await fetch('/api/providers');
+      if (!response.ok) throw new Error('Failed to fetch providers');
       return response.json();
     }
   });
@@ -369,7 +369,7 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProviders.map((provider: Provider, index: number) => {
+              {providers.map((provider: Provider, index: number) => {
                 const city = cities.find((c: { id: number }) => c.id === provider.cityId);
                 return (
                   <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 150}>

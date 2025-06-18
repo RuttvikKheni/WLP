@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Star, MapPin, Phone, Mail, Calendar, Award, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { City, Provider, Review } from "@/shared/schema";
+import { City, Provider } from "@/shared/schema";
 import { useParams } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -33,16 +33,6 @@ export default function ProviderDetail() {
       return response.json();
     },
     enabled: !!providerId,
-  });
-
-  const { data: reviews = [], isLoading: reviewsLoading } = useQuery<Review[]>({
-    queryKey: ['providerReviews', providerId],
-    queryFn: async () => {
-      const response = await fetch(`/api/providers/${providerId}/reviews`);
-      if (!response.ok) throw new Error('Failed to fetch provider reviews');
-      return response.json();
-    },
-    enabled: !!providerId
   });
 
   const city = cities.find((c: City) => c.id === provider?.cityId);
@@ -202,7 +192,7 @@ export default function ProviderDetail() {
         <Card className="p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">{content.providerDetails.customer_reviews}</h2>
 
-          {reviewsLoading ? (
+          {providerLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }, (_, i) => (
                 <div key={i} className="border-b pb-4">
@@ -212,9 +202,9 @@ export default function ProviderDetail() {
                 </div>
               ))}
             </div>
-          ) : reviews.length > 0 ? (
+          ) : provider?.reviews && provider?.reviews?.length > 0 ? (
             <div className="space-y-6">
-              {reviews.map((review) => (
+              {provider.reviews.map((review) => (
                 <div key={review.id} className="border-b pb-6 last:border-b-0">
                   <div className="flex items-start justify-between mb-3">
                     <div>
