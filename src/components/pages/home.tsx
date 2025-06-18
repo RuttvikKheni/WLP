@@ -252,7 +252,7 @@ export default function Home() {
                           <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer focus:border-green-500 transition-colors focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder={content.hero.form.location_search} />
                           </SelectTrigger>
-                          <SelectContent className="bg-white text-gray-900">
+                          <SelectContent className="bg-white text-gray-900 max-h-[250px]">
                             {cities.map((city: { id: number; name: string; nameAr: string }) => (
                               <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                                 {language === 'ar' ? city.nameAr : city.name}

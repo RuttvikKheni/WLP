@@ -133,7 +133,7 @@ export default function Services() {
                                     <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                                         <SelectValue placeholder={content.services.all_categories} />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white text-gray-900">
+                                    <SelectContent className="bg-white text-gray-900 max-h-[250px]">
                                         <SelectItem value="all">{content.services.all_categories}</SelectItem>
                                         {categories.map((category: Category) => (
                                             <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
@@ -147,11 +147,11 @@ export default function Services() {
                                     <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
                                         <SelectValue placeholder={content.services.all_cities} />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white text-gray-900">
+                                    <SelectContent className="bg-white text-gray-900 ">
                                         <SelectItem value="all">{content.services.all_cities}</SelectItem>
                                         {cities.map((city: City) => (
                                             <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                                                    
+                                                {language === 'ar' ? city.nameAr : city.name}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
