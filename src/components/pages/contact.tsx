@@ -6,8 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, MessageCircle, HeadphonesIcon } from "lucide-react";
 import AnimatedSection from "@/components/animated-section";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Contact() {
+
+    const { content } = useLanguage();
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -34,33 +38,33 @@ export default function Contact() {
     const contactInfo = [
         {
             icon: Phone,
-            title: "Phone Support",
-            value: "+964 770 123 4567",
-            description: "Available 24/7 for urgent inquiries",
+            title: content.contactUs.info.phone.title,
+            value: content.contactUs.info.phone.value,
+            description: content.contactUs.info.phone.description,
             color: "text-green-600",
             bg: "bg-green-100"
         },
         {
             icon: Mail,
-            title: "Email Support",
-            value: "support@worktok.iq",
-            description: "Response within 2-4 hours",
+            title: content.contactUs.info.email.title,
+            value: content.contactUs.info.email.value,
+            description: content.contactUs.info.email.description,
             color: "text-blue-600",
             bg: "bg-blue-100"
         },
         {
             icon: MapPin,
-            title: "Head Office",
-            value: "Baghdad, Iraq",
-            description: "Al-Karrada District, Building 45",
+            title: content.contactUs.info.address.title,
+            value: content.contactUs.info.address.value,
+            description: content.contactUs.info.address.description,
             color: "text-purple-600",
             bg: "bg-purple-100"
         },
         {
             icon: Clock,
-            title: "Business Hours",
-            value: "24/7 Support",
-            description: "Sunday to Thursday: 8AM - 8PM",
+            title: content.contactUs.info.workingHours.title,
+            value: content.contactUs.info.workingHours.value,
+            description: content.contactUs.info.workingHours.description,
             color: "text-orange-600",
             bg: "bg-orange-100"
         }
@@ -82,12 +86,12 @@ export default function Contact() {
                     <div className="relative max-w-6xl mx-auto text-center">
                         <AnimatedSection animationType="slideUp" delay={200}>
                             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                                Contact Us
+                                {content.contactUs.title}
                             </h1>
                         </AnimatedSection>
                         <AnimatedSection animationType="slideUp" delay={400}>
                             <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-4xl mx-auto">
-                                Have questions? We&apos;re here to help! Reach out to our dedicated support team
+                                {content.contactUs.subTitle}
                             </p>
                         </AnimatedSection>
                     </div>
@@ -129,7 +133,7 @@ export default function Contact() {
                                     <CardHeader className="bg-gradient-to-r from-green-600 to-green-500 text-white rounded-t-lg">
                                         <CardTitle className="flex items-center gap-3 text-2xl">
                                             <MessageCircle className="w-6 h-6" />
-                                            Send us a Message
+                                            {content.contactUs.form.sendMessage}
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-8">
@@ -137,19 +141,19 @@ export default function Contact() {
                                             <div className="grid md:grid-cols-2 gap-4">
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        Full Name *
+                                                        {content.contactUs.form.fullName} *
                                                     </label>
                                                     <Input
                                                         required
                                                         value={formData.name}
                                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                         className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
-                                                        placeholder="Your full name"
+                                                        placeholder={content.contactUs.form.namePlaceholder}
                                                     />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        Email Address *
+                                                        {content.contactUs.form.email} *
                                                     </label>
                                                     <Input
                                                         type="email"
@@ -157,7 +161,7 @@ export default function Contact() {
                                                         value={formData.email}
                                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                         className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
-                                                        placeholder="your.email@example.com"
+                                                        placeholder={content.contactUs.form.emailPlaceholder}
                                                     />
                                                 </div>
                                             </div>
@@ -165,32 +169,32 @@ export default function Contact() {
                                             <div className="grid md:grid-cols-2 gap-4">
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        Phone Number
+                                                        {content.contactUs.form.mobile}
                                                     </label>
                                                     <Input
                                                         value={formData.phone}
                                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                         className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
-                                                        placeholder="+964 770 123 4567"
+                                                        placeholder={content.contactUs.form.mobilePlaceholder}
                                                     />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                        Subject *
+                                                        {content.contactUs.form.subject} *
                                                     </label>
                                                     <Input
                                                         required
                                                         value={formData.subject}
                                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                                         className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
-                                                        placeholder="Brief description of your inquiry"
+                                                        placeholder={content.contactUs.form.subjectPlaceholder}
                                                     />
                                                 </div>
                                             </div>
 
                                             <div>
                                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                                    Message *
+                                                    {content.contactUs.form.message} *
                                                 </label>
                                                 <Textarea
                                                     required
@@ -198,7 +202,7 @@ export default function Contact() {
                                                     value={formData.message}
                                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                                     className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
-                                                    placeholder="Please provide details about your inquiry..."
+                                                    placeholder={content.contactUs.form.messagePlaceholder}
                                                 />
                                             </div>
 
@@ -206,7 +210,7 @@ export default function Contact() {
                                                 type="submit"
                                                 className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
                                             >
-                                                Send Message
+                                                {content.contactUs.form.submit}
                                             </Button>
                                         </form>
                                     </CardContent>
@@ -234,10 +238,10 @@ export default function Contact() {
                                             <div className="absolute inset-0 z-10 bg-white/50 backdrop-blur-sm flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300">
                                                 <div className="text-center">
                                                     <MapPin className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                                                    <h3 className="text-xl font-bold text-gray-800 mb-2">Our Location</h3>
-                                                    <p className="text-gray-600">Baghdad, Al-Karrada District</p>
-                                                    <p className="text-gray-600">Building 45, Floor 3</p>
-                                                    <p className="mt-2 text-green-700 font-semibold">Click to open in Maps</p>
+                                                    <h3 className="text-xl font-bold text-gray-800 mb-2">{content.contactUs.map.title}</h3>
+                                                    <p className="text-gray-600">{content.contactUs.map.address}</p>
+                                                    <p className="text-gray-600">{content.contactUs.map.subAddress}</p>
+                                                    <p className="mt-2 text-green-700 font-semibold">{content.contactUs.map.clickOn}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -248,12 +252,12 @@ export default function Contact() {
                                         <CardHeader className="bg-gradient-to-r from-green-600 to-green-500 text-white">
                                             <CardTitle className="flex items-center gap-3">
                                                 <HeadphonesIcon className="w-6 h-6" />
-                                                Need Immediate Help?
+                                                {content.contactUs.quickSupport.title}
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-6">
                                             <p className="text-gray-600 mb-6">
-                                                For urgent matters, our support team is available 24/7 via phone or live chat.
+                                                {content.contactUs.quickSupport.subTitle}
                                             </p>
                                             <div className="space-y-3">
                                                 <Button
@@ -261,7 +265,7 @@ export default function Contact() {
                                                     onClick={() => window.open('tel:+9647701234567')}
                                                 >
                                                     <Phone className="w-4 h-4 mr-2" />
-                                                    Call Now: +964 770 123 4567
+                                                    {content.contactUs.quickSupport.phone}
                                                 </Button>
                                             </div>
                                         </CardContent>
@@ -279,29 +283,29 @@ export default function Contact() {
                 <section className="py-20 px-4 bg-gray-50">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-                            Our Response Commitment
+                            {content.contactUs.responseType.title}
                         </h2>
                         <div className="grid md:grid-cols-3 gap-8">
                             <div className="p-6">
                                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <MessageCircle className="w-8 h-8 text-green-600" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-800 mb-2">Live Chat</h3>
-                                <p className="text-gray-600">Instant response during business hours</p>
+                                <h3 className="text-xl font-bold text-gray-800 mb-2">{content.contactUs.responseType.chat.title}</h3>
+                                <p className="text-gray-600">{content.contactUs.responseType.chat.description}</p>
                             </div>
                             <div className="p-6">
                                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Mail className="w-8 h-8 text-blue-600" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-800 mb-2">Email</h3>
-                                <p className="text-gray-600">Response within 2-4 hours</p>
+                                <h3 className="text-xl font-bold text-gray-800 mb-2">{content.contactUs.responseType.mail.title}</h3>
+                                <p className="text-gray-600">{content.contactUs.responseType.mail.description}</p>
                             </div>
                             <div className="p-6">
                                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Phone className="w-8 h-8 text-purple-600" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-800 mb-2">Phone</h3>
-                                <p className="text-gray-600">24/7 availability for urgent matters</p>
+                                <h3 className="text-xl font-bold text-gray-800 mb-2">{content.contactUs.responseType.phone.title}</h3>
+                                <p className="text-gray-600">{content.contactUs.responseType.phone.description}</p>
                             </div>
                         </div>
                     </div>

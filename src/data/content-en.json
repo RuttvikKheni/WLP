@@ -488,6 +488,168 @@
     "customer_reviews": "Customer Reviews",
     "no_reviews": "No reviews yet. Be the first to review this provider!"
   },
+  "contactUs": {
+    "title": "Contact Us",
+    "subTitle": "Have questions? We're here to help! Reach out to our dedicated support team",
+    "info": {
+      "phone": {
+        "title": "Phone Support",
+        "value": "+964 770 123 4567",
+        "description": "Available 24/7 for urgent inquiries"
+      },
+      "email": {
+        "title": "Email Support",
+        "value": "admin@worktok.org",
+        "description": "Response within 2-4 hours"
+      },
+      "address": {
+        "title": "Head Office",
+        "value": "Baghdad, Iraq",
+        "description": "Al-Karrada District, Building 45"
+      },
+      "workingHours": {
+        "title": "Business Hours",
+        "value": "24/7 Support",
+        "description": "Sunday to Thursday: 8AM - 8PM"
+      }
+    },
+    "form": {
+      "sendMessage": "Send us a Message",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "mobile": "Phone Number",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your.email@example.com",
+      "mobilePlaceholder": "+964 770 123 4567",
+      "subjectPlaceholder": "Brief description of your inquiry",
+      "messagePlaceholder": "Please provide details about your inquiry..."
+    },
+    "map": {
+      "title": "Our Location",
+      "address": "Baghdad, Al-Karrada District, Iraq",
+      "subAddress": "Building 45, Floor 3",
+      "clickOn": "Click to open in Maps"
+    },
+    "quickSupport": {
+      "title": "Need Immediate Help?",
+      "subTitle": "For urgent matters, our support team is available 24/7 via phone or live chat.",
+      "phone": "Call Now: +964 770 123 4567"
+    },
+    "responseType": {
+      "title": "Our Response Commitment",
+      "chat": {
+        "title": "Live Chat",
+        "description": "Instant response during business hours"
+      },
+      "mail": {
+        "title": "Email",
+        "description": "Response within 2-4 hours"
+      },
+      "phone": {
+        "title": "Phone",
+        "description": "24/7 availability for urgent matters"
+      }
+    }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "subTitle": "Your privacy and data security are our top priorities. Learn how we protect and handle your information.",
+    "date": "Last updated",
+    "commitment": {
+      "title": "Our Commitment to Your Privacy",
+      "description_1": "At WorkTok, we understand that your personal information is valuable and deserves protection. This Privacy Policy explains how we collect, use, share, and protect your information when you use our platform to connect with service providers across Iraq.",
+      "description_2": "By using our services, you agree to the collection and use of information in accordance with this policy. We are committed to transparency and will notify you of any significant changes to our privacy practices."
+    },
+    "questions": {
+      "title": "Questions About Your Privacy?",
+      "subTitle": "If you have any questions about this Privacy Policy or how we handle your data, please don't hesitate to contact us.",
+      "email-1": {
+        "title": "Email Us",
+        "value": "privacy@worktok.org"
+      },
+      "email-2": {
+        "title": "Data Protection Officer",
+        "value": "dpo@worktok.org"
+      }
+    },
+    "legalCompliance": {
+      "title": "Legal Compliance",
+      "description": "This privacy policy complies with applicable Iraqi data protection laws and international best practices. WorkTok is committed to protecting your privacy rights and maintaining the highest standards of data security."
+    },
+    "polices": [
+      {
+        "icon": "FileText",
+        "title": "Information We Collect",
+        "content": [
+          "Personal information you provide when registering (name, email, phone number)",
+          "Professional information for service providers (qualifications, experience, certifications)",
+          "Transaction and payment information for completed services",
+          "Usage data and analytics to improve our platform",
+          "Device information and IP addresses for security purposes"
+        ]
+      },
+      {
+        "icon": "Eye",
+        "title": "How We Use Your Information",
+        "content": [
+          "To connect customers with qualified service providers",
+          "To process payments and maintain transaction records",
+          "To verify service provider credentials and maintain quality standards",
+          "To provide customer support and resolve disputes",
+          "To send important updates about our services and policies",
+          "To improve our platform through analytics and user feedback"
+        ]
+      },
+      {
+        "icon": "UserCheck",
+        "title": "Information Sharing",
+        "content": [
+          "We share contact information between customers and service providers for completed bookings",
+          "We may share aggregated, non-personal data for business analytics",
+          "We comply with legal requests from authorized government agencies",
+          "We work with trusted payment processors to handle transactions securely",
+          "We never sell your personal information to third parties for marketing purposes"
+        ]
+      },
+      {
+        "icon": "Lock",
+        "title": "Data Security",
+        "content": [
+          "All data is encrypted in transit and at rest using industry-standard protocols",
+          "Payment information is processed through PCI-compliant payment processors",
+          "Access to personal data is restricted to authorized personnel only",
+          "Regular security audits and monitoring to detect potential threats",
+          "Secure data centers with physical and digital access controls"
+        ]
+      },
+      {
+        "icon": "Shield",
+        "title": "Your Rights",
+        "content": [
+          "Access and review your personal information at any time",
+          "Request corrections to inaccurate or incomplete data",
+          "Delete your account and associated data (subject to legal requirements)",
+          "Opt out of non-essential communications and marketing",
+          "Request a copy of your data in a portable format",
+          "File complaints with relevant data protection authorities"
+        ]
+      },
+      {
+        "icon": "AlertCircle",
+        "title": "Data Retention",
+        "content": [
+          "Account information is retained while your account is active",
+          "Transaction records are kept for 7 years for legal and accounting purposes",
+          "Support communications are retained for 2 years",
+          "Analytics data is anonymized and may be retained indefinitely",
+          "Deleted accounts are permanently removed within 30 days of deletion request"
+        ]
+      }
+    ]
+  },
   "noPageFound": {
     "title": "404 Page Not Found",
     "description": "Did you forget to add the page to the router?"
