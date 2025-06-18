@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
+import { AxiosError } from "axios";
+import { apiList } from "../../../API/ApiList";
+import ApiService from "../../../API/ApiService";
 
 export async function GET() {
-  // Mock data for development
-  const mockCities = [
-    { id: 1, name: "Baghdad", nameAr: "بغداد" },
-    { id: 2, name: "Basra", nameAr: "البصرة" },
-    { id: 3, name: "Erbil", nameAr: "أربيل" },
-    { id: 4, name: "Mosul", nameAr: "الموصل" },
-    { id: 5, name: "Najaf", nameAr: "النجف" },
-    { id: 6, name: "Karbala", nameAr: "كربلاء" },
-  ];
+  try {
+    const response = await ApiService(apiList.GET_ALL_CITIES, "GET");
 
-  return NextResponse.json(mockCities);
+    if (response.ack) return NextResponse.json(response.zones);
+
+    return NextResponse.json([]);
+  } catch (error) {
+    const err = error as AxiosError;
+
+    console.error("Error fetching cities:", err.message);
+    return NextResponse.json({
+      ack: 0,
+      status: err.response?.status || 500,
+      error: "Failed to fetch cities",
+      message: err.message,
+    });
+  }
 }
