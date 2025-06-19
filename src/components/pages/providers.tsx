@@ -49,7 +49,7 @@ export default function Providers() {
     }
   });
 
-  const { data, isLoading, isFetching } = useQuery<{
+  const { data, isLoading, isFetching, refetch } = useQuery<{
     data: Provider[];
     total: number
   }>({
@@ -69,6 +69,15 @@ export default function Providers() {
   });
 
   useEffect(() => {
+    const getData = async () => {
+      const refetchData = await refetch();
+      if (refetchData?.data?.data) setAllProviders(refetchData?.data?.data);
+      setOffset(0);
+    }
+    if (providers.length === 0 && hasMore) getData()
+  }, [providers, hasMore, refetch]);
+
+  useEffect(() => {
     if (!data || data?.data?.length === 0) return;
     setAllProviders(prev => [...prev, ...data?.data]);
   }, [data]);
@@ -78,10 +87,8 @@ export default function Providers() {
     setHasMore((providers.length < data?.total && Boolean(data?.data?.length)));
   }, [providers, data]);
 
-  useEffect(() => {
-    setAllProviders([]);
-    setOffset(0);
-  }, [selectedCategory, selectedCity, debouncedSearchQuery]);
+  useEffect(() => setAllProviders([]), [selectedCategory, selectedCity, debouncedSearchQuery]);
+  useEffect(() => setOffset(0), [selectedCategory, selectedCity, debouncedSearchQuery]);
 
   const handleLoadMore = () => setOffset(providers.length);
 

@@ -13,17 +13,29 @@ import AnimatedSection from "@/components/animated-section";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Category, City, Provider } from "@/shared/schema";
 import { useRouter } from "next/navigation";
+import { createUrl } from "@/lib/common";
 
 export default function Services() {
     const router = useRouter();
 
     const [searchQuery, setSearchQuery] = useState("");
+    const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showCategories, setShowCategories] = useState(true);
 
+    const [offset, setOffset] = useState(0);
+    const [providers, setAllProviders] = useState<Provider[]>([]);
+    const [hasMore, setHasMore] = useState(false);
+
     const { content, language } = useLanguage();
+
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedSearchQuery(searchQuery), 300);
+        if (searchQuery === "") setDebouncedSearchQuery("");
+        return () => clearTimeout(handler);
+    }, [searchQuery]);
 
     // Get URL parameters
     useEffect(() => {
@@ -60,16 +72,6 @@ export default function Services() {
         }
     });
 
-
-    const { data: providers = [], isLoading } = useQuery({
-        queryKey: ['providers'],
-        queryFn: async () => {
-            const response = await fetch('/api/providers');
-            if (!response.ok) throw new Error('Failed to fetch providers');
-            return response.json().then((data: { data: Provider[] }) => (data?.data || []));
-        }
-    });
-
     const handleSearch = () => {
         setShowCategories(false);
     };
@@ -78,6 +80,40 @@ export default function Services() {
         setSelectedCategory(categoryId);
         setShowCategories(false);
     };
+
+    const { data, isLoading, isFetching } = useQuery<{
+        data: Provider[];
+        total: number
+    }>({
+        queryKey: ['providers', offset, debouncedSearchQuery, selectedCategory, selectedCity],
+        placeholderData: (prev) => prev,
+        queryFn: async () => {
+            const query = {
+                offset,
+                category: selectedCategory,
+                city: selectedCity,
+                search: debouncedSearchQuery,
+            }
+            const response = await fetch(createUrl('/api/providers', query));
+            if (!response.ok) throw new Error('Failed to fetch providers');
+            return response.json();
+        }
+    });
+
+    useEffect(() => {
+        if (!data || data?.data?.length === 0) return;
+        setAllProviders(prev => [...prev, ...data?.data]);
+    }, [data]);
+
+    useEffect(() => {
+        if (!data) return;
+        setHasMore((providers.length < data?.total && Boolean(data?.data?.length)));
+    }, [providers, data]);
+
+    useEffect(() => setAllProviders([]), [selectedCategory, selectedCity, debouncedSearchQuery]);
+    useEffect(() => setOffset(0), [selectedCategory, selectedCity, debouncedSearchQuery]);
+
+    const handleLoadMore = () => setOffset(providers.length);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 pt-25">
@@ -225,7 +261,7 @@ export default function Services() {
                         <div className="mb-8 flex items-center justify-between">
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-800">
-                                    {providers.length}{" "}{content.services.provider}{providers.length !== 1 ? 's' : ''}{" "}{content.services.found}
+                                    {data?.total}{" "}{content.services.provider}{data?.total !== 1 ? 's' : ''}{" "}{content.services.found}
                                 </h2>
                                 {selectedCategory && (
                                     <p className="text-gray-600 mt-1">
@@ -261,7 +297,7 @@ export default function Services() {
                                     );
                                 })}
                             </div>
-                        ) : (
+                        ) : !isFetching && (
                             <AnimatedSection animationType="fadeIn">
                                 <div className="text-center py-20">
                                     <div className="max-w-md mx-auto">
@@ -290,6 +326,46 @@ export default function Services() {
                         )}
                     </AnimatedSection>
                 )}
+
+                {/* Load More */}
+                {
+                    !showCategories && (
+                        <>
+                            <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'} mt-6`}>
+                                {(hasMore && isFetching) && (
+                                    Array.from({ length: 6 }, (_, i) => (
+                                        <Card key={i} className="p-6">
+                                            <div className="flex items-start space-x-4 mb-4">
+                                                <Skeleton className="w-16 h-16 rounded-full" />
+                                                <div className="flex-1">
+                                                    <Skeleton className="h-5 w-3/4 mb-2" />
+                                                    <Skeleton className="h-4 w-1/2 mb-2" />
+                                                    <Skeleton className="h-4 w-2/3" />
+                                                </div>
+                                                <Skeleton className="h-6 w-16" />
+                                            </div>
+                                            <Skeleton className="h-16 w-full mb-4" />
+                                            <div className="flex justify-between items-center">
+                                                <Skeleton className="h-4 w-1/3" />
+                                                <Skeleton className="h-9 w-24" />
+                                            </div>
+                                        </Card>
+                                    ))
+                                )}
+                            </div>
+                            {hasMore && !isFetching && (
+                                <div className="flex justify-center mt-8">
+                                    <button
+                                        onClick={handleLoadMore}
+                                        className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold transition cursor-pointer"
+                                    >
+                                        {content.provider.load_more}
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    )
+                }
 
                 {/* Call to Action */}
                 {!showCategories && providers.length > 0 && (
