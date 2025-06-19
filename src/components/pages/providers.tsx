@@ -69,6 +69,11 @@ export default function Providers() {
   });
 
   useEffect(() => {
+    if (!data || data?.data?.length === 0) return;
+    setAllProviders(prev => [...prev, ...data?.data]);
+  }, [data]);
+
+  useEffect(() => {
     const getData = async () => {
       const refetchData = await refetch();
       if (refetchData?.data?.data) setAllProviders(refetchData?.data?.data);
@@ -76,11 +81,6 @@ export default function Providers() {
     }
     if (providers.length === 0 && hasMore) getData()
   }, [providers, hasMore, refetch]);
-
-  useEffect(() => {
-    if (!data || data?.data?.length === 0) return;
-    setAllProviders(prev => [...prev, ...data?.data]);
-  }, [data]);
 
   useEffect(() => {
     if (!data) return;

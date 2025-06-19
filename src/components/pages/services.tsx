@@ -81,7 +81,7 @@ export default function Services() {
         setShowCategories(false);
     };
 
-    const { data, isLoading, isFetching } = useQuery<{
+    const { data, isLoading, isFetching, refetch } = useQuery<{
         data: Provider[];
         total: number
     }>({
@@ -104,6 +104,15 @@ export default function Services() {
         if (!data || data?.data?.length === 0) return;
         setAllProviders(prev => [...prev, ...data?.data]);
     }, [data]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const refetchData = await refetch();
+            if (refetchData?.data?.data) setAllProviders(refetchData?.data?.data);
+            setOffset(0);
+        }
+        if (providers.length === 0) getData()
+    }, [providers, refetch]);
 
     useEffect(() => {
         if (!data) return;
@@ -315,7 +324,7 @@ export default function Services() {
                                                 setSelectedCategory("");
                                                 setShowCategories(true);
                                             }}
-                                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                            className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-700 hover:to-green-700 cursor-pointer"
                                         >
                                             {content.services.browse_categories}
                                             <ArrowRight className="w-4 h-4 ml-2" />
