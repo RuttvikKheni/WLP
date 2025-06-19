@@ -12,11 +12,15 @@ import Image from "next/image";
 import { Provider } from "@/shared/schema";
 import { useParams } from "next/navigation";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useEffect, useState } from "react";
+import UserProfile from "@/assets/images/UserProfile.png";
 
 export default function ProviderDetail() {
   const params: { id: string } = useParams();
   const providerId = parseInt((params ?? { id: "0" }).id ?? "0");
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
+
+  const [imageSrc, setImageSrc] = useState<string | typeof UserProfile>(UserProfile);
 
   const { data: provider, isLoading: providerLoading } = useQuery<Provider>({
     queryKey: ['provider', providerId],
@@ -27,6 +31,16 @@ export default function ProviderDetail() {
     },
     enabled: !!providerId,
   });
+
+  useEffect(() => {
+    if (!provider || !provider.avatar) return;
+
+    const img = new window.Image();
+    img.src = provider.avatar;
+
+    img.onload = () => setImageSrc(provider.avatar)
+    img.onerror = () => setImageSrc(UserProfile)
+  }, [provider]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -91,7 +105,7 @@ export default function ProviderDetail() {
           <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
             <div className="flex-shrink-0 rounded-full ring-4 ring-green-300 overflow-hidden">
               <Image
-                src={provider.avatar}
+                src={imageSrc}
                 alt={provider.name}
                 className="w-32 h-32 object-cover"
                 width={128}
@@ -103,7 +117,7 @@ export default function ProviderDetail() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">{provider.name}</h1>
-                  <p className="text-xl text-green-500 font-semibold mb-2">{provider.profession}</p>
+                  <p className="text-xl text-green-500 font-semibold mb-2">{provider[language === 'en' ? 'profession' : 'professionAr']}</p>
                   <div className="flex items-center mb-4">
                     <div className="flex">
                       {renderStars(provider.rating)}
@@ -124,7 +138,7 @@ export default function ProviderDetail() {
               </div>
 
               <p className="text-gray-700 mb-6 leading-relaxed">
-                {provider.bio}
+                {provider[language === 'en' ? 'bio' : 'bioAr']}
               </p>
 
               {/* Contact Info */}
@@ -137,10 +151,12 @@ export default function ProviderDetail() {
                   <Calendar className="w-5 h-5 mr-2 text-iraq-green" />
                   {provider.yearsExperience ?? 5}+ {content.providerDetails.experience}
                 </div>
-                <div className="flex items-center text-gray-600 select-none">
-                  <Phone className="w-5 h-5 mr-2 text-iraq-green" />
-                  <span className="font-bold blur-xs">{provider.phone}</span>
-                </div>
+                {provider.phone &&
+                  <div className="flex items-center text-gray-600">
+                    <Phone className="w-5 h-5 mr-2 text-iraq-green" />
+                    {provider.phone}
+                  </div>
+                }
                 {provider.email && (
                   <div className="flex items-center text-gray-600">
                     <Mail className="w-5 h-5 mr-2 text-iraq-green" />
@@ -154,7 +170,7 @@ export default function ProviderDetail() {
                 <div className="mb-6">
                   <h3 className="font-semibold text-gray-900 mb-2">{content.providerDetails.specialties}:</h3>
                   <div className="flex flex-wrap gap-2">
-                    {provider.specialties.map((specialty, index) => (
+                    {provider[language === 'en' ? 'specialties' : 'specialtiesAr'].map((specialty, index) => (
                       <Badge key={index} variant="secondary" className="bg-green-800">
                         {specialty}
                       </Badge>
@@ -206,7 +222,7 @@ export default function ProviderDetail() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+                  <p className="text-gray-700 leading-relaxed">{Boolean(review.comment) ? review.comment : "No comment"}</p>
                 </div>
               ))}
             </div>

@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "images.unsplash.com",
-      "pixabay.com",
       "worktok-dev-app-data.s3.me-south-1.amazonaws.com",
       "worktok-stage-app-data.s3.me-south-1.amazonaws.com",
       "worktok-prod-app-data.s3.me-south-1.amazonaws.com",

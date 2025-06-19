@@ -19,7 +19,7 @@ interface ProviderCardProps {
 
 export default function ProviderCard({ provider, onContact, onClick }: ProviderCardProps) {
 
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
 
   const [imageSrc, setImageSrc] = useState<string | typeof UserProfile>(UserProfile);
 
@@ -73,7 +73,7 @@ export default function ProviderCard({ provider, onContact, onClick }: ProviderC
                 <h3 className="font-bold text-lg text-gray-900 group-hover:text-green-600 transition-colors duration-300 truncate">
                   {provider.name}
                 </h3>
-                <p className="text-green-600 font-medium mb-2 truncate">{provider.profession}</p>
+                <p className="text-green-600 font-medium mb-2 truncate">{provider[language === 'en' ? 'profession' : 'professionAr']}</p>
 
                 <div className="flex items-center gap-2">
                   <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-full">
@@ -95,7 +95,7 @@ export default function ProviderCard({ provider, onContact, onClick }: ProviderC
         </div>
 
         <p className="text-gray-600 mb-4 text-sm line-clamp-2 leading-relaxed">
-          {provider.bio}
+          {provider[language === 'en' ? 'bio' : 'bioAr']}
         </p>
 
         <div className="flex items-center justify-between">

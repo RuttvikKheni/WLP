@@ -18,10 +18,12 @@ export type Provider = {
   name: string;
   avatar: string;
   profession: string;
+  professionAr: string;
   rating: number;
   reviewCount: number;
   verified: boolean;
   bio: string;
+  bioAr: string;
   yearsExperience: number;
   phone: string;
   email?: string;
@@ -30,6 +32,7 @@ export type Provider = {
     name: string;
   };
   specialties: string[];
+  specialtiesAr: string[];
   reviews?: Review[];
 };
 
