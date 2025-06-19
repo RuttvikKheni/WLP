@@ -66,17 +66,9 @@ export default function Services() {
         queryFn: async () => {
             const response = await fetch('/api/providers');
             if (!response.ok) throw new Error('Failed to fetch providers');
-            return response.json();
+            return response.json().then((data: { data: Provider[] }) => (data?.data || []));
         }
     });
-
-    // const { data: providers = [], isLoading } = useQuery<Provider[]>({
-    //     queryKey: ["/api/providers", {
-    //         categoryId: selectedCategory ? parseInt(selectedCategory) : undefined,
-    //         cityId: selectedCity ? parseInt(selectedCity) : undefined,
-    //         search: searchQuery || undefined
-    //     }],
-    // });
 
     const handleSearch = () => {
         setShowCategories(false);

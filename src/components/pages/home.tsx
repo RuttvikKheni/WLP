@@ -93,7 +93,7 @@ export default function Home() {
     queryFn: async () => {
       const response = await fetch('/api/providers');
       if (!response.ok) throw new Error('Failed to fetch providers');
-      return response.json();
+      return response.json().then((data: { data: Provider[] }) => (data?.data || []));
     }
   });
 
