@@ -111,8 +111,8 @@ export default function Services() {
             if (refetchData?.data?.data) setAllProviders(refetchData?.data?.data);
             setOffset(0);
         }
-        if (providers.length === 0) getData()
-    }, [providers, refetch]);
+        if (providers.length === 0 && !isLoading) getData()
+    }, [providers, isLoading, refetch]);
 
     useEffect(() => {
         if (!data) return;
