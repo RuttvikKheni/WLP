@@ -102,7 +102,8 @@ export default function Services() {
 
     useEffect(() => {
         if (!data || data?.data?.length === 0) return;
-        setAllProviders(prev => [...prev, ...data?.data]);
+        setAllProviders(prev => [...prev, ...data?.data.filter(provider => !providers.find(p => p.id === provider.id))]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     useEffect(() => {
