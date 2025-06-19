@@ -138,7 +138,8 @@
     "provider": "Provider",
     "available": "Available",
     "no_provider_found": "No Providers Found",
-    "no_provider_description": "Try adjusting your search criteria or browse different service categories."
+    "no_provider_description": "Try adjusting your search criteria or browse different service categories.",
+    "load_more": "Load More"
   },
   "whyChoose": {
     "title": "Why Choose Our Platform?",

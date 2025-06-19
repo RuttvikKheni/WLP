@@ -6,10 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Users } from "lucide-react";
 import ProviderCard from "@/components/provider-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Category, City, Provider } from "@/shared/schema";
 import { useLanguage } from "@/hooks/useLanguage";
+import { createUrl } from "@/lib/common";
 
 export default function Providers() {
   const router = useRouter();
@@ -18,6 +19,17 @@ export default function Providers() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+
+  const [offset, setOffset] = useState(0);
+  const [providers, setAllProviders] = useState<Provider[]>([]);
+  const [hasMore, setHasMore] = useState(false);
+
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearchQuery(searchQuery), 300);
+    if (searchQuery === "") setDebouncedSearchQuery("");
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
 
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
@@ -37,14 +49,41 @@ export default function Providers() {
     }
   });
 
-  const { data: providers = [], isLoading } = useQuery({
-    queryKey: ['providers'],
+  const { data, isLoading, isFetching } = useQuery<{
+    data: Provider[];
+    total: number
+  }>({
+    queryKey: ['providers', offset, debouncedSearchQuery, selectedCategory, selectedCity],
+    placeholderData: (prev) => prev,
     queryFn: async () => {
-      const response = await fetch('/api/providers');
+      const query = {
+        offset,
+        category: selectedCategory,
+        city: selectedCity,
+        search: debouncedSearchQuery,
+      }
+      const response = await fetch(createUrl('/api/providers', query));
       if (!response.ok) throw new Error('Failed to fetch providers');
       return response.json();
     }
   });
+
+  useEffect(() => {
+    if (!data || data?.data?.length === 0) return;
+    setAllProviders(prev => [...prev, ...data?.data]);
+  }, [data]);
+
+  useEffect(() => {
+    if (!data) return;
+    setHasMore((providers.length < data?.total && Boolean(data?.data?.length)));
+  }, [providers, data]);
+
+  useEffect(() => {
+    setAllProviders([]);
+    setOffset(0);
+  }, [selectedCategory, selectedCity, debouncedSearchQuery]);
+
+  const handleLoadMore = () => setOffset(providers.length);
 
   return (
     <div className="bg-gray-50 py-8 pt-30">
@@ -73,7 +112,7 @@ export default function Providers() {
                   placeholder={content.provider.search_placeholder}
                   className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value ?? "")}
                 />
               </div>
             </div>
@@ -87,7 +126,7 @@ export default function Providers() {
                   <SelectValue placeholder={content.provider.all_services} />
                 </SelectTrigger>
                 <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                  <SelectItem value="all">{content.provider.all_services}</SelectItem>
+                  <SelectItem value="0">{content.provider.all_services}</SelectItem>
                   {categories.map((category: Category) => (
                     <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                       {language === 'ar' ? category.nameAr : category.name}
@@ -106,7 +145,7 @@ export default function Providers() {
                   <SelectValue placeholder={content.provider.all_cities} />
                 </SelectTrigger>
                 <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                  <SelectItem value="all">{content.provider.all_cities}</SelectItem>
+                  <SelectItem value="0">{content.provider.all_cities}</SelectItem>
                   {cities.map((city: City) => (
                     <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
                       {language === 'ar' ? city.nameAr : city.name}
@@ -118,7 +157,7 @@ export default function Providers() {
 
             <div className="flex items-end justify-center pb-3 font-bold">
               <div className="text-sm text-gray-600">
-                <strong>{providers.length}</strong>{" "}{content.provider.provider}{providers.length !== 1 ? 's' : ''}{" "}{content.provider.available}
+                <strong>{data?.total}</strong>{" "}{content.provider.provider}{data?.total !== 1 ? 's' : ''}{" "}{content.provider.available}
               </div>
             </div>
           </div>
@@ -159,7 +198,7 @@ export default function Providers() {
                 />
               );
             })
-          ) : (
+          ) : !isFetching && (
             <div className="col-span-full text-center py-16">
               <div className="text-gray-400 mb-4">
                 <Users className="w-16 h-16 mx-auto" />
@@ -171,6 +210,40 @@ export default function Providers() {
             </div>
           )}
         </div>
+
+        {/* Load More */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          {(hasMore && isFetching) && (
+            Array.from({ length: 6 }, (_, i) => (
+              <Card key={i} className="p-6">
+                <div className="flex items-start space-x-4 mb-4">
+                  <Skeleton className="w-16 h-16 rounded-full" />
+                  <div className="flex-1">
+                    <Skeleton className="h-5 w-3/4 mb-2" />
+                    <Skeleton className="h-4 w-1/2 mb-2" />
+                    <Skeleton className="h-4 w-2/3" />
+                  </div>
+                  <Skeleton className="h-6 w-16" />
+                </div>
+                <Skeleton className="h-16 w-full mb-4" />
+                <div className="flex justify-between items-center">
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-9 w-24" />
+                </div>
+              </Card>
+            ))
+          )}
+        </div>
+        {hasMore && !isFetching && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold transition cursor-pointer"
+            >
+              {content.provider.load_more}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

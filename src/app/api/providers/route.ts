@@ -1,13 +1,21 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { AxiosError } from "axios";
 import { apiList } from "../../../API/ApiList";
 import ApiService from "../../../API/ApiService";
+import { createUrl } from "@/lib/common";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const response = await ApiService(apiList.GET_ALL_PROVIDERS, "GET");
+    const query: Record<string, string> = Object.fromEntries(
+      request.nextUrl.searchParams.entries()
+    );
 
-    if (response.ack) return NextResponse.json(response.data);
+    const response = await ApiService(
+      createUrl(apiList.GET_ALL_PROVIDERS, query),
+      "GET"
+    );
+
+    if (response.ack) return NextResponse.json(response);
 
     return NextResponse.json([]);
   } catch (error) {
