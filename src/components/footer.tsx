@@ -81,21 +81,27 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-[#4caf50]" />
                 <div>
                   <p className="font-medium text-white">{content.footer.contact.title}</p>
-                  <p className="text-gray-400">{content.footer.contact.phone}</p>
+                  <Link href={`tel:${content.footer.contact.phone}`} className="text-gray-400 hover:text-[#4caf50] transition-colors" target="_blank">
+                    <p>{content.footer.contact.phone}</p>
+                  </Link>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-[#4caf50]" />
                 <div>
                   <p className="font-medium text-white">{content.footer.contact.emailTitle}</p>
-                  <p className="text-gray-400">{content.footer.contact.email}</p>
+                  <Link href={`mailto:${content.footer.contact.email}`} className="text-gray-400 hover:text-[#4caf50] transition-colors" target="_blank">
+                    <p>{content.footer.contact.email}</p>
+                  </Link>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-[#4caf50]" />
                 <div>
                   <p className="font-medium text-white">{content.footer.contact.locationTitle}</p>
-                  <p className="text-gray-400">{content.footer.contact.location}</p>
+                  <Link href="https://www.google.com/maps/place/Baghdad,+Baghdad+Governorate,+Iraq/@33.3134517,44.2907462,12.3z/data=!4m6!3m5!1s0x15577f67a0a74193:0x9deda9d2a3b16f2c!8m2!3d33.315241!4d44.3660671!16zL20vMDFmcW0?entry=ttu&g_ep=EgoyMDI1MDYxMS4wIKXMDSoASAFQAw%3D%3D" className="text-gray-400 hover:text-[#4caf50] transition-colors" target="_blank">
+                    <p>{content.footer.contact.location}</p>
+                  </Link>
                 </div>
               </div>
             </div>

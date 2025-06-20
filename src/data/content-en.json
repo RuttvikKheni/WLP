@@ -251,7 +251,7 @@
       },
       {
         "question": "How do I contact customer support?",
-        "answer": "You can reach our customer support through the app's help section, email us at support@worktok.org, or call our helpline at (+964) 7519-904-575."
+        "answer": "You can reach our customer support through the app's help section, email us at support@worktok.org, or call our helpline at (+964) 7856075950."
       },
       {
         "question": "Do you offer emergency services?",
@@ -420,7 +420,7 @@
     },
     "contact": {
       "title": "Contact Us",
-      "phone": "(+964) 7519-904-575",
+      "phone": "+964 7856075950",
       "emailTitle": "Email",
       "email": "admin@worktok.org",
       "locationTitle": "Location",
@@ -495,7 +495,7 @@
     "info": {
       "phone": {
         "title": "Phone Support",
-        "value": "+964 770 123 4567",
+        "value": "+964 7856075950",
         "description": "Available 24/7 for urgent inquiries"
       },
       "email": {
@@ -524,7 +524,7 @@
       "submit": "Send Message",
       "namePlaceholder": "Your full name",
       "emailPlaceholder": "your.email@example.com",
-      "mobilePlaceholder": "+964 770 123 4567",
+      "mobilePlaceholder": "+964 7856075950",
       "subjectPlaceholder": "Brief description of your inquiry",
       "messagePlaceholder": "Please provide details about your inquiry..."
     },
@@ -537,7 +537,7 @@
     "quickSupport": {
       "title": "Need Immediate Help?",
       "subTitle": "For urgent matters, our support team is available 24/7 via phone or live chat.",
-      "phone": "Call Now: +964 770 123 4567"
+      "phone": "Call Now: +964 7856075950"
     },
     "responseType": {
       "title": "Our Response Commitment",

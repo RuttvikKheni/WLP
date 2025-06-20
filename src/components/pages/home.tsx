@@ -19,6 +19,10 @@ import { useLanguage } from "@/hooks/useLanguage";
 import Image from "next/image";
 import { Category, Provider } from "@/shared/schema";
 import { useRouter } from "next/navigation";
+import HomeBG1 from "@/assets/images/Home-BG-1.jpeg";
+import HomeBG2 from "@/assets/images/Home-BG-2.jpeg";
+import HomeBG3 from "@/assets/images/Home-BG-3.jpeg";
+import { formatNumberByLocal } from "@/lib/common";
 
 const iconMap = {
   Shield,
@@ -112,11 +116,7 @@ export default function Home() {
   });
 
   // Background images for hero section
-  const backgroundImages = [
-    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
-    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080"
-  ];
+  const backgroundImages = [HomeBG1, HomeBG2, HomeBG3];
 
   // Background image slider
   useEffect(() => {
@@ -285,10 +285,10 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {[
-                  { value: `${stats.verifiedProviders}+`, label: content.stats.verified_professionals, color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
-                  { value: `${stats.completedServices.toLocaleString()}+`, label: content.stats.service_completed, color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
-                  { value: `${stats.averageRating}/5`, label: content.stats.average_rating, color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
-                  { value: `${stats.cities}+`, label: content.stats.cities_covered, color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
+                  { value: `${formatNumberByLocal(stats?.verifiedProviders ?? 0)}+`, label: content.stats.verified_professionals, color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
+                  { value: `${formatNumberByLocal(stats?.completedServices ?? 0).toLocaleString()}+`, label: content.stats.service_completed, color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
+                  { value: `${formatNumberByLocal(stats?.averageRating ?? 0)}/5`, label: content.stats.average_rating, color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
+                  { value: `${formatNumberByLocal(stats?.cities ?? 0)}+`, label: content.stats.cities_covered, color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
                 ].map((stat, index) => (
                   <AnimatedSection key={index} animationType="scale" delay={stat.delay}>
                     <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-100">
@@ -647,8 +647,12 @@ export default function Home() {
                   <h3 className="text-2xl font-bold mb-4 text-white">{content.appDownload.customerApp.title}</h3>
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.customerApp.description}</p>
                   <div className="flex flex-col sm:flex-row gap-15 justify-center">
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
+                    <Link href={"https://play.google.com/store/apps/details?id=org.worktok.customer"} target="_blank">
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
+                    </Link>
+                    <Link href={"https://apps.apple.com/us/app/worktok-%D8%AE%D8%AF%D9%85%D8%A7%D8%AA-%D8%A7%D9%84%D8%A8%D9%8A%D8%AA-%D8%A7%D9%84%D8%B9%D8%B1%D8%A7%D9%82%D9%8A/id1659994661"} target="_blank">
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -661,8 +665,12 @@ export default function Home() {
                   <h3 className="text-2xl font-bold mb-4 text-white">{content.appDownload.providerApp.title}</h3>
                   <p className="text-gray-300 mb-6 leading-relaxed">{content.appDownload.providerApp.description}</p>
                   <div className="flex flex-col sm:flex-row gap-15 justify-center">
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
+                    <Link href={"https://play.google.com/store/apps/details?id=org.worktok.provider"} target="_blank">
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width={100} height={100} alt="Google Play" className="scale-150 cursor-pointer" />
+                    </Link>
+                    <Link href={"https://apps.apple.com/us/app/worktok-%D9%84%D9%84%D8%AD%D8%B1%D9%81%D9%8A%D9%8A%D9%86/id1662766442"} target="_blank">
+                      <Image src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" width={100} height={100} alt="App Store" className="scale-150 cursor-pointer" />
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

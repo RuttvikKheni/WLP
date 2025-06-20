@@ -147,7 +147,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.name}
                                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder={content.contactUs.form.namePlaceholder}
                                                     />
                                                 </div>
@@ -160,7 +160,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.email}
                                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder={content.contactUs.form.emailPlaceholder}
                                                     />
                                                 </div>
@@ -175,7 +175,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.phone}
                                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder={content.contactUs.form.mobilePlaceholder}
                                                     />
                                                 </div>
@@ -187,7 +187,7 @@ export default function Contact() {
                                                         required
                                                         value={formData.subject}
                                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                                        className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                        className="py-3 border-2 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                         placeholder={content.contactUs.form.subjectPlaceholder}
                                                     />
                                                 </div>
@@ -202,7 +202,7 @@ export default function Contact() {
                                                     rows={5}
                                                     value={formData.message}
                                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                                    className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                                    className="py-3 border-2 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                                     placeholder={content.contactUs.form.messagePlaceholder}
                                                 />
                                             </div>
@@ -263,7 +263,7 @@ export default function Contact() {
                                             <div className="space-y-3">
                                                 <Button
                                                     className="w-full bg-green-600 font-bold cursor-pointer hover:bg-green-700 text-white"
-                                                    onClick={() => window.open('tel:+9647701234567')}
+                                                    onClick={() => window.open('tel:+9647856075950')}
                                                 >
                                                     <Phone className="w-4 h-4 mr-2" />
                                                     {content.contactUs.quickSupport.phone}

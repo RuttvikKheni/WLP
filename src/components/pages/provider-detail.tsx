@@ -55,18 +55,71 @@ export default function ProviderDetail() {
     return (
       <div className="pt-20 min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Skeleton className="h-8 w-32 mb-6" />
-          <Card className="p-8">
-            <div className="flex items-start space-x-6 mb-8">
-              <Skeleton className="w-32 h-32 rounded-full" />
-              <div className="flex-1">
-                <Skeleton className="h-8 w-3/4 mb-4" />
-                <Skeleton className="h-6 w-1/2 mb-4" />
-                <Skeleton className="h-5 w-2/3 mb-4" />
-                <Skeleton className="h-16 w-full" />
+          <div>
+            <Skeleton className="h-10 w-40 mb-6" />
+            <Card className="p-8 mb-8">
+              <div className="flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-8">
+
+                {/* Image Skeleton */}
+                <div className="flex-shrink-0 rounded-full ring-4 overflow-hidden">
+                  <Skeleton className="w-32 h-32 rounded-full" />
+                </div>
+
+                {/* Right content */}
+                <div className="flex-1">
+
+                  {/* Header section */}
+                  <div className="flex items-start justify-between mb-10">
+                    <div className="space-y-2">
+                      <Skeleton className="h-8 w-75" /> {/* Name */}
+                      <Skeleton className="h-6 w-40" /> {/* Profession */}
+                      <div className="flex items-center space-x-2">
+                        <Skeleton className="h-6 w-25" /> {/* Stars */}
+                        <Skeleton className="h-6 w-12" /> {/* Rating */}
+                        <Skeleton className="h-6 w-16" /> {/* Reviews */}
+                      </div>
+                    </div>
+                    <Skeleton className="h-7 w-30 rounded-md" /> {/* Verified badge */}
+                  </div>
+
+                  {/* Bio */}
+                  <Skeleton className="h-25 w-full mb-6" />
+
+                  {/* Contact Info */}
+                  <div className="grid md:grid-cols-2 gap-4 mb-6">
+                    <Skeleton className="h-6 w-48" />
+                    <Skeleton className="h-6 w-48" />
+                  </div>
+
+                  {/* Specialties */}
+                  <div className="mb-6">
+                    <Skeleton className="h-6 w-32 mb-2" />
+                    <div className="flex flex-wrap gap-2">
+                      <Skeleton className="h-6 w-20 rounded-md" />
+                      <Skeleton className="h-6 w-25 rounded-md" />
+                      <Skeleton className="h-6 w-20 rounded-md" />
+                      <Skeleton className="h-6 w-25 rounded-md" />
+                      <Skeleton className="h-6 w-20 rounded-md" />
+                    </div>
+                  </div>
+
+                  {/* Contact Button */}
+                  <Skeleton className="h-10 w-40 rounded-md" />
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
+          <div>
+            <Card className="p-8 mt-10">
+              {Array.from({ length: 3 }, (_, i) => (
+                <div key={i} className="border-b py-4">
+                  <Skeleton className="h-5 w-1/4 mb-2" />
+                  <Skeleton className="h-4 w-1/3 mb-2" />
+                  <Skeleton className="h-16 w-full" />
+                </div>
+              ))}
+            </Card>
+          </div>
         </div>
       </div>
     );
@@ -74,12 +127,12 @@ export default function ProviderDetail() {
 
   if (!provider) {
     return (
-      <div className="pt-20 min-h-screen bg-gray-50 py-8">
+      <div className="pt-20 flex items-center justify-center min-h-[70vh] bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">{content.providerDetails.notFound}</h1>
           <p className="text-gray-600 mb-6">{content.providerDetails.notFound_description}</p>
           <Link href="/providers">
-            <Button className="text-white bg-green-500 font-bold cursor-pointer">
+            <Button className="text-white bg-green-500 font-bold cursor-pointer hover:bg-green-600">
               <ArrowLeft className="w-4 h-4 mr-2" />
               {content.providerDetails.back_provider}
             </Button>
@@ -197,24 +250,14 @@ export default function ProviderDetail() {
         <Card className="p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">{content.providerDetails.customer_reviews}</h2>
 
-          {providerLoading ? (
-            <div className="space-y-4">
-              {Array.from({ length: 3 }, (_, i) => (
-                <div key={i} className="border-b pb-4">
-                  <Skeleton className="h-5 w-1/4 mb-2" />
-                  <Skeleton className="h-4 w-1/3 mb-2" />
-                  <Skeleton className="h-16 w-full" />
-                </div>
-              ))}
-            </div>
-          ) : provider?.reviews && provider?.reviews?.length > 0 ? (
+          {provider?.reviews && provider?.reviews?.length > 0 ? (
             <div className="space-y-6">
               {provider.reviews.map((review) => (
                 <div key={review.id} className="border-b pb-6 last:border-b-0">
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h4 className="font-semibold text-gray-900">{review.customerName}</h4>
-                      <div className="flex items-center mt-1">
+                      <div className="flex items-center mt-1 gap-3">
                         <div className="flex">
                           {renderStars(review.rating)}
                         </div>

@@ -178,7 +178,7 @@ export default function Providers() {
             Array.from({ length: 6 }, (_, i) => (
               <Card key={i} className="p-6">
                 <div className="flex items-start space-x-4 mb-4">
-                  <Skeleton className="w-16 h-16 rounded-full" />
+                  <Skeleton className="w-20 h-20 rounded-full" />
                   <div className="flex-1">
                     <Skeleton className="h-5 w-3/4 mb-2" />
                     <Skeleton className="h-4 w-1/2 mb-2" />
@@ -225,7 +225,7 @@ export default function Providers() {
             Array.from({ length: 6 }, (_, i) => (
               <Card key={i} className="p-6">
                 <div className="flex items-start space-x-4 mb-4">
-                  <Skeleton className="w-16 h-16 rounded-full" />
+                  <Skeleton className="w-20 h-20 rounded-full" />
                   <div className="flex-1">
                     <Skeleton className="h-5 w-3/4 mb-2" />
                     <Skeleton className="h-4 w-1/2 mb-2" />

@@ -284,9 +284,22 @@ export default function Services() {
                         {isLoading ? (
                             <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                                 {Array.from({ length: 6 }).map((_, i) => (
-                                    <div key={i} className="space-y-4">
-                                        <Skeleton className="h-48 w-full rounded-lg" />
-                                    </div>
+                                    <Card key={i} className="p-6">
+                                        <div className="flex items-start space-x-4 mb-4">
+                                            <Skeleton className="w-20 h-20 rounded-full" />
+                                            <div className="flex-1">
+                                                <Skeleton className="h-5 w-3/4 mb-2" />
+                                                <Skeleton className="h-4 w-1/2 mb-2" />
+                                                <Skeleton className="h-4 w-2/3" />
+                                            </div>
+                                            <Skeleton className="h-6 w-16" />
+                                        </div>
+                                        <Skeleton className="h-16 w-full mb-4" />
+                                        <div className="flex justify-between items-center">
+                                            <Skeleton className="h-4 w-1/3" />
+                                            <Skeleton className="h-9 w-24" />
+                                        </div>
+                                    </Card>
                                 ))}
                             </div>
                         ) : providers.length > 0 ? (
@@ -346,7 +359,7 @@ export default function Services() {
                                     Array.from({ length: 6 }, (_, i) => (
                                         <Card key={i} className="p-6">
                                             <div className="flex items-start space-x-4 mb-4">
-                                                <Skeleton className="w-16 h-16 rounded-full" />
+                                                <Skeleton className="w-20 h-20 rounded-full" />
                                                 <div className="flex-1">
                                                     <Skeleton className="h-5 w-3/4 mb-2" />
                                                     <Skeleton className="h-4 w-1/2 mb-2" />

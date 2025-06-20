@@ -39,3 +39,9 @@ export const createUrl = (url: string, tempParams: TempParams): string => {
 
   return finalUrl;
 };
+
+export const formatNumberByLocal = (num: number) => {
+  if (typeof num !== "number") return num;
+  const userLocale = navigator?.language || "en-US";
+  return new Intl.NumberFormat(userLocale).format(num);
+};

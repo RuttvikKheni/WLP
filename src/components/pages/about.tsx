@@ -5,14 +5,31 @@ import { Users, Shield, Award, Clock, CheckCircle, Star, Heart, Globe } from "lu
 import AnimatedSection from "@/components/animated-section";
 import Image from "next/image";
 import { useLanguage } from "@/hooks/useLanguage";
+import AboutUsImage from "@/assets/images/AboutUs.jpeg";
+import CEOImage from "@/assets/images/CEO.jpeg";
+import { useQuery } from "@tanstack/react-query";
+import { formatNumberByLocal } from "@/lib/common";
 
 export default function About() {
     const { content } = useLanguage();
 
+    const { data: statsApi } = useQuery<{
+        verifiedCustomers: number;
+        verifiedProviders: number;
+        categories: number;
+    }>({
+        queryKey: ["stats"],
+        queryFn: async () => {
+            const response = await fetch('/api/stats');
+            if (!response.ok) throw new Error('Failed to fetch stats');
+            return response.json();
+        }
+    });
+
     const stats = [
-        { icon: Users, value: "10,000+", label: content.aboutUs.stats.happy_customers, color: "text-blue-600", bg: "bg-blue-100" },
-        { icon: Shield, value: "500+", label: content.aboutUs.stats.verified_professionals, color: "text-green-600", bg: "bg-green-100" },
-        { icon: Award, value: "50+", label: content.aboutUs.stats.service_categories, color: "text-purple-600", bg: "bg-purple-100" },
+        { icon: Users, value: `${formatNumberByLocal(statsApi?.verifiedCustomers ?? 0)}+`, label: content.aboutUs.stats.happy_customers, color: "text-blue-600", bg: "bg-blue-100" },
+        { icon: Shield, value: `${formatNumberByLocal(statsApi?.verifiedProviders ?? 0)}+`, label: content.aboutUs.stats.verified_professionals, color: "text-green-600", bg: "bg-green-100" },
+        { icon: Award, value: `${formatNumberByLocal(statsApi?.categories ?? 0)}+`, label: content.aboutUs.stats.service_categories, color: "text-purple-600", bg: "bg-purple-100" },
         { icon: Clock, value: "24/7", label: content.aboutUs.stats.customer_support, color: "text-orange-600", bg: "bg-orange-100" }
     ];
 
@@ -45,21 +62,21 @@ export default function About() {
 
     const team = [
         {
-            name: "Ahmed Al-Rashid",
+            name: "Basheer Al kafaf",
             position: "Chief Executive Officer",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+            image: CEOImage,
             description: "10+ years in tech leadership"
         },
         {
-            name: "Fatima Al-Zahra",
+            name: "Basheer Al kafaf",
             position: "Head of Operations",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+            image: CEOImage,
             description: "Expert in service excellence"
         },
         {
-            name: "Omar Hassan",
+            name: "Basheer Al kafaf",
             position: "Technology Director",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400",
+            image: CEOImage,
             description: "15+ years in platform development"
         }
     ];
@@ -133,7 +150,7 @@ export default function About() {
                             <AnimatedSection animationType="slideRight" delay={200}>
                                 <div className="relative">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600"
+                                        src={AboutUsImage}
                                         alt="Our team"
                                         className="rounded-2xl shadow-2xl"
                                         width={800}
@@ -185,7 +202,7 @@ export default function About() {
 
             {/* Leadership Team */}
             <AnimatedSection animationType="fadeIn">
-                <section className="py-20 px-4">
+                <section className="py-20 px-4 hidden">
                     <div className="max-w-6xl mx-auto">
                         <AnimatedSection animationType="slideUp">
                             <div className="text-center mb-16">
