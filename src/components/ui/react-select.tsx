@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Select from "react-select";
 
 const ReactSelect = ({
@@ -14,18 +14,21 @@ const ReactSelect = ({
     placeholder?: string;
     noOptionsMessage?: string;
 }) => {
+    const [menuPortalTarget, setMenuPortalTarget] = useState<HTMLElement | null>(null);
+    useEffect(() => setMenuPortalTarget(document.body), []);
+
     return (
         <Select
             options={options}
-            value={options.find((opt: { value: number; label: string }) => opt.value === selectedOption) || null}
+            value={options.find(opt => opt.value === selectedOption) || null}
             onChange={(option) => onChange(option?.value ?? null)}
             placeholder={placeholder}
-            defaultValue={options.find((opt: { value: number; label: string }) => opt.value === selectedOption) || null}
+            defaultValue={options.find(opt => opt.value === selectedOption) || null}
             isSearchable
             isClearable
             noOptionsMessage={() => noOptionsMessage}
             className="text-gray-900 cursor-pointer"
-            menuPortalTarget={document.body}
+            menuPortalTarget={menuPortalTarget ?? undefined}
             styles={{
                 control: (base, state) => ({
                     ...base,
@@ -56,7 +59,7 @@ const ReactSelect = ({
                 }),
             }}
         />
-    )
-}
+    );
+};
 
-export default ReactSelect
+export default ReactSelect;
