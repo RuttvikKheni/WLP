@@ -9,11 +9,12 @@ import AboutUsImage from "@/assets/images/AboutUs.jpeg";
 import CEOImage from "@/assets/images/CEO.jpeg";
 import { useQuery } from "@tanstack/react-query";
 import { formatNumberByLocal } from "@/lib/common";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function About() {
     const { content } = useLanguage();
 
-    const { data: statsApi } = useQuery<{
+    const { data: statsApi, isLoading } = useQuery<{
         verifiedCustomers: number;
         verifiedProviders: number;
         categories: number;
@@ -112,19 +113,38 @@ export default function About() {
                 <section className="py-16 -mt-10 relative z-10">
                     <div className="max-w-6xl mx-auto px-4">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            {stats.map(({ icon: Icon, value, label, color, bg }, index) => (
-                                <AnimatedSection key={index} animationType="scale" delay={index * 100}>
-                                    <Card className="text-center hover:shadow-xl transition-all duration-500 border-0 shadow-lg">
-                                        <CardContent className="p-6">
-                                            <div className={`w-16 h-16 ${bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                                                <Icon className={`w-8 h-8 ${color}`} />
-                                            </div>
-                                            <div className={`text-3xl font-bold ${color} mb-2`}>{value}</div>
-                                            <div className="text-gray-600 font-medium">{label}</div>
-                                        </CardContent>
-                                    </Card>
-                                </AnimatedSection>
-                            ))}
+                            {
+                                isLoading ? (
+                                    Array.from({ length: 4 }).map((_, index) => (
+                                        <AnimatedSection key={index} animationType="scale" delay={index * 100}>
+                                            <Card className="text-center hover:shadow-xl transition-all duration-500 border-0 shadow-lg">
+                                                <CardContent className="p-6">
+                                                    <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                        <Skeleton className="w-8 h-8 rounded-full" />
+                                                    </div>
+                                                    <div className="mb-2">
+                                                        <Skeleton className="h-6 w-1/2 mx-auto" />
+                                                    </div>
+                                                    <div>
+                                                        <Skeleton className="h-4 w-3/4 mx-auto" />
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        </AnimatedSection>
+                                    ))
+                                ) : stats.map(({ icon: Icon, value, label, color, bg }, index) => (
+                                    <AnimatedSection key={index} animationType="scale" delay={index * 100}>
+                                        <Card className="text-center hover:shadow-xl transition-all duration-500 border-0 shadow-lg">
+                                            <CardContent className="p-6">
+                                                <div className={`w-16 h-16 ${bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                                                    <Icon className={`w-8 h-8 ${color}`} />
+                                                </div>
+                                                <div className={`text-3xl font-bold ${color} mb-2`}>{value}</div>
+                                                <div className="text-gray-600 font-medium">{label}</div>
+                                            </CardContent>
+                                        </Card>
+                                    </AnimatedSection>
+                                ))}
                         </div>
                     </div>
                 </section>

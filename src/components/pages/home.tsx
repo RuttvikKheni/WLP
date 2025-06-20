@@ -23,6 +23,7 @@ import HomeBG1 from "@/assets/images/Home-BG-1.jpeg";
 import HomeBG2 from "@/assets/images/Home-BG-2.jpeg";
 import HomeBG3 from "@/assets/images/Home-BG-3.jpeg";
 import { formatNumberByLocal } from "@/lib/common";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const iconMap = {
   Shield,
@@ -74,7 +75,7 @@ export default function Home() {
   const { content, language } = useLanguage();
   const features: Feature[] = content.whyChoose.features.map((f) => ({ ...f, icon: f.icon as IconName }));
 
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isLoading: categoryLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
       const response = await fetch('/api/categories');
@@ -92,7 +93,7 @@ export default function Home() {
     }
   });
 
-  const { data: providers = [] } = useQuery({
+  const { data: providers = [], isLoading: providerLoading } = useQuery({
     queryKey: ['providers'],
     queryFn: async () => {
       const response = await fetch('/api/providers');
@@ -101,7 +102,7 @@ export default function Home() {
     }
   });
 
-  const { data: stats } = useQuery<{
+  const { data: stats, isLoading: statsLoading } = useQuery<{
     verifiedProviders: number;
     completedServices: number;
     averageRating: number;
@@ -274,37 +275,56 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Stats Section */}
-      {stats && (
-        <AnimatedSection animationType="slideUp">
-          <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { value: `${formatNumberByLocal(stats?.verifiedProviders ?? 0)}+`, label: content.stats.verified_professionals, color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
-                  { value: `${formatNumberByLocal(stats?.completedServices ?? 0).toLocaleString()}+`, label: content.stats.service_completed, color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
-                  { value: `${formatNumberByLocal(stats?.averageRating ?? 0)}/5`, label: content.stats.average_rating, color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
-                  { value: `${formatNumberByLocal(stats?.cities ?? 0)}+`, label: content.stats.cities_covered, color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
-                ].map((stat, index) => (
-                  <AnimatedSection key={index} animationType="scale" delay={stat.delay}>
-                    <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-100">
-                      <div className={`w-16 h-16 ${stat.bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                        <div className={`text-2xl font-bold ${stat.color}`}>
-                          {index === 0 ? <Users className="w-8 h-8" /> :
-                            index === 1 ? <CheckCircle className="w-8 h-8" /> :
-                              index === 2 ? <Star className="w-8 h-8" /> :
-                                <MapPin className="w-8 h-8" />}
+      <AnimatedSection animationType="slideUp">
+        <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {
+                statsLoading ? (
+                  Array(4).fill(null).map((_, index) => (
+                    <AnimatedSection key={index} animationType="scale" delay={index * 100}>
+                      <Card className="bg-white p-2 rounded-2xl text-center hover:shadow-xl transition-all duration-500 border-0 shadow-lg">
+                        <CardContent className="p-6">
+                          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-5">
+                            <Skeleton className="w-8 h-8 rounded-full" />
+                          </div>
+                          <div className="mb-4">
+                            <Skeleton className="h-8 w-1/2 mx-auto" />
+                          </div>
+                          <div>
+                            <Skeleton className="h-5 w-3/4 mx-auto" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </AnimatedSection>
+                  ))) : (
+                  [
+                    { value: `${formatNumberByLocal(stats?.verifiedProviders ?? 0)}+`, label: content.stats.verified_professionals, color: 'text-blue-600', bg: 'bg-blue-100', delay: 0 },
+                    { value: `${formatNumberByLocal(stats?.completedServices ?? 0).toLocaleString()}+`, label: content.stats.service_completed, color: 'text-green-600', bg: 'bg-green-100', delay: 100 },
+                    { value: `${formatNumberByLocal(stats?.averageRating ?? 0)}/5`, label: content.stats.average_rating, color: 'text-yellow-600', bg: 'bg-yellow-100', delay: 200 },
+                    { value: `${formatNumberByLocal(stats?.cities ?? 0)}+`, label: content.stats.cities_covered, color: 'text-purple-600', bg: 'bg-purple-100', delay: 300 }
+                  ].map((stat, index) => (
+                    <AnimatedSection key={index} animationType="scale" delay={stat.delay}>
+                      <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-100">
+                        <div className={`w-16 h-16 ${stat.bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                          <div className={`text-2xl font-bold ${stat.color}`}>
+                            {index === 0 ? <Users className="w-8 h-8" /> :
+                              index === 1 ? <CheckCircle className="w-8 h-8" /> :
+                                index === 2 ? <Star className="w-8 h-8" /> :
+                                  <MapPin className="w-8 h-8" />}
+                          </div>
                         </div>
+                        <div className={`text-3xl md:text-4xl font-bold ${stat.color} mb-2`}>{stat.value}</div>
+                        <div className="text-gray-600 font-medium">{stat.label}</div>
                       </div>
-                      <div className={`text-3xl md:text-4xl font-bold ${stat.color} mb-2`}>{stat.value}</div>
-                      <div className="text-gray-600 font-medium">{stat.label}</div>
-                    </div>
-                  </AnimatedSection>
-                ))}
-              </div>
+                    </AnimatedSection>
+                  ))
+                )
+              }
             </div>
-          </section>
-        </AnimatedSection>
-      )}
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* Service Categories */}
       <AnimatedSection animationType="fadeIn">
@@ -322,16 +342,30 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {categories.slice(0, 4).map((category: Category, index: number) => (
-                <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
-                  <div className="group hover:scale-105 transition-all duration-300">
-                    <ServiceCategoryCard
-                      category={category}
-                      onClick={() => router.push(`/services?category=${category.id}`)}
-                    />
-                  </div>
-                </AnimatedSection>
-              ))}
+              {
+                categoryLoading
+                  ? Array(4).fill(null).map((_, index) => (
+                    <AnimatedSection key={index} animationType="slideUp" delay={index * 50}>
+                      <div className="group hover:scale-105 transition-all duration-300 p-4 border rounded-lg shadow-md">
+                        <Skeleton className="h-20 w-20 mx-auto mb-5 rounded-2xl" />
+                        <Skeleton className="h-6 w-1/2 mx-auto mb-3" />
+                        <div className="flex items-center justify-between">
+                          <Skeleton className="h-5 w-1/3" />
+                          <Skeleton className="h-5 w-5" />
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                  ))
+                  : categories.slice(0, 4).map((category: Category, index: number) => (
+                    <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
+                      <div className="group hover:scale-105 transition-all duration-300">
+                        <ServiceCategoryCard
+                          category={category}
+                          onClick={() => router.push(`/services?category=${category.id}`)}
+                        />
+                      </div>
+                    </AnimatedSection>
+                  ))}
             </div>
 
             <AnimatedSection animationType="slideUp" delay={500}>
@@ -364,21 +398,41 @@ export default function Home() {
             </AnimatedSection>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {providers.slice(0, 3).map((provider: Provider, index: number) => {
-                return (
-                  <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 150}>
-                    <div className="group hover:scale-[1.02] transition-all duration-300">
-                      <ProviderCard
-                        provider={provider}
-                        onClick={() => router.push(`/providers/${provider.id}`)}
-                        onContact={() => {
-                          alert(`Contact form for ${provider.name} would open in a real application`);
-                        }}
-                      />
-                    </div>
-                  </AnimatedSection>
-                );
-              })}
+              {
+                providerLoading
+                  ? Array.from({ length: 3 }).map((_, i) => (
+                    <Card key={i} className="p-6">
+                      <div className="flex items-start space-x-4 mb-4">
+                        <Skeleton className="w-20 h-20 rounded-full" />
+                        <div className="flex-1">
+                          <Skeleton className="h-5 w-3/4 mb-2" />
+                          <Skeleton className="h-4 w-1/2 mb-2" />
+                          <Skeleton className="h-4 w-2/3" />
+                        </div>
+                        <Skeleton className="h-6 w-16" />
+                      </div>
+                      <Skeleton className="h-16 w-full mb-4" />
+                      <div className="flex justify-between items-center">
+                        <Skeleton className="h-4 w-1/3" />
+                        <Skeleton className="h-9 w-24" />
+                      </div>
+                    </Card>
+                  ))
+                  : providers.slice(0, 3).map((provider: Provider, index: number) => {
+                    return (
+                      <AnimatedSection key={provider.id} animationType="slideUp" delay={index * 150}>
+                        <div className="group hover:scale-[1.02] transition-all duration-300">
+                          <ProviderCard
+                            provider={provider}
+                            onClick={() => router.push(`/providers/${provider.id}`)}
+                            onContact={() => {
+                              alert(`Contact form for ${provider.name} would open in a real application`);
+                            }}
+                          />
+                        </div>
+                      </AnimatedSection>
+                    );
+                  })}
             </div>
 
             <AnimatedSection animationType="slideUp" delay={450}>

@@ -54,7 +54,7 @@ export default function Services() {
         }
     }, []);
 
-    const { data: categories = [] } = useQuery({
+    const { data: categories = [], isLoading: categoryLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
             const response = await fetch('/api/categories');
@@ -239,16 +239,30 @@ export default function Services() {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                            {categories.map((category: Category, index: number) => (
-                                <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
-                                    <div className="group hover:scale-105 transition-all duration-300">
-                                        <ServiceCategoryCard
-                                            category={category}
-                                            onClick={() => handleCategorySelect(category.id)}
-                                        />
-                                    </div>
-                                </AnimatedSection>
-                            ))}
+                            {
+                                categoryLoading ? (
+                                    Array.from({ length: 10 }).map((_, index) => (
+                                        <AnimatedSection key={index} animationType="slideUp" delay={index * 50}>
+                                            <div className="group hover:scale-105 transition-all duration-300 p-4 border rounded-lg shadow-md">
+                                                <Skeleton className="h-20 w-20 mx-auto mb-5 rounded-2xl" />
+                                                <Skeleton className="h-6 w-1/2 mx-auto mb-3" />
+                                                <div className="flex items-center justify-between">
+                                                    <Skeleton className="h-5 w-1/3" />
+                                                    <Skeleton className="h-5 w-5" />
+                                                </div>
+                                            </div>
+                                        </AnimatedSection>
+                                    ))
+                                ) : categories.map((category: Category, index: number) => (
+                                    <AnimatedSection key={category.id} animationType="slideUp" delay={index * 50}>
+                                        <div className="group hover:scale-105 transition-all duration-300">
+                                            <ServiceCategoryCard
+                                                category={category}
+                                                onClick={() => handleCategorySelect(category.id)}
+                                            />
+                                        </div>
+                                    </AnimatedSection>
+                                ))}
                         </div>
                     </AnimatedSection>
                 )}
