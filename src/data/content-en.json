@@ -1,4 +1,7 @@
 {
+  "common": {
+    "no_options": "No options available"
+  },
   "header": {
     "logoText": "WorkTok",
     "logoSubtext": "Iraqi House Services",

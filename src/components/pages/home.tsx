@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ReactSelect from "@/components/ui/react-select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Clock, Award, Star, MapPin, MessageCircle, ChevronDown, Download, CheckCircle, Search, Users } from "lucide-react";
@@ -17,7 +17,7 @@ import TypingText from "@/components/typing-text";
 import ScrollToTop from "@/components/scroll-to-top";
 import { useLanguage } from "@/hooks/useLanguage";
 import Image from "next/image";
-import { Category, Provider } from "@/shared/schema";
+import { Category, City, Provider } from "@/shared/schema";
 import { useRouter } from "next/navigation";
 import HomeBG1 from "@/assets/images/Home-BG-1.jpeg";
 import HomeBG2 from "@/assets/images/Home-BG-2.jpeg";
@@ -43,7 +43,7 @@ export default function Home() {
   const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [showAllFAQs, setShowAllFAQs] = useState(false);
@@ -130,7 +130,7 @@ export default function Home() {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams();
       if (searchQuery) searchParams.set("search", searchQuery);
-      if (selectedCity) searchParams.set("city", selectedCity);
+      if (selectedCity) searchParams.set("city", selectedCity.toString());
 
       router.push(`/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
     }
@@ -248,18 +248,13 @@ export default function Home() {
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                           {content.hero.form.location}
                         </label>
-                        <Select value={selectedCity} onValueChange={setSelectedCity}>
-                          <SelectTrigger className="py-3 border-2 bg-white text-gray-900 cursor-pointer focus:border-green-500 transition-colors focus:ring-0 focus:ring-offset-0">
-                            <SelectValue placeholder={content.hero.form.location_search} />
-                          </SelectTrigger>
-                          <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                            {cities.map((city: { id: number; name: string; nameAr: string }) => (
-                              <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                                {language === 'ar' ? city.nameAr : city.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <ReactSelect
+                          options={cities.map((city: City) => ({ value: city.id, label: language === "ar" ? city.nameAr : city.name }))}
+                          selectedOption={selectedCity}
+                          onChange={setSelectedCity}
+                          placeholder={content.hero.form.location_search}
+                          noOptionsMessage={content.common.no_options}
+                        />
                       </div>
                       <Button
                         className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"

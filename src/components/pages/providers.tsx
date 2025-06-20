@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ReactSelect from "@/components/ui/react-select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, Users } from "lucide-react";
 import ProviderCard from "@/components/provider-card";
@@ -17,8 +17,8 @@ export default function Providers() {
   const { content, language } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [selectedCity, setSelectedCity] = useState<number | null>(null);
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
 
   const [offset, setOffset] = useState(0);
@@ -118,7 +118,7 @@ export default function Providers() {
                 <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                 <Input
                   placeholder={content.provider.search_placeholder}
-                  className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                  className="pl-10 py-3 border-2 border-black-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value ?? "")}
                 />
@@ -129,38 +129,26 @@ export default function Providers() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {content.provider.service_category}
               </label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                  <SelectValue placeholder={content.provider.all_services} />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                  <SelectItem value="0">{content.provider.all_services}</SelectItem>
-                  {categories.map((category: Category) => (
-                    <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                      {language === 'ar' ? category.nameAr : category.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ReactSelect
+                options={categories.map((category: Category) => ({ value: category.id, label: language === "ar" ? category.nameAr : category.name }))}
+                selectedOption={selectedCategory}
+                onChange={setSelectedCategory}
+                placeholder={content.provider.all_services}
+                noOptionsMessage={content.common.no_options}
+              />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {content.provider.location}
               </label>
-              <Select value={selectedCity} onValueChange={setSelectedCity}>
-                <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                  <SelectValue placeholder={content.provider.all_cities} />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                  <SelectItem value="0">{content.provider.all_cities}</SelectItem>
-                  {cities.map((city: City) => (
-                    <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                      {language === 'ar' ? city.nameAr : city.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ReactSelect
+                options={cities.map((city: City) => ({ value: city.id, label: language === "ar" ? city.nameAr : city.name }))}
+                selectedOption={selectedCity}
+                onChange={setSelectedCity}
+                placeholder={content.provider.all_cities}
+                noOptionsMessage={content.common.no_options}
+              />
             </div>
 
             <div className="flex items-end justify-center pb-3 font-bold">

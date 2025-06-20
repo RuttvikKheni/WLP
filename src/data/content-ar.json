@@ -1,4 +1,7 @@
 {
+  "common": {
+    "no_options": "لا توجد خيارات متاحة"
+  },
   "header": {
     "logoText": "ورك توك",
     "logoSubtext": "خدمات البيت العراقي",

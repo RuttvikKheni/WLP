@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ReactSelect from "@/components/ui/react-select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,8 +20,8 @@ export default function Services() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    const [selectedCity, setSelectedCity] = useState<number | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showCategories, setShowCategories] = useState(true);
 
@@ -46,11 +46,11 @@ export default function Services() {
             const city = urlParams.get("city");
 
             if (search) setSearchQuery(search);
-            if (category) {
-                setSelectedCategory(category);
+            if (category && parseInt(category)) {
+                setSelectedCategory(parseInt(category));
                 setShowCategories(false);
             }
-            if (city) setSelectedCity(city);
+            if (city && parseInt(city)) setSelectedCity(parseInt(city));
         }
     }, []);
 
@@ -76,7 +76,7 @@ export default function Services() {
         setShowCategories(false);
     };
 
-    const handleCategorySelect = (categoryId: string) => {
+    const handleCategorySelect = (categoryId: number | null) => {
         setSelectedCategory(categoryId);
         setShowCategories(false);
     };
@@ -161,39 +161,27 @@ export default function Services() {
                                     <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                                     <Input
                                         placeholder={content.services.search_placeholder}
-                                        className="pl-10 py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
+                                        className="pl-10 py-3 border-2 border-black-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
 
-                                <Select value={selectedCategory} onValueChange={handleCategorySelect}>
-                                    <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                                        <SelectValue placeholder={content.services.all_categories} />
-                                    </SelectTrigger>
-                                    <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                                        <SelectItem value="all">{content.services.all_categories}</SelectItem>
-                                        {categories.map((category: Category) => (
-                                            <SelectItem key={category.id} value={category.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                                                {language === 'ar' ? category.nameAr : category.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <ReactSelect
+                                    options={categories.map((category: Category) => ({ value: category.id, label: language === "ar" ? category.nameAr : category.name }))}
+                                    selectedOption={selectedCategory}
+                                    onChange={handleCategorySelect}
+                                    placeholder={content.services.all_categories}
+                                    noOptionsMessage={content.common.no_options}
+                                />
 
-                                <Select value={selectedCity} onValueChange={setSelectedCity}>
-                                    <SelectTrigger className="py-3 border-2 border-green-500 cursor-pointer bg-white text-gray-900 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-green-300 focus:ring-0 focus:ring-offset-0 focus:border-green-500 transition-colors">
-                                        <SelectValue placeholder={content.services.all_cities} />
-                                    </SelectTrigger>
-                                    <SelectContent className="bg-white text-gray-900 max-h-[250px]">
-                                        <SelectItem value="all">{content.services.all_cities}</SelectItem>
-                                        {cities.map((city: City) => (
-                                            <SelectItem key={city.id} value={city.id.toString()} className="hover:bg-gray-200 cursor-pointer">
-                                                {language === 'ar' ? city.nameAr : city.name}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
+                                <ReactSelect
+                                    options={cities.map((city: City) => ({ value: city.id, label: language === "ar" ? city.nameAr : city.name }))}
+                                    selectedOption={selectedCity}
+                                    onChange={setSelectedCity}
+                                    placeholder={content.services.all_cities}
+                                    noOptionsMessage={content.common.no_options}
+                                />
 
                                 <Button
                                     onClick={handleSearch}
@@ -210,7 +198,7 @@ export default function Services() {
                                         variant="outline"
                                         onClick={() => {
                                             setShowCategories(true);
-                                            setSelectedCategory("");
+                                            setSelectedCategory(null);
                                             setSearchQuery("");
                                         }}
                                         className="bg-white cursor-pointer text-green-600 border-green-600 hover:bg-blue-50"
@@ -256,7 +244,7 @@ export default function Services() {
                                     <div className="group hover:scale-105 transition-all duration-300">
                                         <ServiceCategoryCard
                                             category={category}
-                                            onClick={() => handleCategorySelect(category.id.toString())}
+                                            onClick={() => handleCategorySelect(category.id)}
                                         />
                                     </div>
                                 </AnimatedSection>
@@ -275,7 +263,7 @@ export default function Services() {
                                 </h2>
                                 {selectedCategory && (
                                     <p className="text-gray-600 mt-1">
-                                        {content.services.in} {categories.find((c: Category) => c.id.toString() === selectedCategory)?.[language === 'ar' ? 'nameAr' : 'name']}
+                                        {content.services.in} {categories.find((c: Category) => c.id === selectedCategory)?.[language === 'ar' ? 'nameAr' : 'name']}
                                     </p>
                                 )}
                             </div>
@@ -334,8 +322,8 @@ export default function Services() {
                                         <Button
                                             onClick={() => {
                                                 setSearchQuery("");
-                                                setSelectedCity("");
-                                                setSelectedCategory("");
+                                                setSelectedCity(null);
+                                                setSelectedCategory(null);
                                                 setShowCategories(true);
                                             }}
                                             className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-700 hover:to-green-700 cursor-pointer"
