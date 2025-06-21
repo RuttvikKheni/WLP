@@ -43,8 +43,8 @@ export interface Feature {
 export default function Home() {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const [showAllFAQs, setShowAllFAQs] = useState(false);
@@ -130,7 +130,7 @@ export default function Home() {
   const handleSearch = () => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams();
-      if (searchQuery) searchParams.set("search", searchQuery);
+      if (selectedCategory) searchParams.set("category", selectedCategory.toString());
       if (selectedCity) searchParams.set("city", selectedCity.toString());
 
       router.push(`/services${searchParams.toString() ? `?${searchParams.toString()}` : ""}`);
@@ -235,15 +235,14 @@ export default function Home() {
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                           {content.hero.form.service_type}
                         </label>
-                        <div className="relative">
-                          <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                          <Input
-                            placeholder={content.hero.form.service_search}
-                            className="pl-12 py-3 bg-white text-gray-900 border-2 cursor-pointer focus:border-green-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                          />
-                        </div>
+                        <ReactSelect
+                          options={categories.map((city: Category) => ({ value: city.id, label: language === "ar" ? city.nameAr : city.name }))}
+                          selectedOption={selectedCategory}
+                          onChange={setSelectedCategory}
+                          placeholder={content.hero.form.service_search}
+                          noOptionsMessage={content.common.no_options}
+                          isSearchIcon
+                        />
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
